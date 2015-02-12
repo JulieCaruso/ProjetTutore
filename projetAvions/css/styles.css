@@ -1,0 +1,24 @@
+body {
+	background:#ccc;
+}
+footer, .paragraphe, p {
+	font-family:"Arial",Serif;
+	font-size:12px;
+	color:#000;
+}
+#titre {
+	font-family:"Arial",Serif;
+	font-size:16px;
+	font-weight:bold;
+	color:black;
+	margin-bottom:10px;
+}
+#boutonJeu {
+	margin-top:10px;
+	/*text-align:center;*/
+}
+canvas {
+	border-style:solid;
+	border-width:1px;
+	background:#fff;
+}
