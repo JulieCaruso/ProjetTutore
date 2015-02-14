@@ -49,6 +49,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	this.getTypeInLabel = function(){ return typeInLabel;}
 	this.getListOfTargetPoints = function(){ return listOfTargetPoints;}
 
+	// Permet d'ajouter l'avion à la liste à chaque instanciation de la classe
 	var ajouteAvion = (function(avion){ if (Avion.total !== 1) Avion.listeAvions.push(avion);})(this);
 
 
@@ -68,10 +69,16 @@ Avion.getListeAvions = function(){
 	return Avion.listeAvions;
 }
 
+// Constructeur pour l'objet de type TargetPoint
 function TargetPoint(x,y,label)
 {
 	this.type = "TargetPoint";
-	this.x = x;
-	this.y = y;
-	this.label = label;
+	
+	var x = x;
+	var y = y;
+	var label = label;
+
+	this.getX = function(){ return x;}
+	this.getY = function(){ return y;}
+	this.getLabel = function() {return label;}
 }
