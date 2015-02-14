@@ -36,6 +36,8 @@ function getXMLPlanesToJavascript(callback){
 	xdr.open("GET", "xml/planes.xml");
 
 	xdr.send();
+
+	// Attention : Le thread repart dans le code principal et le traitement des données se fait en parallèle
 }
 
 
@@ -67,9 +69,6 @@ function getXDomainRequest() {
 // Traite les données XML
 function processXMLData(XMLData) {
 	// On peut maintenant traiter les données du fichier xml
-
-	// On définit le début de notre liste d'avions
-	var listAvions = [];
 
 	// On sélectionne l'ensemble des noeuds "level"
 	var levelNodes = XMLData.getElementsByTagName("level");
@@ -122,81 +121,11 @@ function processXMLData(XMLData) {
 					targetPointAttributes["y"],
 					targetPointAttributes["label"]);
 
-				plane.listOfTargetPoints.push(targetPoint);
+				plane.getListOfTargetPoints().push(targetPoint);
 			}
-
-			listAvions.push(plane);
 		}
 	}
-	for (var i in listAvions)
-	{
-		listAvions[i].debug();
-	}
-}
-
-// ***** OBJETS *****
-
-// Permet de construire un objet de type : Avion
-function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTarget,typeInLabel)
-{
-	this.type = "Avion";
-	this.xInitial = xInit;
-	this.yInitial = yInit;
-	this.vInitial = vInit;
-	this.zInitial = zInit;
-	this.hInitial = hInit;
-	this.rateInitial = rateInit;
-	this.controllable = controllable;
-	this.typeOfPlane = type;
-	this.nameOfPlane = name;
-	this.zTarget = zTarget;
-	this.typeInLabel = typeInLabel;
-	this.listOfTargetPoints = [];
-
-}
-
-// Permet de définir l'ensemble des attributs de l'objet Avion
-Avion.prototype.debug = function()
-{
-    var text = 'Object {\n';
-    
-    for (var i in this) {
-    	if (i != 'debug'){
-	        if (i != 'listOfTargetPoints') {   
-	            text += '    [' + i + '] => ' + this[i] + '\n';    
-	        }
-	        else
-	        {
-	        	text += '	 [' + i + '] => \n{\n';
-	        	for (var j in this[i])
-	        	{
-	        		text += '	[**\n'+ this[i][j].toString() +'**]\n\n';
-	        	} 
-	        	text += '		}\n';
-	        }
-	    }
-    } 
-    alert(text + '}');
-}
-
-function TargetPoint(x,y,label)
-{
-	this.type = "TargetPoint";
-	this.x = x;
-	this.y = y;
-	this.label = label;
-}
-
-// Permet de définir l'ensemble des attributs de l'objet TargetPoint
-TargetPoint.prototype.toString = function()
-{
-    var text = '';
-    
-    for (var i in this) {
-        if (i != 'toString') {   
-            text += '	[' + i + '] => ' + this[i] + '\n';    
-        }
-    } 
-    text += '			';
-    return text;
+	
+	console.log("Chargement des avions terminé : ");
+	console.debug(Avion.getListeAvions());
 }
