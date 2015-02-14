@@ -74,14 +74,19 @@ function processXMLData(XMLData) {
 	var levelNodes = XMLData.getElementsByTagName("level");
 	
 	// On initialise plusieurs variables de manière explicite et qui seront utilisées par la suite
-	var currentLevel = null, planeNodes = null, currentPlane = null;
-	var attribute = null;
-	var plane = null, listOfTargetPoint = null, targetPoint = null;
-	var planeAttributes = [], targetPointAttributes = [];
+	var currentLevel = null, planeNodes = null, currentPlane = null, currentZone = null, zoneNodes = null, levelTitle = null, levelID = null;
+	var attribute = null, initInterface = null, configAttributes = [], configInitialeNode = null, controlPanelAttributes = [], controlPanel = null;
+	var plane = null, listOfTargetPoint = null, targetPoint = null, zone = null, listOfPoint = null, listOfCercle = null, cercle = null, level = null;
+	var planeAttributes = [], targetPointAttributes = [], zoneAttributes = [], pointAttributes = [], cercleAttributes = [], textIntroNodes = null, textEndNodes = null, textHelpNodes = null;
+	var tabTextIntro = [], tabTextEnd = [], tabTextHelp = [], text = null;
+
+	Niveau.setChargementDonnees(levelNodes.length);
 
 	for(var i = 0; i < levelNodes.length; i++)
 	{
 		currentLevel = levelNodes[i];
+		levelID = currentLevel.getAttribute("id");
+		levelTitle = currentLevel.getAttribute("levelTitle");
 		planeNodes = currentLevel.getElementsByTagName("plane");
 
 		for(var j = 0; j < planeNodes.length; j++)
@@ -124,8 +129,142 @@ function processXMLData(XMLData) {
 				plane.getListOfTargetPoints().push(targetPoint);
 			}
 		}
+
+		console.log("Chargement des avions terminé pour le niveau "+levelID);
+		console.debug(Avion.getListeAvions());
+
+		zoneNodes = currentLevel.getElementsByTagName("zone");
+
+		for(var j = 0; j < zoneNodes.length; j++)
+		{
+			currentZone = zoneNodes[j];
+
+			for (var k = 0; k < currentZone.attributes.length; k++)
+			{
+				attribute = currentZone.attributes.item(k);
+				zoneAttributes[attribute.nodeName] = attribute.nodeValue;
+			}
+
+			zone = new Zone(
+				zoneAttributes["nature"],
+				zoneAttributes["type"],
+				zoneAttributes["concernedPlanes"]);
+
+			listOfPoint = currentZone.getElementsByTagName("point");
+			listOfCercle = currentZone.getElementsByTagName("cercle");
+
+			// On vérifie si ce noeud contient des noeuds "point" ou "cercle"
+			if(listOfPoint.length !== 0)
+			{
+				for (var k = 0; k < listOfPoint.length; k++)
+				{
+					for (var h = 0; h < listOfPoint[k].attributes.length; h++)
+					{
+						attribute = listOfPoint[k].attributes.item(h);
+						targetPointAttributes[attribute.nodeName] = attribute.nodeValue;
+					}
+
+					point = new Point(
+						pointAttributes["x"],
+						pointAttributes["y"]);
+
+					zone.getListOfPoints_Cercle().push(point);
+				}
+			}
+			else
+			{
+				for (var k = 0; k < listOfCercle.length; k++)
+				{
+					for (var h = 0; h < listOfCercle[k].attributes.length; h++)
+					{
+						attribute = listOfCercle[k].attributes.item(h);
+						cercleAttributes[attribute.nodeName] = attribute.nodeValue;
+					}
+
+					cercle = new Cercle(
+						cercleAttributes["x"],
+						cercleAttributes["y"],
+						cercleAttributes["radius"]);
+
+					zone.getListOfPoints_Cercle().push(cercle);
+				}
+			}
+		}		
+
+		configInitialeNode = currentLevel.getElementsByTagName("configInitial");
+
+
+		for (var k = 0; k < configInitialeNode[0].attributes.length; k++)
+		{
+			attribute = configInitialeNode[0].attributes.item(k);
+			configAttributes[attribute.nodeName] = attribute.nodeValue;
+		}
+
+		controlPanelNode = configInitialeNode[0].getElementsByTagName("controlPanel");
+
+		for (var k = 0; k < controlPanelNode[0].attributes.length; k++)
+		{
+			attribute = controlPanelNode[0].attributes.item(k);
+			controlPanelAttributes[attribute.nodeName] = attribute.nodeValue;
+		}
+
+		controlPanel = new ControlPanel(
+			controlPanelAttributes["hControl"],
+			controlPanelAttributes["vControl"],
+			controlPanelAttributes["rateControl"],
+			controlPanelAttributes["zControl"],
+			controlPanelAttributes["directPointControl"],
+			controlPanelAttributes["waitingControl"],
+			controlPanelAttributes["tempoControl"]);
+
+		textIntroNodes = configInitialeNode[0].getElementsByTagName("textIntro");
+		textEndNodes = configInitialeNode[0].getElementsByTagName("textEnd");
+		textHelpNodes = configInitialeNode[0].getElementsByTagName("textHelp");
+
+		for (var k = 0; k < textIntroNodes.length; k++)
+		{
+			attribute = textIntroNodes[k].getAttribute("lang");
+			tabTextIntro[attribute.nodeValue] = textIntroNodes[k].textContent;
+
+			attribute = textEndNodes[k].getAttribute("lang");
+			tabTextEnd[attribute.nodeValue] = textEndNodes[k].textContent;
+
+			attribute = textHelpNodes[k].getAttribute("lang");
+			tabTextHelp[attribute.nodeValue] = textHelpNodes[k].textContent;
+		}
+
+		texts = new Texts(tabTextIntro,
+			tabTextEnd,
+			tabTextHelp);
+
+		initInterface = new Interface(
+				configAttributes["backgroundImage"],
+				configAttributes["backgroundX"],
+				configAttributes["backgroundY"],
+				configAttributes["maxTime"],
+				configAttributes["performancesTable"],
+				configAttributes["scale"],
+				configAttributes["windOption"],
+				configAttributes["normVerticalSeparation"],
+				configAttributes["normHorizontalSeparation"],
+				configAttributes["normDistanceToZone"],
+				configAttributes["tolerance"],
+				configAttributes["normLineSeparation"],
+				configAttributes["tempo"],
+				configAttributes["turnDirectionRequired"],
+				configAttributes["zoomScale"],
+				controlPanel,
+				texts);
+
+		level = new Niveau(levelID,levelTitle,Avion.getListeAvions(),Zone.getListeZones(),initInterface);
+
+		Niveau.decrementChargementDonnees();
+
+		console.debug(level);
 	}
+
+
 	
-	console.log("Chargement des avions terminé : ");
-	console.debug(Avion.getListeAvions());
+	console.log("Chargement des niveaux terminé");
+	console.debug(Niveau.getListeNiveaux()[0].getListOfZones());
 }

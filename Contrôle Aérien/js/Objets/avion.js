@@ -69,6 +69,12 @@ Avion.getListeAvions = function(){
 	return Avion.listeAvions;
 }
 
+// Permet de réinitialiser les variables statiques
+Avion.flush = function(){
+		Zone.total = 0;
+		Zone.listeZones = [];
+}
+
 // Constructeur pour l'objet de type TargetPoint
 function TargetPoint(x,y,label)
 {
