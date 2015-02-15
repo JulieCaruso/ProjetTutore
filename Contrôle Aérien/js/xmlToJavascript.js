@@ -82,6 +82,8 @@ function processXMLData(XMLData) {
 
 	Niveau.setChargementDonnees(levelNodes.length);
 
+	console.log("DEBUT]Chargement des niveaux en cours...");
+
 	for(var i = 0; i < levelNodes.length; i++)
 	{
 		currentLevel = levelNodes[i];
@@ -131,7 +133,7 @@ function processXMLData(XMLData) {
 		}
 
 		console.log("Chargement des avions terminé pour le niveau "+levelID);
-		console.debug(Avion.getListeAvions());
+		//console.debug(Avion.getListeAvions());
 
 		zoneNodes = currentLevel.getElementsByTagName("zone");
 
@@ -151,7 +153,7 @@ function processXMLData(XMLData) {
 				zoneAttributes["concernedPlanes"]);
 
 			listOfPoint = currentZone.getElementsByTagName("point");
-			listOfCercle = currentZone.getElementsByTagName("cercle");
+			listOfCercle = currentZone.getElementsByTagName("circle");
 
 			// On vérifie si ce noeud contient des noeuds "point" ou "cercle"
 			if(listOfPoint.length !== 0)
@@ -161,7 +163,7 @@ function processXMLData(XMLData) {
 					for (var h = 0; h < listOfPoint[k].attributes.length; h++)
 					{
 						attribute = listOfPoint[k].attributes.item(h);
-						targetPointAttributes[attribute.nodeName] = attribute.nodeValue;
+						pointAttributes[attribute.nodeName] = attribute.nodeValue;
 					}
 
 					point = new Point(
@@ -190,6 +192,9 @@ function processXMLData(XMLData) {
 				}
 			}
 		}		
+
+		console.log("Chargement des zones terminé pour le niveau "+levelID);
+		//console.debug(Zone.getListeZones());
 
 		configInitialeNode = currentLevel.getElementsByTagName("configInitial");
 
@@ -224,13 +229,13 @@ function processXMLData(XMLData) {
 		for (var k = 0; k < textIntroNodes.length; k++)
 		{
 			attribute = textIntroNodes[k].getAttribute("lang");
-			tabTextIntro[attribute.nodeValue] = textIntroNodes[k].textContent;
+			tabTextIntro[attribute] = textIntroNodes[k].textContent;
 
 			attribute = textEndNodes[k].getAttribute("lang");
-			tabTextEnd[attribute.nodeValue] = textEndNodes[k].textContent;
+			tabTextEnd[attribute] = textEndNodes[k].textContent;
 
 			attribute = textHelpNodes[k].getAttribute("lang");
-			tabTextHelp[attribute.nodeValue] = textHelpNodes[k].textContent;
+			tabTextHelp[attribute] = textHelpNodes[k].textContent;
 		}
 
 		texts = new Texts(tabTextIntro,
@@ -256,15 +261,18 @@ function processXMLData(XMLData) {
 				controlPanel,
 				texts);
 
+		console.log("Chargement de l'interface initiale pour le niveau "+levelID+" terminé");
+		//console.debug(initInterface);
+
 		level = new Niveau(levelID,levelTitle,Avion.getListeAvions(),Zone.getListeZones(),initInterface);
 
 		Niveau.decrementChargementDonnees();
 
-		console.debug(level);
+		console.log("Chargement du niveau "+levelID+" terminé");
+		//console.debug(level);
 	}
 
 
 	
-	console.log("Chargement des niveaux terminé");
-	console.debug(Niveau.getListeNiveaux()[0].getListOfZones());
+	console.log("[FIN]Chargement des niveaux terminé");
 }

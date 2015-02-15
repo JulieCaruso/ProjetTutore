@@ -11,7 +11,7 @@ Contient les classes d'objets de type :
 
 // Permet de construire un objet de type : Niveau
 // Les attributs/méthodes privés sont les attributs/méthodes commençant par "var ....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
-function Niveau(listOfAvions, listOfZones, initInterface)
+function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
 {
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
 	Niveau.total = ++Niveau.total || 1;
@@ -24,11 +24,15 @@ function Niveau(listOfAvions, listOfZones, initInterface)
 	this.type = "Niveau";
 
 	// Attributs privés
+	var levelID = levelID;
+	var levelTitle = levelTitle;
 	var listOfAvions = listOfAvions;
 	var listOfZones = listOfZones;
 	var initInterface = initInterface;
 
 	// Getters d'attributs privés
+	this.getID = function(){ return levelID;}
+	this.getTitle = function(){ return levelTitle;}
 	this.getListOfAvions = function(){ return listOfAvions;}
 	this.getListOfZones = function(){ return listOfZones;}
 	this.getInitInterface = function(){ return initInterface;}

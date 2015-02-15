@@ -10,7 +10,7 @@ Contient les classes d'objets de type :
 ********************************************************************************************/
 
 // Permet de construire un objet de type Zone
-function Zone(id,title,nature,type,concernedPlanes){
+function Zone(nature,type,concernedPlanes){
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
 	Zone.total = ++Zone.total || 1;
 	Zone.listeZones = Zone.listeZones || [this];
@@ -20,15 +20,11 @@ function Zone(id,title,nature,type,concernedPlanes){
 	this.concernedPlanes = concernedPlanes;
 
 	// Attributs privés
-	var id = id;
-	var title = title;
 	var nature = nature;
 	var typeOfZone = type;
 	var listOfPoints_Cercle = [];
 
 	// Getters d'attributs privés
-	this.getId = function(){ return id;}
-	this.getTitle = function(){ return title;}
 	this.getNature = function(){ return nature;}
 	this.getTypeOfZone = function(){ return typeOfZone;}
 	this.getListOfPoints_Cercle = function(){ return listOfPoints_Cercle;}
@@ -58,12 +54,12 @@ Zone.flush = function(){
 }
 
 // Constructeur pour l'objet de type Point
-function Point(x,y)
+function Point(xPos,yPos)
 {
 	this.type = "Point";
 
-	var x = x;
-	var y = y;
+	var x = xPos;
+	var y = yPos;
 
 	this.getX = function(){ return x;}
 	this.getY = function(){ return y;}
