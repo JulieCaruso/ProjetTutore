@@ -31,11 +31,30 @@ function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
 	var initInterface = initInterface;
 
 	// Getters d'attributs privés
-	this.getID = function(){ return levelID;}
-	this.getTitle = function(){ return levelTitle;}
-	this.getListOfAvions = function(){ return listOfAvions;}
-	this.getListOfZones = function(){ return listOfZones;}
-	this.getInitInterface = function(){ return initInterface;}
+	if( typeof Niveau.initialized == "undefined" ) { 
+
+        Niveau.prototype.getID = function() { 
+            return levelID;
+        };
+
+        Niveau.prototype.getTitle = function() { 
+            return levelTitle;
+        };
+
+        Niveau.prototype.getListOfAvions = function() { 
+            return listOfAvions;
+        };
+
+        Niveau.prototype.getListOfZones = function() { 
+            return listOfZones;
+        };
+
+        Niveau.prototype.getInitInterface = function() { 
+            return initInterface;
+        };
+
+        Niveau.initialized = true; 
+    }
 
 	// Permet d'ajouter le niveau à la liste à chaque instanciation de la classe
 	var ajouteNiveau = (function(niveau){ if (Niveau.total !== 1) Niveau.listeNiveaux.push(niveau);})(this);

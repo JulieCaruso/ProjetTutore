@@ -25,9 +25,22 @@ function Zone(nature,type,concernedPlanes){
 	var listOfPoints_Cercle = [];
 
 	// Getters d'attributs privés
-	this.getNature = function(){ return nature;}
-	this.getTypeOfZone = function(){ return typeOfZone;}
-	this.getListOfPoints_Cercle = function(){ return listOfPoints_Cercle;}
+	if( typeof Zone.initialized == "undefined" ) { 
+
+        Zone.prototype.getNature = function() { 
+            return nature;
+        };
+
+        Zone.prototype.getTypeOfZone = function() { 
+            return typeOfZone;
+        };
+
+        Zone.prototype.getListOfPoints_Cercle = function() { 
+            return listOfPoints_Cercle;
+        };
+
+        Zone.initialized = true; 
+    }
 
 	// Permet d'ajouter la zone à la liste à chaque instanciation de la classe
 	var ajouteZone = (function(zone){ if (Zone.total !== 1) Zone.listeZones.push(zone);})(this);

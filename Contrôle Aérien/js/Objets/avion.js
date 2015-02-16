@@ -36,18 +36,50 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	var listOfTargetPoints = [];
 
 	// Getters d'attributs privés
-	this.getXInitial = function(){ return xInitial;}
-	this.getYInitial = function(){ return yInitial;}
-	this.getVInitial = function(){ return vInitial;}
-	this.getZInitial = function(){ return zInitial;}
-	this.getHInitial = function(){ return hInitial;}
-	this.getRateInitial = function(){ return rateInitial;}
-	this.isControllable = function(){ return controllable;}
-	this.getTypeOfPlane = function(){ return typeOfPlane;}
-	this.getNameOfPlane = function(){ return nameOfPlane;}
-	this.getZTarget = function(){ return zTarget;}
-	this.getTypeInLabel = function(){ return typeInLabel;}
-	this.getListOfTargetPoints = function(){ return listOfTargetPoints;}
+	if( typeof Avion.initialized == "undefined" ) { 
+
+        Avion.prototype.getXInitial = function() { 
+            return xInitial;
+        }; 
+
+        Avion.prototype.getYInitial = function() { 
+            return yInitial;
+        }; 
+
+        Avion.prototype.getVInitial = function() { 
+            return vInitial;
+        }; 
+
+        Avion.prototype.getZInitial = function() { 
+            return zInitial;
+        }; 
+
+        Avion.prototype.getHInitial = function() { 
+            return hInitial;
+        }; 
+
+        Avion.prototype.getRateInitial = function() { 
+            return rateInit;
+        }; 
+
+        Avion.prototype.isControllable = function() { 
+            return controllable;
+        }; 
+
+        Avion.prototype.getZTarget = function() { 
+            return zTarget;
+        }; 
+
+        Avion.prototype.getTypeInLabel = function() { 
+            return typeInLabel;
+        }; 
+
+        Avion.prototype.getListOfTargetPoints = function() { 
+            return listOfTargetPoints; 
+        };
+
+        Avion.initialized = true; 
+    }
 
 	// Permet d'ajouter l'avion à la liste à chaque instanciation de la classe
 	var ajouteAvion = (function(avion){ if (Avion.total !== 1) Avion.listeAvions.push(avion);})(this);

@@ -39,25 +39,78 @@ function Interface(backgroundImage,backgroundX,backgroundY,maxTime,performancesT
 	var texts = texts;
 
 	// Getters d'attributs privés
+	if( typeof Interface.initialized == "undefined" ) { 
 
-	this.getBackgroundImage = function(){ return backgroundImage;}
-	this.getBackgroundX = function(){ return backgroundX;}
-	this.getBackgroundY = function(){ return backgroundY;}
-	this.getMaxTime = function(){ return maxTime;}
-	this.getPerformancesTable = function(){ return performancesTable;}
-	this.getScale = function(){ return scale;}
-	this.getWindOption = function(){ return windOption;}
-	this.getNormVerticalSeparation = function(){ return normVerticalSeparation;}
-	this.getNormHorizontalSeparation = function(){ return normHorizontalSeparation;}
-	this.getNormDistanceToZone = function(){ return normDistanceToZone;}
-	this.getTolerance = function(){ return tolerance;}
-	this.getNormLineSeparation = function(){ return normLineSeparation;}
-	this.getTemp = function(){ return tempo;}
-	this.getTurnDirectionRequired = function(){ return turnDirectionRequired;}
-	this.getZoomScale = function(){ return zoomScale;}
-	this.getControlPanel = function(){ return controlPanel;}
-	this.getTexts = function(){ return texts;}
+        Interface.prototype.getBackgroundImage = function() { 
+            return backgroundImage;
+        };
 
+        Interface.prototype.getBackgroundX = function() { 
+            return backgroundX;
+        };
+
+        Interface.prototype.getBackgroundY = function() { 
+            return backgroundY;
+        };
+
+        Interface.prototype.getMaxTime = function() { 
+            return maxTime;
+        };
+
+        Interface.prototype.getPerformancesTable = function() { 
+            return performancesTable;
+        };
+
+        Interface.prototype.getScale = function() { 
+            return scale;
+        };
+
+        Interface.prototype.getWindOption = function() { 
+            return windOption;
+        };
+
+        Interface.prototype.getNormHorizontalSeparation = function() { 
+            return normHorizontalSeparation;
+        };
+
+        Interface.prototype.getNormVerticalSeparation = function() { 
+            return normVerticalSeparation;
+        };
+
+        Interface.prototype.getNormDistanceToZone = function() { 
+            return normDistanceToZone;
+        };
+
+        Interface.prototype.getTolerance = function() { 
+            return tolerance;
+        };
+
+        Interface.prototype.getNormLineSeparation = function() { 
+            return normLineSeparation;
+        };
+
+        Interface.prototype.getTempo= function() { 
+            return tempo;
+        };
+
+        Interface.prototype.getTurnDirectionRequired = function() { 
+            return turnDirectionRequired;
+        };
+
+        Interface.prototype.getZoomScale = function() { 
+            return zoomScale;
+        };
+
+        Interface.prototype.getControlPanel = function() { 
+            return controlPanel;
+        };
+
+        Interface.prototype.getTexts = function() { 
+            return texts;
+        };
+
+        Interface.initialized = true; 
+    }
 
 }
 
@@ -77,13 +130,38 @@ function ControlPanel(hControl,vControl,rateControl,zControl,directPointControl,
 	var tempoControl = tempoControl;
 
 	// Getters d'attributs privés
-	this.isHControl = function(){ return hControl;}
-	this.isVControl = function(){ return vControl;}
-	this.isRateControl = function(){ return rateControl;}
-	this.isZControl = function(){ return zControl;}
-	this.isDirectPointControl = function(){ return directPointControl;}
-	this.isWaitingControl = function(){ return waitingControl;}
-	this.isTempoControl = function(){ return tempoControl;}
+	if( typeof ControlPanel.initialized == "undefined" ) { 
+
+        ControlPanel.prototype.isHControl = function() { 
+            return hControl;
+        };
+
+        ControlPanel.prototype.isVControl = function() { 
+            return vControl;
+        };
+
+        ControlPanel.prototype.isRateControl = function() { 
+            return rateControl;
+        };
+
+        ControlPanel.prototype.isZControl = function() { 
+            return zControl;
+        };
+
+        ControlPanel.prototype.isDirectPointControl = function() { 
+            return directPointControl;
+        };
+
+        ControlPanel.prototype.isWaitingControl = function() { 
+            return waitingControl;
+        };
+
+        ControlPanel.prototype.isTempoControl = function() { 
+            return tempoControl;
+        };
+
+        ControlPanel.initialized = true; 
+    }
 
 }
 
@@ -98,8 +176,21 @@ function Texts(tabTextIntro,tabTextEnd,tabTextHelp){
 	var tabTextHelp = tabTextHelp;
 
 	// Getters d'attributs privés
-	this.getTabTextIntro = function(){ return tabTextIntro;}
-	this.getTabTextEnd = function(){ return tabTextEnd;}
-	this.getTabTextHelp = function(){ return tabTextHelp;}
+	if( typeof Texts.initialized == "undefined" ) { 
+
+        Texts.prototype.getTabTextIntro = function() { 
+            return tabTextIntro;
+        };
+
+        Texts.prototype.getTabTextEnd = function() { 
+            return tabTextEnd;
+        };
+
+        Texts.prototype.getTabTextHelp = function() { 
+            return tabTextHelp;
+        };
+
+        Texts.initialized = true; 
+    }
 
 }
