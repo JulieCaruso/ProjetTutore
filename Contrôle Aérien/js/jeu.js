@@ -145,7 +145,6 @@ function dessineAvion(a){
 	}
 	a.setX(x);
 	a.setY(y);
-	
 	// sauvegarde de l'état du contexte
 	ctx.save();
 	// dessin

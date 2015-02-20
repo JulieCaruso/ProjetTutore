@@ -68,20 +68,20 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getListOfTargetPoints = function() { return listOfTargetPoints;};
 		
 		//SETTERS
-		Avion.prototype.setXInitial = function(x) { this.xInitial = x;}; 
-        Avion.prototype.setYInitial = function(y) { this.yInitial = y;}; 
-        Avion.prototype.setVInitial = function(v) { this.vInitial = v;}; 
-        Avion.prototype.setZInitial = function(z) { this.zInitial = z;}; 
-        Avion.prototype.setHInitial = function(h) { this.hInitial = h;}; 
-		Avion.prototype.setX = function(X) { this.xCurrent = X;}; 
-        Avion.prototype.setY = function(Y) { this.yCurrent = Y;}; 
-        Avion.prototype.setV = function(V) { this.vCurrent = V;}; 
-        Avion.prototype.setZ = function(Z) { this.zCurrent = Z;}; 
-        Avion.prototype.setH = function(H) { this.hCurrent = H;};
-		Avion.prototype.setX1 = function(X) { this.x1 = X;}; 
-        Avion.prototype.setY1 = function(Y) { this.y1 = Y;}; 
-		Avion.prototype.setX2 = function(X) { this.x2 = X;}; 
-        Avion.prototype.setY2 = function(Y) { this.y2 = Y;}; 
+		Avion.prototype.setXInitial = function(x) { xInitial = x;}; 
+        Avion.prototype.setYInitial = function(y) { yInitial = y;}; 
+        Avion.prototype.setVInitial = function(v) { vInitial = v;}; 
+        Avion.prototype.setZInitial = function(z) { zInitial = z;}; 
+        Avion.prototype.setHInitial = function(h) { hInitial = h;}; 
+		Avion.prototype.setX = function(X) { xCurrent = X;}; 
+        Avion.prototype.setY = function(Y) { yCurrent = Y;}; 
+        Avion.prototype.setV = function(V) { vCurrent = V;}; 
+        Avion.prototype.setZ = function(Z) { zCurrent = Z;}; 
+        Avion.prototype.setH = function(H) { hCurrent = H;};
+		Avion.prototype.setX1 = function(X) { x1 = X;}; 
+        Avion.prototype.setY1 = function(Y) { y1 = Y;}; 
+		Avion.prototype.setX2 = function(X) { x2 = X;}; 
+        Avion.prototype.setY2 = function(Y) { y2 = Y;}; 
 
         Avion.initialized = true; 
     }
