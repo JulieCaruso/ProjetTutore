@@ -77,6 +77,27 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getListOfTargetPoints = function() { 
             return listOfTargetPoints; 
         };
+		
+		//SETTERS
+		Avion.prototype.setXInitial = function(x) { 
+            this.xInitial = x;
+        }; 
+
+        Avion.prototype.setYInitial = function(y) { 
+            this.yInitial = y;
+        }; 
+
+        Avion.prototype.setVInitial = function(v) { 
+            this.vInitial = v;
+        }; 
+
+        Avion.prototype.setZInitial = function(z) { 
+            this.zInitial = z;
+        }; 
+
+        Avion.prototype.setHInitial = function(h) { 
+            this.hInitial = h;
+        }; 
 
         Avion.initialized = true; 
     }

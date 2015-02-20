@@ -1,6 +1,17 @@
 $(function() {
-	init();	
+	init0();	
 });
+
+function init0(){
+	begin = setInterval(chgt, 100);
+}
+
+function chgt(){
+	if (Niveau.getChargementDonnees() == 0){
+		init();
+		clearInterval(begin);
+	}
+}
 
 function init(){
 	
@@ -32,7 +43,7 @@ function init(){
 	// DONNEES
 	// liste des avions
 	// construire la liste a partir du xml
-	listeAvions = Avion.getListeAvions();
+	listeNiveaux  = Niveau.getListeNiveaux();
 	
 	// VARIABLES
 	tempsJeu = 0;
@@ -67,7 +78,7 @@ function init(){
 	
 	// LANCEMENT
 	afficheAccueil();
-		
+	
 }
 
 function afficheAccueil(){
@@ -96,46 +107,32 @@ function regles(){
 		animer();
 	}	
 }
-// constructeurs: a voir ou les mettre en fonction de la fonction xml-> var js
-function Avion(xIni, yIni, vIni, zIni, hIni, rateIni, controllable, planeType, planeName, zTarget, typeDansEtiquette, listTargets) {
-	this.xIni = xIni;
-	this.yIni = yIni;
-	this.vIni = vIni;
-	this.zIni = zIni;
-	this.hIni = hIni;
-	this.rateIni = rateIni;
-	this.controllable = controllable;
-	this.planeType = planeType;
-	this.planeName = planeName;
-	this.zTarget = zTarget;
-	this.typeDansEtiquette = typeDansEtiquette;
-	this.listTargets = listTargets;
-}
-function TargetPoint(x, y, label) {
-	this.x = x;
-	this.y = y;
-	this.label = label;
-}
 function animer() {
 	if(tempsJeu/10 > tempsLimite){
 			afficheBilan();
 	} else {
-		tempsJeu++;		
+		tempsJeu++;
+		niveauCourant++;
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
-		for (var j=0; j<listeAvions.length; j++){
-			dessineAvion(j);
+		if (listeNiveaux[niveauCourant] == []){
+			$('#accueil').hide();
+			$('#jeu').hide();
+			$('#bilan').show();
+		}
+		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
+			dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
 		}			
 	}			
 }
-function dessineAvion(idA){
+function dessineAvion(avion){
 	// paramètres de l'avion
-	var v = listeAvions[idA].vIni;
+	var v = avion.getVInitial();
 	var R = 5;
-	var x = listeAvions[idA].xIni + v*1;
-	var y = listeAvions[idA].yIni + v*1;
-	listeAvions[idA].xIni = x;
-	listeAvions[idA].yIni = y;
+	var x = avion.getXInitial() + v*1;
+	var y = avion.getYInitial() + v*1;
+	avion.setXInitial(x);
+	avion.setYInitial(y);
 	// sauvegarde de l'état du contexte
 	ctx.save();
 	// dessin
