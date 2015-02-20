@@ -6,7 +6,7 @@ function init(){
 	
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
-	$('#titre').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
+	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
 	$('#texte').html("Le but de ces exercices est de développer la capacité d'orientation des élèves par rapport aux cap magnétiques dans \
 	les différentes zones de conflit du secteur. Chaque exercice présente une série de conflits sur une même zone mais avec des positions \
 	respectives des avions différentes. <br\> \
@@ -32,8 +32,7 @@ function init(){
 	// DONNEES
 	// liste des avions
 	// construire la liste a partir du xml
-	listeAvions = [];
-	listeAvions[0] = new Avion(10, 10, 5, 5, 6, 7, true, "AZ", "ola", 5, "fsbjk", null);
+	listeAvions = Avion.getListeAvions();
 	
 	// VARIABLES
 	tempsJeu = 0;
