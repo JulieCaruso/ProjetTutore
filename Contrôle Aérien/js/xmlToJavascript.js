@@ -99,18 +99,19 @@ function processXMLData(XMLData) {
 				attribute = currentPlane.attributes.item(k);
 				planeAttributes[attribute.nodeName] = attribute.nodeValue;
 			}
-
+			//parseInt pour convertir string -> int
+			//attention controllable et typeDansEtiquette sont des strings (a vocation de booleens) !
 			plane = new Avion(
-				planeAttributes["xIni"],
-				planeAttributes["yIni"],
-				planeAttributes["vIni"],
-				planeAttributes["zIni"],
-				planeAttributes["hIni"],
-				planeAttributes["rateIni"],
+				parseInt(planeAttributes["xIni"]),
+				parseInt(planeAttributes["yIni"]),
+				parseInt(planeAttributes["vIni"]),
+				parseInt(planeAttributes["zIni"]),
+				parseInt(planeAttributes["hIni"]),
+				parseInt(planeAttributes["rateIni"]),
 				planeAttributes["controllable"],
 				planeAttributes["planeType"],
 				planeAttributes["planeName"],
-				planeAttributes["zTarget"],
+				parseInt(planeAttributes["zTarget"]),
 				planeAttributes["typeDansEtiquette"]);
 
 			listOfTargetPoint = currentPlane.getElementsByTagName("targetPoint");
@@ -124,8 +125,8 @@ function processXMLData(XMLData) {
 				}
 
 				targetPoint = new TargetPoint(
-					targetPointAttributes["x"],
-					targetPointAttributes["y"],
+					parseInt(targetPointAttributes["x"]),
+					parseInt(targetPointAttributes["y"]),
 					targetPointAttributes["label"]);
 
 				plane.getListOfTargetPoints().push(targetPoint);
@@ -167,8 +168,8 @@ function processXMLData(XMLData) {
 					}
 
 					point = new Point(
-						pointAttributes["x"],
-						pointAttributes["y"]);
+						parseInt(pointAttributes["x"]),
+						parseInt(pointAttributes["y"]));
 
 					zone.getListOfPoints_Cercle().push(point);
 				}
@@ -184,9 +185,9 @@ function processXMLData(XMLData) {
 					}
 
 					cercle = new Cercle(
-						cercleAttributes["x"],
-						cercleAttributes["y"],
-						cercleAttributes["radius"]);
+						parseInt(cercleAttributes["x"]),
+						parseInt(cercleAttributes["y"]),
+						parseInt(cercleAttributes["radius"]));
 
 					zone.getListOfPoints_Cercle().push(cercle);
 				}
@@ -244,20 +245,20 @@ function processXMLData(XMLData) {
 
 		initInterface = new Interface(
 				configAttributes["backgroundImage"],
-				configAttributes["backgroundX"],
-				configAttributes["backgroundY"],
-				configAttributes["maxTime"],
+				parseInt(configAttributes["backgroundX"]),
+				parseInt(configAttributes["backgroundY"]),
+				parseInt(configAttributes["maxTime"]),
 				configAttributes["performancesTable"],
-				configAttributes["scale"],
-				configAttributes["windOption"],
-				configAttributes["normVerticalSeparation"],
-				configAttributes["normHorizontalSeparation"],
-				configAttributes["normDistanceToZone"],
-				configAttributes["tolerance"],
-				configAttributes["normLineSeparation"],
-				configAttributes["tempo"],
-				configAttributes["turnDirectionRequired"],
-				configAttributes["zoomScale"],
+				parseInt(configAttributes["scale"]),
+				parseInt(configAttributes["windOption"]),
+				parseInt(configAttributes["normVerticalSeparation"]),
+				parseInt(configAttributes["normHorizontalSeparation"]),
+				parseInt(configAttributes["normDistanceToZone"]),
+				parseInt(configAttributes["tolerance"]),
+				parseInt(configAttributes["normLineSeparation"]),
+				parseInt(configAttributes["tempo"]),
+				parseInt(configAttributes["turnDirectionRequired"]),
+				parseInt(configAttributes["zoomScale"]),
 				controlPanel,
 				texts);
 

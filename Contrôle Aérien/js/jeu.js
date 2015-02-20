@@ -127,24 +127,24 @@ function animer() {
 		}			
 	}			
 }
-function dessineAvion(avion){
+function dessineAvion(a){
 	// paramètres de l'avion
-	var v = avion.getV();
+	var v = a.getV();
 	var R = 5;
-	var x = avion.getX() + v*1;
-	var y = avion.getY() + v*1;
+	var x = a.getX() + v*1;
+	var y = a.getY() + v*1;
 	if (tempsNiveau == 2) {
-		avion.setX1(x);
-		avion.setY1(y);
+		a.setX1(x);
+		a.setY1(y);
 	}
 	else if (tempsNiveau > 2) {
-		avion.setX2(avion.getX1());
-		avion.setY2(avion.getY1());
-		avion.setX1(x);
-		avion.setY1(y);
+		a.setX2(a.getX1());
+		a.setY2(a.getY1());
+		a.setX1(x);
+		a.setY1(y);
 	}
-	avion.setX(x);
-	avion.setY(y);
+	a.setX(x);
+	a.setY(y);
 	
 	// sauvegarde de l'état du contexte
 	ctx.save();
