@@ -157,6 +157,24 @@ function dessineAvion(a){
    	ctx.lineWidth = 1;
     ctx.strokeStyle = '#000';
   	ctx.stroke();
+	ctx.translate(-x/100,-y/100);
+	ctx.translate(a.getX1()/100,a.getY1()/100);
+   	ctx.beginPath();
+   	ctx.arc(0, 0, 2.5, 0, 2 * Math.PI, false);
+   	ctx.fillStyle = "#046380";
+   	ctx.fill();
+   	ctx.lineWidth = 1;
+    ctx.strokeStyle = '#000';
+  	ctx.stroke();
+	ctx.translate(-a.getX1()/100,-a.getY1()/100);
+	ctx.translate(a.getX2()/100,a.getY2()/100);
+   	ctx.beginPath();
+   	ctx.arc(0, 0, 2, 0, 2 * Math.PI, false);
+   	ctx.fillStyle = "#046380";
+   	ctx.fill();
+   	ctx.lineWidth = 1;
+    ctx.strokeStyle = '#000';
+  	ctx.stroke();
   	// retour à l'état précédent du contexte
 	ctx.restore()
 }
