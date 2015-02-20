@@ -8,8 +8,8 @@ function init0(){
 
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0){
-		init();
 		clearInterval(begin);
+		init();
 	}
 }
 
