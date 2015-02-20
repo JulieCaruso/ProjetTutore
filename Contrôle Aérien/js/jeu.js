@@ -180,10 +180,10 @@ function clicCanvas(e){
 	xSourisCanvas = xSourisDocument - xCanvas;
 	ySourisCanvas = ySourisDocument - yCanvas;
 	// test si une balle est cliquée
-	for (var c=0; c<listeAvions.length; c++){
+	for (var c=0; c<listeNiveaux[niveauCourant].getListOfAvions().length; c++){
 		var R = 5;
-		if(Math.abs(listeAvions[c].xIni-xSourisCanvas) < R
-			&& Math.abs(listeAvions[c].yIni-ySourisCanvas) < R){
+		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[c].xIni-xSourisCanvas) < R
+			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[c].yIni-ySourisCanvas) < R){
 		}
 	}
 }
