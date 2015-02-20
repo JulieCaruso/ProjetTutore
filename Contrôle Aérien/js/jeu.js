@@ -122,11 +122,6 @@ function animer() {
 		tempsNiveau++;
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
-		if (listeNiveaux[niveauCourant] == null){
-			$('#accueil').hide();
-			$('#jeu').hide();
-			$('#bilan').show();
-		}
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
 		}			
@@ -134,7 +129,7 @@ function animer() {
 }
 function dessineAvion(avion){
 	// paramètres de l'avion
-	var v = avion.getVInitial();
+	var v = avion.getV();
 	var R = 5;
 	var x = avion.getX() + v*1;
 	var y = avion.getY() + v*1;
