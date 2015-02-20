@@ -27,7 +27,7 @@ function init(){
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
 	
 	// contenu initial de l'écran de jeu
-	$('#animation').html("<canvas id=\"dessin\" width=\"450\" height=\"300\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
+	$('#animation').html("<canvas id=\"dessin\" width=\"1500\" height=\"1000\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
@@ -136,14 +136,26 @@ function dessineAvion(avion){
 	// paramètres de l'avion
 	var v = avion.getVInitial();
 	var R = 5;
-	var x = avion.getXInitial() + v*1;
-	var y = avion.getYInitial() + v*1;
-	avion.setXInitial(x);
-	avion.setYInitial(y);
+	var x = avion.getX() + v*1;
+	var y = avion.getY() + v*1;
+	if (tempsNiveau == 2) {
+		avion.setX1(x);
+		avion.setY1(y);
+	}
+	else if (tempsNiveau > 2) {
+		avion.setX2(avion.getX1());
+		avion.setY2(avion.getY1());
+		avion.setX1(x);
+		avion.setY1(y);
+	}
+	avion.setX(x);
+	avion.setY(y);
+	
 	// sauvegarde de l'état du contexte
 	ctx.save();
 	// dessin
-	ctx.translate(x,y);
+	// ici : divisé par 100 pour y voir...
+	ctx.translate(x/100,y/100);
    	ctx.beginPath();
    	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
    	ctx.fillStyle = "#046380";
@@ -182,8 +194,19 @@ function clicCanvas(e){
 }
 function reinitialisation(){
 	niveauCourant = 0;
-	// test
-	listeAvions[0] = new Avion(10, 10, 5, 5, 6, 7, true, "AZ", "ola", 5, "fsbjk", null);
-	// init avions recup xml initial
+	tempsJeu = 0;
+	for (lv = 0; lv < Niveau.getNombreNiveaux(); lv++) {
+		for (idA = 0; idA < listeNiveaux[lv].getListOfAvions().length; idA++){
+			listeNiveaux[lv].getListOfAvions()[idA].setX(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setV(listeNiveaux[lv].getListOfAvions()[idA].getVInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setZ(listeNiveaux[lv].getListOfAvions()[idA].getZInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setH(listeNiveaux[lv].getListOfAvions()[idA].getHInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setX1(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY1(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setX2(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY2(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+		}
+	}
 }
 
