@@ -47,9 +47,11 @@ function init(){
 	
 	// VARIABLES
 	tempsJeu = 0;
+	tempsNiveau = 0;
 	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 60;
+	tempsNiveauLimite = 20;
 
 	// GESTIONNAIRES
 	// gestionnaire du bouton #boutonJeu
@@ -108,14 +110,19 @@ function regles(){
 	}	
 }
 function animer() {
-	if(tempsJeu/10 > tempsLimite){
-			afficheBilan();
-	} else {
-		tempsJeu++;
+	if((tempsJeu/10 > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
+		afficheBilan();
+	}
+	else if (tempsNiveau/10 > tempsNiveauLimite){
 		niveauCourant++;
+		tempsNiveau = 0;
+	}
+	else {
+		tempsJeu++;
+		tempsNiveau++;
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
-		if (listeNiveaux[niveauCourant] == []){
+		if (listeNiveaux[niveauCourant] == null){
 			$('#accueil').hide();
 			$('#jeu').hide();
 			$('#bilan').show();
