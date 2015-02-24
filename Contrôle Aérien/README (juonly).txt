@@ -87,22 +87,40 @@ Si collision?
 Définir le nombre d'AirProc autorisé
 Lors d'un airproc : popup
 
+Target point : mettre le nom de l'étiquette
+
+Calcul rayon de virage ds le doc
+
+En fonction de l'échelle de la carte, les x et y...
+
 Dossier : a la place du dossier xml: dossier import ou ..
 
 Fichier performances:
 type : avion
 inclinaison, inclinaison max et cassure : on n'en fait rien
 
+Attribut: cap courant et cap voulu
+
+
+17/03 à 15h30 : point
 
 
 
+fonctions tests : PHU THANH
+(décrites un peu au dessus et dans le document)
 
+Déplacement de l'avion JULIEC
+déplacement usuel
 
+Changements avions ALEX
++ récupère fichier perfo
+calcul nouvelles positions
 
-
-
-
-
+Barre latérale : click avion maj donnees etc  JULIER
+barre
+deslectionner avion click ou bouton
+vitesse jeu blabla
+img fond canvas
 
 
 
