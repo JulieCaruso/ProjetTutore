@@ -41,6 +41,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	var rateInitial = rateInit;
 	var controllable = controllable;
 	var zTarget = zTarget;
+	var hTarget = hInit;
 	var typeInLabel = typeInLabel;
 	var listOfTargetPoints = [];
 
@@ -63,7 +64,8 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getY2 = function() { return y2;}; 
         Avion.prototype.getRateInitial = function() { return rateInit;}; 
         Avion.prototype.isControllable = function() { return controllable;}; 
-        Avion.prototype.getZTarget = function() { return zTarget;}; 
+        Avion.prototype.getZTarget = function() { return zTarget;};
+        Avion.prototype.getHTarget = function() { return hTarget;}; 
         Avion.prototype.getTypeInLabel = function() { return typeInLabel;}; 
         Avion.prototype.getListOfTargetPoints = function() { return listOfTargetPoints;};
 
@@ -79,6 +81,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.setV = function(V) { vCurrent = V;}; 
         Avion.prototype.setZ = function(Z) { zCurrent = Z;}; 
         Avion.prototype.setH = function(H) { hCurrent = H;};
+        Avion.prototype.setHTarget = function(h) { hTarget = h;};
 		Avion.prototype.setX1 = function(X) { x1 = X;}; 
         Avion.prototype.setY1 = function(Y) { y1 = Y;}; 
 		Avion.prototype.setX2 = function(X) { x2 = X;}; 

@@ -82,7 +82,7 @@ function processXMLData(XMLData) {
 
 	Niveau.setChargementDonnees(levelNodes.length);
 
-	console.log("DEBUT]Chargement des niveaux en cours...");
+	console.log("[DEBUT]Chargement des niveaux en cours...");
 
 	for(var i = 0; i < levelNodes.length; i++)
 	{
