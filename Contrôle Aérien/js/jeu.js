@@ -28,11 +28,13 @@ function init(){
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
 	
 	// contenu initial de l'écran de jeu
-	$('#animation').html("<canvas id=\"dessin\" width=\"1500\" height=\"1000\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
+	$('#animation').html("<canvas id=\"dessin\" width=\"579\" height=\"436\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
+	$('#panneauLateral').html("");
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
+		dessinerImage();
 	} else {
 		alert('canvas non supporté par ce navigateur');
 	}	
@@ -84,6 +86,19 @@ function init(){
 	
 }
 
+function dessinerImage() {
+    monCanvas = document.getElementById('dessin');
+	if (monCanvas.getContext){
+		ctx = monCanvas.getContext('2d');
+		var img = new Image();   // Crée un nouvel objet Image
+        img.src = 'Images/jeu.png'; // Définit le chemin vers sa source
+        ctx.drawImage(img, 0, 0);
+        }
+    else {
+		alert('canvas non supporté par ce navigateur');
+	}	
+}
+
 function afficheAccueil(){
 	ecranCourant = "accueil";
 	// affichage de l'écran et masquage des autres écrans
@@ -123,6 +138,7 @@ function animer() {
 		tempsNiveau++;
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
+		dessinerImage();
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
 		}			
