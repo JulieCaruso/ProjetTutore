@@ -66,6 +66,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getZTarget = function() { return zTarget;}; 
         Avion.prototype.getTypeInLabel = function() { return typeInLabel;}; 
         Avion.prototype.getListOfTargetPoints = function() { return listOfTargetPoints;};
+
 		
 		//SETTERS
 		Avion.prototype.setXInitial = function(x) { xInitial = x;}; 
@@ -81,7 +82,8 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.setX1 = function(X) { x1 = X;}; 
         Avion.prototype.setY1 = function(Y) { y1 = Y;}; 
 		Avion.prototype.setX2 = function(X) { x2 = X;}; 
-        Avion.prototype.setY2 = function(Y) { y2 = Y;}; 
+        Avion.prototype.setY2 = function(Y) { y2 = Y;};
+        
 
         Avion.initialized = true; 
     }
@@ -105,6 +107,14 @@ Avion.getListeAvions = function(){
 		return [];
 	return Avion.listeAvions;
 }
+
+Avion.getPerformancesParType = function(){ 
+	return Avion.performancesParType; 
+}
+
+Avion.setPerformancesParType = function(performances) {
+	Avion.performancesParType = performances;
+} 
 
 // Permet de réinitialiser les variables statiques
 Avion.flush = function(){
