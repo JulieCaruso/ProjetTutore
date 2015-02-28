@@ -17,6 +17,13 @@ footer, .paragraphe, p {
 	margin-top:10px;
 	/*text-align:center;*/
 }
+
+#panneauLateral {
+    position:fixed;
+    top:40px;
+    right:20%;
+}
+
 canvas {
 	border-style:solid;
 	border-width:1px;
