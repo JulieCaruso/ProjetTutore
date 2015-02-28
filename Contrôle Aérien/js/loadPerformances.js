@@ -128,5 +128,5 @@ function processPerformances(performancesText){
     	performancesParType[entetesAvion[i]["type"]] = infos;
     }
 
-    Avion.setPerformancesParType(performancesParType);
+    Avion.setPerformancesPerType(performancesParType);
 }

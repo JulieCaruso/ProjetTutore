@@ -48,6 +48,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	// GETTERS d'attributs privés
 	if( typeof Avion.initialized == "undefined" ) { 
 
+		Avion.prototype.getTypeOfPlane = function() { return this.typeOfPlane;}
         Avion.prototype.getXInitial = function() { return xInitial;}; 
         Avion.prototype.getYInitial = function() { return yInitial;}; 
         Avion.prototype.getVInitial = function() { return vInitial;}; 
@@ -111,11 +112,11 @@ Avion.getListeAvions = function(){
 	return Avion.listeAvions;
 }
 
-Avion.getPerformancesParType = function(){ 
+Avion.getPerformancesPerType = function(){ 
 	return Avion.performancesParType; 
 }
 
-Avion.setPerformancesParType = function(performances) {
+Avion.setPerformancesPerType = function(performances) {
 	Avion.performancesParType = performances;
 } 
 

@@ -9,7 +9,7 @@ function init0(){
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0){
 		clearInterval(begin);
-		initLoading(processPerformances);
+		calculateHead(Avion.getListeAvions()[0],0);
 		init();
 	}
 }

@@ -70,6 +70,8 @@ function getXDomainRequest() {
 function processXMLData(XMLData) {
 	// On peut maintenant traiter les données du fichier xml
 
+	initLoading(processPerformances);
+
 	// On sélectionne l'ensemble des noeuds "level"
 	var levelNodes = XMLData.getElementsByTagName("level");
 	
