@@ -100,7 +100,16 @@ function dessinerImage() {
 }
 
 function initPanneauLateral() {
-    $('#panneauLateral').html("<table border= \"1\"><tr><td><form action=\"post\"><table><tr><td>Nom<div id=\"nomAvion\"/></td></tr><tr><td>Vitesse<div id=\"vitesseAvion\"/></td></tr><tr><td>Altitude : <br/><span class=\"marge\">Actuelle : <span class=\"currentAltitude\"/></span><br/><span class=\"marge\">Nouvelle altitude :<select name=\"selectAltitude\" id=\"selectAlt\"></select></span></td></tr><tr><td>Cible :<br/><span class=\"marge\">Actuelle : <span class=\"currentTarget\"/></span><br/><span class=\"marge\">Nouvelle cible :<select name=\"selectTarget\" id=\"selectTarget\"></select></span></td></tr><tr><td>Cap :<br/><span class=\"marge\">Actuel :<span class=\"currentCap\"/></span><br/><span class=\"marge\">Nouveau cap :   <select name=\"selectCap\" id=\"selectCap\"></select><br/><input type=\"checkbox\" name=\"virageCourt\" value=\"0\"/>Virage le plus court <input type=\"checkbox\" name=\"virageDroite\" value=\"1\"/>Virage droite<input type=\"checkbox\" name=\"virageGauche\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input type=\"button\" name=\"bSend\" value=\"Envoyer\"onclick=\"sendData\"/></td></tr></table><table><tr><td>Vitesse du jeu<div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\" max=\"10\" step=\"1\"/></td></tr></table></form></td></tr></table>");
+    $('#panneauLateral').html("<table border= \"1\"><tr><td><form action=\"post\"><table><tr><td>Nom<div id=\"nomAvion\"/></td></tr> \
+    <tr><td>Vitesse<div id=\"vitesseAvion\"/></td></tr><tr><td>Altitude : <br/><span class=\"marge\">Actuelle : \
+    <span class=\"currentAltitude\"/></span><br/><span class=\"marge\">Nouvelle altitude :<select name=\"selectAltitude\" \
+    id=\"selectAlt\"></select></span></td></tr><tr><td>Cible :<br/><span class=\"marge\">Actuelle : <span class=\"currentTarget\"/> \
+    </span><br/><span class=\"marge\">Nouvelle cible :<select name=\"selectTarget\" id=\"selectTarget\"></select></span></td></tr><tr> \
+    <td>Cap :<br/><span class=\"marge\">Actuel :<span class=\"currentCap\"/></span><br/><span class=\"marge\">Nouveau cap :   <select name=\"selectCap\" \
+    id=\"selectCap\"></select><br/><input type=\"checkbox\" name=\"virageCourt\" value=\"0\"/>Virage le plus court <input type=\"checkbox\" name=\"virageDroite\" \
+    value=\"1\"/>Virage droite<input type=\"checkbox\" name=\"virageGauche\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input type=\"button\" \
+    name=\"bSend\" value=\"Envoyer\"onclick=\"sendData\"/></td></tr></table><table><tr><td>Vitesse du jeu<div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
+    max=\"10\" step=\"1\"/></td></tr></table></form></td></tr></table>");
 }
 
 function afficheAccueil(){
