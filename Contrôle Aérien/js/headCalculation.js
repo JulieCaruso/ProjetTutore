@@ -16,8 +16,10 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 function calculateHead(avion,sensVirage){
 	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = parseInt(avion.getV()), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
 
+	var point = null, distanceAB = 0, delta = 0, xB = 0, yB = 0;
+
 	// spead en mètres/seconde, R en mètres 
-	R = parseInt((spead*spead)/(Math.tan(inclinaison)*9.81));
+	R = parseInt((spead*spead)/(Math.tan(inclinaison*Math.PI/180)*9.81));
 
 	var point = calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage);
 
@@ -26,14 +28,14 @@ function calculateHead(avion,sensVirage){
 	console.debug("Y0 = "+point.getY());
 
 	// On multiplie la distance en m/s par deltaT = 1 seconde
-	var distanceAB = parseInt(spead*1);
+	distanceAB = parseInt(spead*1);
 
 	// On en déduit delta
-	var delta = Math.acos(distanceAB/(2*R));
+	delta = (Math.acos(distanceAB/(2*R)))*180/Math.PI;
 	
 	console.debug("Delta = "+delta);
 	// Et donc deltaH
-	var deltaH = Math.PI/2 - delta*Math.PI/180;
+	deltaH = (90 - delta)%360;
 	console.debug("DeltaH = "+deltaH);
 
 	if(sensVirage == 0)
@@ -61,7 +63,14 @@ function calculateHead(avion,sensVirage){
 		}
 	}
 
-	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+avion.getH()+", Cap visé : "+targetHead);
+	// Enfin, on calcule les nouvelles coordonnées
+	avion.setX(avion.getX()+spead*Math.sin(avion.getH()*Math.PI/180));
+	avion.setY(avion.getY()-spead*Math.cos(avion.getH()*Math.PI/180));
+
+	xB = avion.getX();
+	yB = avion.getY();
+
+	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+avion.getH()+", Cap visé : "+targetHead+", Position initiale (A) : X = "+xA+", Y = "+yA+", Position + 1 seconde (B) : X = "+xB+", Y = "+yB);
 	// On vérifie le décalage
 
 
