@@ -9,7 +9,19 @@ function init0(){
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0){
 		clearInterval(begin);
-		calculateHead(Avion.getListeAvions()[0],0);
+
+		// TEST ALEX
+		/*
+		var compteur = 0;
+		Avion.getListeAvions()[0].setHTarget(Avion.getListeAvions()[0].getH()-90);
+		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
+			console.debug("*********************************** CALCUL DE L'INCREMENT DE CAP ***********************************");
+			calculateHead(Avion.getListeAvions()[0],0);
+			compteur++;
+		}
+		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
+		
+		// FIN TEST*/
 		init();
 	}
 }

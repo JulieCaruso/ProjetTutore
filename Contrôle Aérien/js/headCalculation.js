@@ -14,21 +14,63 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 // Méthode d'entrée pour le calcul d'un nouveau cap, on y fournit l'objet de type "Avion" ainsi que le sens de virage (0 si par la gauche, 1 si par la droite)
 function calculateHead(avion,sensVirage){
-	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = avion.getV();
+	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = parseInt(avion.getV()), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
 
-	var point = calculateOrigin(currentHead,type,spead,sensVirage);
+	// spead en mètres/seconde, R en mètres 
+	R = parseInt((spead*spead)/(Math.tan(inclinaison)*9.81));
+
+	var point = calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage);
 
 	console.debug("Current head = "+currentHead+", Type = "+type+", Spead = "+spead+", Sens du virage = "+sensVirage);
 	console.debug("X0 = "+point.getX());
 	console.debug("Y0 = "+point.getY());
+
+	// On multiplie la distance en m/s par deltaT = 1 seconde
+	var distanceAB = parseInt(spead*1);
+
+	// On en déduit delta
+	var delta = Math.acos(distanceAB/(2*R));
+	
+	console.debug("Delta = "+delta);
+	// Et donc deltaH
+	var deltaH = Math.PI/2 - delta*Math.PI/180;
+	console.debug("DeltaH = "+deltaH);
+
+	if(sensVirage == 0)
+	{
+		console.debug("Cap + 1 = "+(currentHead-deltaH));
+		if(currentHead-deltaH < targetHead)
+		{
+			avion.setH(targetHead);
+		}
+		else
+		{
+			avion.setH((currentHead-deltaH)%360);
+		}
+	}
+	else 
+	{
+		console.debug("Cap +1 = "+(currentHead+deltaH));
+		if(currentHead+deltaH > targetHead)
+		{
+			avion.setH(targetHead);
+		}
+		else
+		{
+			avion.setH((currentHead+deltaH)%360);
+		}
+	}
+
+	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+avion.getH()+", Cap visé : "+targetHead);
+	// On vérifie le décalage
+
+
 }
 
-function calculateOrigin(currentHead,type,spead,sensVirage){
+function calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage){
 
-	var inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = null;
 	var headOrthogonal = null, alpha = null, x0 = null, y0 = null; 
-	// spead en mètres/seconde, R en mètres 
-	R = (spead*spead)/(Math.tan(inclinaison)*9.81);
+	
 	
 	if(sensVirage == 0){
 		// On va à gauche
@@ -46,6 +88,6 @@ function calculateOrigin(currentHead,type,spead,sensVirage){
 		y0 = R*Math.sin(alpha*Math.PI/180);
 	}
 
-	return new Point(x0,y0);
+	return new Point(parseInt(xA+x0),parseInt(yA+y0));
 
 }
