@@ -14,12 +14,14 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 // Méthode d'entrée pour le calcul d'un nouveau cap, on y fournit l'objet de type "Avion" ainsi que le sens de virage (0 si par la gauche, 1 si par la droite)
 function calculateHead(avion,sensVirage){
-	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = parseInt(avion.getV()), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
+	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = parseInt(avion.getV()), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonSdt"], R = 0;
 
 	var point = null, distanceAB = 0, delta = 0, xB = 0, yB = 0;
 
 	// spead en mètres/seconde, R en mètres 
 	R = parseInt((spead*spead)/(Math.tan(inclinaison*Math.PI/180)*9.81));
+
+	console.debug("R = "+R);
 
 	var point = calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage);
 
@@ -30,10 +32,13 @@ function calculateHead(avion,sensVirage){
 	// On multiplie la distance en m/s par deltaT = 1 seconde
 	distanceAB = parseInt(spead*1);
 
+
+	console.debug("DistanceAB/2R (doit être entre -1 et 1): "+distanceAB/(2*R));
+	console.debug("ArcCos (renvoie un angle entre 0 et Pi/2): "+Math.acos(distanceAB/(2*R)));
 	// On en déduit delta
 	delta = (Math.acos(distanceAB/(2*R)))*180/Math.PI;
 	
-	console.debug("Delta = "+delta);
+	console.debug("Delta (convertie en degrès) = "+delta);
 	// Et donc deltaH
 	deltaH = (90 - delta)%360;
 	console.debug("DeltaH = "+deltaH);

@@ -20,7 +20,7 @@ function chgt(){
 			compteur++;
 		}
 		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
-		*/
+		
 		// FIN TEST*/
 		init();
 	}
