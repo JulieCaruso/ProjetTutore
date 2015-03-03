@@ -11,7 +11,7 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		
+		/*
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget(Avion.getListeAvions()[0].getH()-90);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
@@ -21,7 +21,7 @@ function chgt(){
 		}
 		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
 		
-		// FIN TEST
+		// FIN TEST*/
 		init();
 	}
 }
@@ -172,14 +172,31 @@ function animer() {
 function dessineAvion(a){
 	// paramètres de l'avion
 	var v = a.getV();
-	var R = 5;
 	var x = a.getX() + v*1;
 	var y = a.getY() + v*1;
 	if (tempsNiveau == 2) {
 		a.setX1(x);
 		a.setY1(y);
 	}
-	else if (tempsNiveau > 2) {
+	else if (tempsNiveau == 3) {
+		a.setX2(a.getX1());
+		a.setY2(a.getY1());
+		a.setX1(x);
+		a.setY1(y);
+	}
+	else if (tempsNiveau == 4) {
+		a.setX3(a.getX2());
+		a.setY3(a.getY2());
+		a.setX2(a.getX1());
+		a.setY2(a.getY1());
+		a.setX1(x);
+		a.setY1(y);
+	}
+	else if (tempsNiveau > 4) {
+		a.setX4(a.getX3());
+		a.setY4(a.getX3());
+		a.setX3(a.getX2());
+		a.setY3(a.getY2());
 		a.setX2(a.getX1());
 		a.setY2(a.getY1());
 		a.setX1(x);
@@ -188,37 +205,22 @@ function dessineAvion(a){
 	a.setX(x);
 	a.setY(y);
 	// sauvegarde de l'état du contexte
+	dessinA(a.getX()/500, a.getY()/500, 5, "#FF9900");
+	dessinA(a.getX1()/500, a.getY1()/500, 2.5, "#FFAD5C");
+	dessinA(a.getX2()/500, a.getY2()/500, 2, "#FFCE9D");
+	dessinA(a.getX3()/500, a.getY3()/500, 1.5, "#FFCE9D");
+	dessinA(a.getX4()/500, a.getY4()/500, 1, "#FFCE9D");
+}
+function dessinA(x, y, R, couleur){
+	// sauvegarde de l'état du contexte
 	ctx.save();
-	// dessin
-	// ici : divisé par 100 pour y voir...
-	ctx.translate(x/50,y/50);
-   	ctx.beginPath();
+	ctx.translate(x, y);
+	ctx.beginPath();
    	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
-   	ctx.fillStyle = "#FF9900";
+   	ctx.fillStyle = couleur;
    	ctx.fill();
-   	ctx.lineWidth = 1;
-    ctx.strokeStyle = '#B26B00';
-  	ctx.stroke();
-	ctx.translate(-x/50,-y/50);
-	ctx.translate(a.getX1()/50,a.getY1()/50);
-   	ctx.beginPath();
-   	ctx.arc(0, 0, 2.5, 0, 2 * Math.PI, false);
-   	ctx.fillStyle = "#FFAD5C";
-   	ctx.fill();
-   	ctx.lineWidth = 1;
-    ctx.strokeStyle = '#B26B00';
-  	ctx.stroke();
-	ctx.translate(-a.getX1()/50,-a.getY1()/50);
-	ctx.translate(a.getX2()/50,a.getY2()/50);
-   	ctx.beginPath();
-   	ctx.arc(0, 0, 2, 0, 2 * Math.PI, false);
-   	ctx.fillStyle = "#FFCE9D";
-   	ctx.fill();
-   	ctx.lineWidth = 1;
-    ctx.strokeStyle = '#B26B00';
-  	ctx.stroke();
-  	// retour à l'état précédent du contexte
-	ctx.restore()
+	// restore le contexte
+	ctx.restore();	
 }
 function afficheBilan(){
 	ecranCourant = "bilan";
