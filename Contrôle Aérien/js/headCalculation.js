@@ -26,7 +26,7 @@ function calculateHead(avion,sensVirage){
 
 	var point = calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage);
 
-	console.debug("Current head = "+currentHead+", Type = "+type+", Spead = "+spead+", Sens du virage = "+sensVirage);
+	console.debug("Current head = "+currentHead+", Type = "+type+", Spead = "+spead+", Sens du virage = "+(sensVirage==0?"Gauche":"Droite"));
 	console.debug("X0 = "+point.getX());
 	console.debug("Y0 = "+point.getY());
 
@@ -47,26 +47,73 @@ function calculateHead(avion,sensVirage){
 	if(sensVirage == 0)
 	{
 		console.debug("Cap + 1 = "+(currentHead-deltaH));
-		if(currentHead-deltaH < targetHead)
-		{
-			avion.setH(targetHead);
+		// On va par la gauche en diminuant (ex : on va de 180° à 9O°)
+		if (currentHead > targetHead){
+
+			if(currentHead-deltaH < targetHead)
+			{
+				avion.setH(targetHead);
+			}
+			else
+			{
+				avion.setH((currentHead-deltaH)%360);
+			}
+
 		}
 		else
 		{
-			avion.setH((currentHead-deltaH)%360);
+			// On va par la gauche mais avec un cap visé plus grand que le cap actuel (ex : on va de 90° à 310°)
+			// On diminue donc forcément
+			var new_cap = (currentHead-deltaH)%360; 
+			if (new_cap > 270 && currentHead < 90){
+				if(targetHead > new_cap){
+					avion.setH(targetHead);
+				}
+				else
+				{
+					avion.setH(new_cap);
+				}
+			}
+			else
+			{
+				avion.setH(new_cap);
+			}
 		}
 	}
 	else 
 	{
 		console.debug("Cap +1 = "+(currentHead+deltaH));
-		if(currentHead+deltaH > targetHead)
-		{
-			avion.setH(targetHead);
+		// On va par la droite en augmentant (ex : on va de 90° à 180°)
+		if (currentHead < targetHead){
+
+			if(currentHead+deltaH > targetHead)
+			{
+				avion.setH(targetHead);
+			}
+			else
+			{
+				avion.setH((currentHead+deltaH)%360);
+			}
 		}
 		else
 		{
-			avion.setH((currentHead+deltaH)%360);
+			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
+			var new_cap = (currentHead+deltaH)%360; 
+			if (currentHead > 270 && new_cap < 90){
+				if(targetHead < new_cap){
+					avion.setH(targetHead);
+				}
+				else
+				{
+					avion.setH(new_cap);
+				}
+			}
+			else
+			{
+				avion.setH(new_cap);
+			}
 		}
+		
 	}
 
 	// Enfin, on calcule les nouvelles coordonnées
