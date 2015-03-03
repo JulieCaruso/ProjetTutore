@@ -11,7 +11,7 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		/*
+		
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget(Avion.getListeAvions()[0].getH()-90);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
@@ -170,10 +170,6 @@ function animer() {
 	}			
 }
 function dessineAvion(a){
-	// paramètres de l'avion
-	var v = a.getV();
-	var x = a.getX() + v*1;
-	var y = a.getY() + v*1;
 	if (tempsNiveau == 2) {
 		a.setX1(x);
 		a.setY1(y);
@@ -202,8 +198,17 @@ function dessineAvion(a){
 		a.setX1(x);
 		a.setY1(y);
 	}
-	a.setX(x);
-	a.setY(y);
+	if (a.getH() != a.getHTarget()){
+		calculateHead(a, sensVirage);
+	}
+	else {
+	// paramètres de l'avion
+		var v = a.getV();
+		var x = a.getX() + v*1;
+		var y = a.getY() + v*1;
+		a.setX(x);
+		a.setY(y);
+	}
 	// sauvegarde de l'état du contexte
 	dessinA(a.getX()/500, a.getY()/500, 5, "#FF9900");
 	dessinA(a.getX1()/500, a.getY1()/500, 2.5, "#FFAD5C");
