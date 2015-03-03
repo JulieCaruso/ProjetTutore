@@ -14,6 +14,7 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 // Méthode d'entrée pour le calcul d'un nouveau cap, on y fournit l'objet de type "Avion" ainsi que le sens de virage (0 si par la gauche, 1 si par la droite)
 function calculateHead(avion,sensVirage){
+	// spead est en noeuds = 1 MN / h avec 1 MN = 1822 m
 	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = parseInt(avion.getV()*60/1822), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
 
 	var point = null, distanceAB = 0, delta = 0, xB = 0, yB = 0;
@@ -104,4 +105,36 @@ function calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage){
 
 	return new Point(parseInt(xA+x0),parseInt(yA+y0));
 
+}
+
+// Permet de calculer le cap suivant deux points, A et B sont deux objets de type "Point"
+function calculateOrientation(A,B){
+	var xA = A.getX(), xB = B.getX(), yA = A.getY(), yB = B.getY(), cadran = -1, rayon = -1, angle = -1, sensAngle = -1;
+	if (xA < xB){
+		if (yA < yB){
+			cadran = 0;
+		}
+		else
+		{
+			cadran = 90;
+		}
+	}
+	else
+	{
+		if (yA < yB){
+			cadran = 270;
+		}
+		else
+		{
+			cadran = 180;
+		}
+	}
+
+	// On ramène donc le calcul à un angle entre 0 et Pi/2
+
+	rayon = Math.sqrt((xB-xA)*(xB-xA)+(yB-yA)*(yB-yA));
+
+	angle = Math.acos((xB-xA)/rayon);
+
+	return parseInt(angle*180/Math.PI+cadran);
 }

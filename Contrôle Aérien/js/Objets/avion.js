@@ -101,7 +101,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.setY3 = function(Y) { y3 = Y;}; 
 		Avion.prototype.setX4 = function(X) { x4 = X;}; 
         Avion.prototype.setY4 = function(Y) { y4 = Y;};
-		Avion.prototype.setIndexCurrentTarget(i) = function() { indexCurrentTarget = i;};
+		Avion.prototype.setIndexCurrentTarget = function(i) { indexCurrentTarget = i;};
         
 
         Avion.initialized = true; 
