@@ -6,6 +6,9 @@ function init0(){
 	begin = setInterval(chgt, 100);
 }
 
+// faire test Target !!!
+
+
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0){
 		clearInterval(begin);
@@ -199,7 +202,8 @@ function dessineAvion(a){
 		a.setY1(y);
 	}
 	if (a.getH() != a.getHTarget()){
-		calculateHead(a, sensVirage);
+		// sensVirage a changer plus tard en fonction du panneau a droite
+		calculateHead(a, 0);
 	}
 	else {
 	// paramètres de l'avion
