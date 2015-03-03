@@ -11,7 +11,7 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		/*
+		
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget(Avion.getListeAvions()[0].getH()-90);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
@@ -21,7 +21,7 @@ function chgt(){
 		}
 		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
 		
-		// FIN TEST*/
+		// FIN TEST
 		init();
 	}
 }
@@ -230,7 +230,7 @@ function afficheBilan(){
 }
 function clicCanvas(e){
 	// position de la souris / document
-	var xSourisDocument = e.pageX 
+	var xSourisDocument = e.pageX; 
     var ySourisDocument = e.pageY;
 	// position du canvas / document
 	var xCanvas = monCanvas.offsetLeft;
@@ -238,11 +238,11 @@ function clicCanvas(e){
 	// position du clic / canvas
 	xSourisCanvas = xSourisDocument - xCanvas;
 	ySourisCanvas = ySourisDocument - yCanvas;
-	// test si une balle est cliquée
-	for (var c=0; c<listeNiveaux[niveauCourant].getListOfAvions().length; c++){
+	// test si un avion est cliqué
+	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 		var R = 5;
-		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[c].xIni-xSourisCanvas) < R
-			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[c].yIni-ySourisCanvas) < R){
+		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()-xSourisCanvas) < R
+			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()-ySourisCanvas) < R){
 		}
 	}
 }
