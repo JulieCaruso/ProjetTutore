@@ -176,7 +176,7 @@ function fillPanneauLateralAltitudesPossibles(a) {
 
 function fillPanneauLateralCapPossibles(a) {
 	var selectElement = document.getElementById('selectCap');
-	for(var i=0; i<360;i++)
+	for(var i=1; i<361;i++)
 	{
 		var Element = document.createElement('option');
 		Element.value = i;
