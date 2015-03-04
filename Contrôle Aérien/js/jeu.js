@@ -56,7 +56,7 @@ function init(){
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
 	
 	// contenu initial de l'écran de jeu
-	$('#animation').html("<canvas id=\"dessin\" width=\"579\" height=\"436\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
+	$('#animation').html("<canvas id=\"dessin\" width=\""+canvasWidth+"\" height=\""+canvasHeight+"\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
 	initPanneauLateral();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
 	monCanvas = document.getElementById('dessin');
@@ -188,7 +188,7 @@ function fillPanneauLateralAltitudesPossibles(a) {
 
 function fillPanneauLateralCapPossibles(a) {
 	var selectElement = document.getElementById('selectCap');
-	for(var i=0; i<360;i++)
+	for(var i=1; i<361;i++)
 	{
 		var Element = document.createElement('option');
 		Element.value = i;

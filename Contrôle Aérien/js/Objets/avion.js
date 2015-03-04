@@ -50,6 +50,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	var typeInLabel = typeInLabel;
 	var listOfTargetPoints = [];
 	var indexCurrentTarget = 0;
+	var color = "blue";
 
 	// GETTERS d'attributs privés
 	if( typeof Avion.initialized == "undefined" ) { 
@@ -82,7 +83,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getTypeInLabel = function() { return typeInLabel;}; 
         Avion.prototype.getListOfTargetPoints = function() { return listOfTargetPoints;};
 		Avion.prototype.getIndexCurrentTarget = function() { return indexCurrentTarget;};
-
+	Avion.prototype.getColor = function() { return color;};
 		
 		//SETTERS
 		Avion.prototype.setXInitial = function(x) { xInitial = x;}; 
@@ -107,8 +108,8 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.setX4 = function(X) { x4 = X;}; 
         Avion.prototype.setY4 = function(Y) { y4 = Y;};
 		Avion.prototype.setIndexCurrentTarget = function(i) { indexCurrentTarget = i;};
-        
-
+        Avion.prototype.setColor = function(c) {color = c};
+	
         Avion.initialized = true; 
     }
 
