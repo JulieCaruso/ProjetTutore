@@ -30,6 +30,11 @@ canvas {
 	background:#fff;
 }
 
+#zoneOrdres {
+	border-style:solid;
+	border-width:1px;
+}
+
 .marge {
 margin-left: 3em;
 }

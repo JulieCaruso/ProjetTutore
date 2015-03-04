@@ -24,8 +24,20 @@ function chgt(){
 		}
 		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
 		
+		
+		PARTIE POUR JULIE R
+		/*var changements = [];
+		changements.push(Ordre.Changement.INCREASE_ALTITUDE);
+		changements.push(Ordre.Changement.INCREASE_SPEED);
+		changements.push(Ordre.Changement.CHANGE_HEAD_BETTER_WAY);
+		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()-120)%360+1);
+		var ordre = new Ordre(Avion.getListeAvions()[0],changements);
+		var changements2 = [];
+		changements2.push(Ordre.Changement.DECREASE_SPEED);
+		changements2.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
+		Avion.getListeAvions()[1].setHTarget((Avion.getListeAvions()[1].getH()-40)%360+1);
+		var ordre2 = new Ordre(Avion.getListeAvions()[1],changements2);
 		// FIN TEST*/
-		var ordre = new Ordre(Avion.getListeAvions()[0],"IS");
 		init();
 	}
 }

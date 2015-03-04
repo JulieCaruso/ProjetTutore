@@ -5,7 +5,7 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 
 
-"Current head = 310, Type = B763, Spead = 451, Sens du virage = 0" headCalculation.js:15:1
+"Current head = 310, Type = B763, speed = 451, Sens du virage = 0" headCalculation.js:15:1
 "X0 = -8391.87895645981" headCalculation.js:16:0
 "Y0 = 10001.051894976727" headCalculation.js:17:1
 
@@ -14,24 +14,22 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 // Méthode d'entrée pour le calcul d'un nouveau cap, on y fournit l'objet de type "Avion" ainsi que le sens de virage (0 si par la gauche, 1 si par la droite)
 function calculateHead(avion,sensVirage){
-	// spead est en noeuds = 1 MN / h avec 1 MN = 1822 m
-	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), spead = parseInt(avion.getV()*60/1822), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
+	// speed est en noeuds = 1 MN / h avec 1 MN = 1852 m
+	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), speed = parseInt(avion.getV()*60/1852), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
 
 	var point = null, distanceAB = 0, delta = 0, xB = 0, yB = 0;
 
-	// spead en mètres/seconde, R en mètres 
-	R = parseInt((spead*spead)/(Math.tan(inclinaison*Math.PI/180)*9.81));
+	// speed en mètres/seconde, R en mètres 
+	R = parseInt((speed*speed)/(Math.tan(inclinaison*Math.PI/180)*9.81));
 
 	console.debug("R = "+R);
 
-	var point = calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage);
+	//var point = calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage);
 
-	console.debug("Current head = "+currentHead+", Type = "+type+", Spead = "+spead+", Sens du virage = "+(sensVirage==0?"Gauche":"Droite"));
-	console.debug("X0 = "+point.getX());
-	console.debug("Y0 = "+point.getY());
+	console.debug("Current head = "+currentHead+", Type = "+type+", speed = "+speed+", Sens du virage = "+(sensVirage==0?"Gauche":"Droite"));
 
 	// On multiplie la distance en m/s par deltaT = 1 seconde
-	distanceAB = parseInt(spead*1);
+	distanceAB = parseInt(speed*1);
 
 
 	console.debug("DistanceAB/2R (doit être entre -1 et 1): "+distanceAB/(2*R));
@@ -41,7 +39,7 @@ function calculateHead(avion,sensVirage){
 	
 	console.debug("Delta (convertie en degrès) = "+delta);
 	// Et donc deltaH
-	deltaH = (90 - delta)%360;
+	deltaH = (90 - delta)%360+1;
 	console.debug("DeltaH = "+deltaH);
 
 	if(sensVirage == 0)
@@ -56,7 +54,7 @@ function calculateHead(avion,sensVirage){
 			}
 			else
 			{
-				avion.setH((currentHead-deltaH)%360);
+				avion.setH((currentHead-deltaH)%360+1);
 			}
 
 		}
@@ -64,7 +62,7 @@ function calculateHead(avion,sensVirage){
 		{
 			// On va par la gauche mais avec un cap visé plus grand que le cap actuel (ex : on va de 90° à 310°)
 			// On diminue donc forcément
-			var new_cap = (currentHead-deltaH)%360; 
+			var new_cap = (currentHead-deltaH)%360+1; 
 			if (new_cap > 270 && currentHead < 90){
 				if(targetHead > new_cap){
 					avion.setH(targetHead);
@@ -92,13 +90,13 @@ function calculateHead(avion,sensVirage){
 			}
 			else
 			{
-				avion.setH((currentHead+deltaH)%360);
+				avion.setH((currentHead+deltaH)%360+1);
 			}
 		}
 		else
 		{
 			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
-			var new_cap = (currentHead+deltaH)%360; 
+			var new_cap = (currentHead+deltaH)%360+1; 
 			if (currentHead > 270 && new_cap < 90){
 				if(targetHead < new_cap){
 					avion.setH(targetHead);
@@ -117,8 +115,8 @@ function calculateHead(avion,sensVirage){
 	}
 
 	// Enfin, on calcule les nouvelles coordonnées
-	avion.setX(avion.getX()+spead*Math.sin(avion.getH()*Math.PI/180));
-	avion.setY(avion.getY()-spead*Math.cos(avion.getH()*Math.PI/180));
+	avion.setX(avion.getX()+speed*Math.sin(avion.getH()*Math.PI/180));
+	avion.setY(avion.getY()-speed*Math.cos(avion.getH()*Math.PI/180));
 
 	xB = avion.getX();
 	yB = avion.getY();
@@ -129,23 +127,23 @@ function calculateHead(avion,sensVirage){
 
 }
 
-function calculateOrigin(R,xA,yA,currentHead,type,spead,sensVirage){
+function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){
 
 	var headOrthogonal = null, alpha = null, x0 = null, y0 = null; 
 	
 	
 	if(sensVirage == 0){
 		// On va à gauche
-		headOrthogonal = (currentHead-90)%360;
-		alpha = (90 - headOrthogonal)%360;
+		headOrthogonal = (currentHead-90)%360+1;
+		alpha = (90 - headOrthogonal)%360+1;
 		x0 = R*Math.cos(alpha*Math.PI/180);
 		y0 = -R*Math.sin(alpha*Math.PI/180);
 	}
 	else
 	{
 		// On va à droite
-		headOrthogonal = (currentHead+90)%360;
-		alpha = (90 + headOrthogonal)%360;
+		headOrthogonal = (currentHead+90)%360+1;
+		alpha = (90 + headOrthogonal)%360+1;
 		x0 = R*Math.cos(alpha*Math.PI/180);
 		y0 = R*Math.sin(alpha*Math.PI/180);
 	}
@@ -184,4 +182,51 @@ function calculateOrientation(A,B){
 	angle = Math.acos((xB-xA)/rayon);
 
 	return parseInt(angle*180/Math.PI+cadran);
+}
+
+// Permet de déterminer la meilleure manière d'atteindre le cap visé. Renvoie 0 si gauche, 1 si droite et -1 en cas d'erreur
+function calculateBetterWayToReachTargetHead(avion){
+	var betterWay = -1, currentHead = avion.getH(), targetHead = avion.getHTarget();
+	if (currentHead != targetHead){
+
+		if (currentHead <= 180 && targetHead <= 180){
+			if (targetHead>currentHead){
+				betterWay = 1;
+			}
+			else
+			{
+				betterWay = 0;
+			}
+		}
+		else if (currentHead > 180 && targetHead > 180){
+			if (targetHead>currentHead){
+				betterWay = 1;
+			}
+			else
+			{
+				betterWay = 0;
+			}
+		}
+		else if (currentHead >= 180 && targetHead < 180){
+			if (Math.abs(targetHead-currentHead) < 180){
+				betterWay = 0;
+			}
+			else
+			{
+				betterWay = 1;
+			}
+		}
+		else if (currentHead < 180 && targetHead >= 180){
+			if (Math.abs(targetHead-currentHead) <= 180){
+				betterWay = 1;
+			}
+			else
+			{
+				betterWay = 0;
+			}
+		}
+
+	}
+
+	return betterWay;
 }

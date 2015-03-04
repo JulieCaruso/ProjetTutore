@@ -46,6 +46,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	var controllable = controllable;
 	var zTarget = zTarget;
 	var hTarget = hInit;
+	var vTarget = vInit;
 	var typeInLabel = typeInLabel;
 	var listOfTargetPoints = [];
 	var indexCurrentTarget = 0;
@@ -53,6 +54,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	// GETTERS d'attributs privés
 	if( typeof Avion.initialized == "undefined" ) { 
 
+		Avion.prototype.getNameOfPlane = function() { return this.nameOfPlane;}
 		Avion.prototype.getTypeOfPlane = function() { return this.typeOfPlane;}
         Avion.prototype.getXInitial = function() { return xInitial;}; 
         Avion.prototype.getYInitial = function() { return yInitial;}; 
@@ -75,7 +77,8 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getRateInitial = function() { return rateInit;}; 
         Avion.prototype.isControllable = function() { return controllable;}; 
         Avion.prototype.getZTarget = function() { return zTarget;};
-        Avion.prototype.getHTarget = function() { return hTarget;}; 
+        Avion.prototype.getHTarget = function() { return hTarget;};
+        Avion.prototype.getVTarget = function() { return vTarget;}; 
         Avion.prototype.getTypeInLabel = function() { return typeInLabel;}; 
         Avion.prototype.getListOfTargetPoints = function() { return listOfTargetPoints;};
 		Avion.prototype.getIndexCurrentTarget = function() { return indexCurrentTarget;};
@@ -93,6 +96,8 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.setZ = function(Z) { zCurrent = Z;}; 
         Avion.prototype.setH = function(H) { hCurrent = H;};
         Avion.prototype.setHTarget = function(h) { hTarget = h;};
+        Avion.prototype.setZTarget = function(z) { zTarget = z;};
+        Avion.prototype.setVTarget = function(v) { vTarget = v;};
 		Avion.prototype.setX1 = function(X) { x1 = X;}; 
         Avion.prototype.setY1 = function(Y) { y1 = Y;}; 
 		Avion.prototype.setX2 = function(X) { x2 = X;}; 
