@@ -14,7 +14,7 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		
+		/*
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+120)%360);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
@@ -25,6 +25,7 @@ function chgt(){
 		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
 		
 		// FIN TEST*/
+		var ordre = new Ordre(Avion.getListeAvions()[0],"IS");
 		init();
 	}
 }
