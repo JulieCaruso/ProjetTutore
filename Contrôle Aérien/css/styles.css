@@ -19,7 +19,7 @@ footer, .paragraphe, p {
 }
 
 #panneauLateral {
-    position:fixed;
+    position : absolute;
     top:40px;
     right:20%;
 }
