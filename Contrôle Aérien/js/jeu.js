@@ -136,8 +136,8 @@ function initPanneauLateral() {
     id=\"selectAlt\"></select></span></td></tr><tr><td>Cible :<br/><span class=\"marge\">Actuelle : <span id=\"currentTarget\"/> \
     </span><br/><span class=\"marge\">Nouvelle cible :<select name=\"selectTarget\" id=\"selectTarget\"></select></span></td></tr><tr> \
     <td>Cap :<br/><span class=\"marge\">Actuel :<span id=\"currentCap\"/></span><br/><span class=\"marge\">Nouveau cap :   <select name=\"selectCap\" \
-    id=\"selectCap\"></select><br/><input type=\"checkbox\" name=\"virageCourt\" value=\"0\"/>Virage le plus court <input type=\"checkbox\" name=\"virageDroite\" \
-    value=\"1\"/>Virage droite<input type=\"checkbox\" name=\"virageGauche\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input id=\"bSend\" type=\"submit\" value=\"Envoyer\"/> \
+    id=\"selectCap\"></select><br/><input type=\"radio\" id=\"virageC\" name=\"virage\" checked=\"checked\" value=\"0\"/>Virage le plus court <input type=\"radio\" name=\"virage\" \
+    id=\"virageD\" value=\"1\"/>Virage droite<input type=\"radio\" name=\"virage\" id=\"virageG\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input id=\"bSend\" type=\"submit\" value=\"Envoyer\"/> \
     </td></tr></table><table><tr><td>Vitesse du jeu<div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
     max=\"10\" step=\"1\"/></td></tr></table></td></tr></table>");
     
@@ -152,6 +152,7 @@ function sendData() {
     if (selectedPlane != -1) {
         var changements = [];
         traitementAltitude(changements);
+        traitementCap(changements);
         if (changements.length > 0) {
             var ordre = new Ordre(Avion.getListeAvions()[selectedPlane],changements);
         }
@@ -171,6 +172,33 @@ function traitementAltitude(changements) {
             Avion.getListeAvions()[selectedPlane].setZ(altitudeVoulue);
             updatePanneauLateralAltitudeCourante();
         }
+}
+
+function traitementCap(changements) {
+        var capCourant = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getH() ;
+        var capVoulu = document.getElementById('selectCap').value;
+        if (capCourant > capVoulu) {
+            changementCap(changements);
+            Avion.getListeAvions()[selectedPlane].setH(capVoulu);
+            updatePanneauLateralAltitudeCourante();
+        }
+        else if (capCourant < capVoulu) {
+            changementCap(changements);
+            Avion.getListeAvions()[selectedPlane].setH(capVoulu);
+            updatePanneauLateralAltitudeCourante();
+        }
+}
+
+function changementCap(changements) {
+    if(document.getElementById('virageC').checked){
+		changements.push(Ordre.Changement.CHANGE_HEAD_BETTER_WAY);
+	} else if (document.getElementById('virageD').checked) { 
+		changements.push(Ordre.Changement.CHANGE_HEAD_BY_RIGHT);
+	}
+	else {
+	    changements.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
+	}
+    
 }
 
 
