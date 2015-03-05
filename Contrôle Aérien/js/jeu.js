@@ -180,12 +180,12 @@ function traitementCap(changements) {
         if (capCourant > capVoulu) {
             changementCap(changements);
             Avion.getListeAvions()[selectedPlane].setH(capVoulu);
-            updatePanneauLateralAltitudeCourante();
+            updatePanneauLateralCapCourant();
         }
         else if (capCourant < capVoulu) {
             changementCap(changements);
             Avion.getListeAvions()[selectedPlane].setH(capVoulu);
-            updatePanneauLateralAltitudeCourante();
+            updatePanneauLateralCapCourant();
         }
 }
 
