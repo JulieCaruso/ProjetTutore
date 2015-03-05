@@ -43,7 +43,8 @@ function chgt(){
 }
 
 function init(){
-	
+	canvasWidth = "579";
+    canvasHeight = "436";
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -128,57 +129,89 @@ function dessinerImage() {
 }
 
 function initPanneauLateral() {
-    $('#panneauLateral').html("<table border= \"1\"><tr><td><form action=\"post\"><table><tr><td>Nom<span id=\"nomAvion\"/></td></tr> \
-    <tr><td>Vitesse<span id=\"vitesseAvion\"/></td></tr><tr><td>Altitude : <br/><span class=\"marge\">Actuelle : \
+    $('#panneauLateral').html("<table border= \"1\"><tr><td><table><tr><td>Nom<span id=\"nomAvion\"/></td></tr> \
+    <tr><td>Vitesse : <br/><span class=\"marge\">Actuelle : <span id=\"vitesseAvion\"/></span><br/><span class=\"marge\">Nouvelle vitesse :<select name=\"selectVitesse\" \
+    id=\"selectVitesse\"></select></span></td></tr><tr><td>Altitude : <br/><span class=\"marge\">Actuelle : \
     <span id=\"currentAltitude\"/></span><br/><span class=\"marge\">Nouvelle altitude :<select name=\"selectAltitude\" \
     id=\"selectAlt\"></select></span></td></tr><tr><td>Cible :<br/><span class=\"marge\">Actuelle : <span id=\"currentTarget\"/> \
     </span><br/><span class=\"marge\">Nouvelle cible :<select name=\"selectTarget\" id=\"selectTarget\"></select></span></td></tr><tr> \
     <td>Cap :<br/><span class=\"marge\">Actuel :<span id=\"currentCap\"/></span><br/><span class=\"marge\">Nouveau cap :   <select name=\"selectCap\" \
     id=\"selectCap\"></select><br/><input type=\"checkbox\" name=\"virageCourt\" value=\"0\"/>Virage le plus court <input type=\"checkbox\" name=\"virageDroite\" \
-    value=\"1\"/>Virage droite<input type=\"checkbox\" name=\"virageGauche\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input type=\"button\" \
-    name=\"bSend\" value=\"Envoyer\"onclick=\"sendData\"/></td></tr></table><table><tr><td>Vitesse du jeu<div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
-    max=\"10\" step=\"1\"/></td></tr></table></form></td></tr></table>");
+    value=\"1\"/>Virage droite<input type=\"checkbox\" name=\"virageGauche\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input id=\"bSend\" type=\"submit\" value=\"Envoyer\"/> \
+    </td></tr></table><table><tr><td>Vitesse du jeu<div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
+    max=\"10\" step=\"1\"/></td></tr></table></td></tr></table>");
+    
+    $('#bSend').click(function() {
+		sendData();
+	});		
+}
+
+function sendData() {
+    //selectedPlane correspond au numero de l'avion actuellement cliqué
+    // selectedPlane = -1 => aucun avion cliqué
+    if (selectedPlane != -1) {
+        var changements = [];
+        traitementAltitude(changements);
+        if (changements.length > 0) {
+            var ordre = new Ordre(Avion.getListeAvions()[selectedPlane],changements);
+        }
+    }
+}
+
+function traitementAltitude(changements) {
+        var altitudeCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
+        var altitudeVoulue = document.getElementById('selectAlt').value;
+        if (altitudeCourante > altitudeVoulue) {
+            changements.push(Ordre.Changement.DECREASE_ALTITUDE);
+            Avion.getListeAvions()[selectedPlane].setZ(altitudeVoulue);
+            updatePanneauLateralAltitudeCourante();
+        }
+        else if (altitudeCourante < altitudeVoulue) {
+            changements.push(Ordre.Changement.INCREASE_ALTITUDE);
+            Avion.getListeAvions()[selectedPlane].setZ(altitudeVoulue);
+            updatePanneauLateralAltitudeCourante();
+        }
 }
 
 
-function updatePanneauLateral(a) {
-	updatePanneauLateralNom(a);
-	updatePanneauLateralVitesse(a);
-	updatePanneauLateralAltitudeCourante(a);
-	fillPanneauLateralAltitudesPossibles(a);
-	updatePanneauLateralCapCourant(a);
-	fillPanneauLateralCapPossibles(a);
+function updatePanneauLateral() {
+	updatePanneauLateralNom();
+	updatePanneauLateralVitesse();
+	updatePanneauLateralAltitudeCourante();
+	fillPanneauLateralAltitudesPossibles();
+	updatePanneauLateralCapCourant();
+	fillPanneauLateralCapPossibles();
 	//$('#nomAvion').html(nomAvion+"-"+typeAvion);
 }
 
-function updatePanneauLateralNom(a) {
+function updatePanneauLateralNom() {
 	var spanNomAvion = document.getElementById('nomAvion');
-	var nomAvion = listeNiveaux[niveauCourant].getListOfAvions()[a].nameOfPlane ;
-	var typeAvion = listeNiveaux[niveauCourant].getListOfAvions()[a].typeOfPlane ;
+	var nomAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].nameOfPlane ;
+	var typeAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].typeOfPlane ;
 	spanNomAvion.textContent = "  "+nomAvion+"-"+typeAvion;
 }
 
-function updatePanneauLateralVitesse(a) {
+function updatePanneauLateralVitesse() {
 	var spanVitesseAvion = document.getElementById('vitesseAvion');
-	var vitesseAvion = listeNiveaux[niveauCourant].getListOfAvions()[a].getV() ;
+	var vitesseAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV() ;
 	spanVitesseAvion.textContent = "  "+vitesseAvion+" noeuds";
 }
 
-function updatePanneauLateralAltitudeCourante(a) {
+function updatePanneauLateralAltitudeCourante() {
 	var spanAltitudeCouranteAvion = document.getElementById('currentAltitude');
-	var AltitudeCouranteAvion = listeNiveaux[niveauCourant].getListOfAvions()[a].getZ() ;
+	var AltitudeCouranteAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
 	spanAltitudeCouranteAvion.textContent = "  "+AltitudeCouranteAvion+" pieds";
 }
 
-function fillPanneauLateralAltitudesPossibles(a) {
+function fillPanneauLateralAltitudesPossibles() {
 	var selectElement = document.getElementById('selectAlt');
-	var perfos = Avion.getPerformancesPerType()[listeNiveaux[niveauCourant].getListOfAvions()[a].typeOfPlane];
+	var perfos = Avion.getPerformancesPerType()[listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].typeOfPlane];
 	for(var i in perfos["performances"])
 	{
 		var Element = document.createElement('option');
 		Element.value = i;
 		// si l'altitude est l'altitude courante, alors cette valeur est selectionnee par defaut
-		if (i == listeNiveaux[niveauCourant].getListOfAvions()[a].getZ()) {
+		if (i == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ()) {
 			Element.selected = "selected" ;
 		}
 		Element.textContent = parseInt(i);
@@ -186,14 +219,14 @@ function fillPanneauLateralAltitudesPossibles(a) {
 	}
 }
 
-function fillPanneauLateralCapPossibles(a) {
+function fillPanneauLateralCapPossibles() {
 	var selectElement = document.getElementById('selectCap');
 	for(var i=1; i<361;i++)
 	{
 		var Element = document.createElement('option');
 		Element.value = i;
-		// si l'altitude est l'altitude courante, alors cette valeur est selectionnee par defaut
-		if (i == listeNiveaux[niveauCourant].getListOfAvions()[a].getH()) {
+		// si le cap est le cap courant, alors cette valeur est selectionnee par defaut
+		if (i == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getH()) {
 			Element.selected = "selected" ;
 		}
 		Element.textContent = parseInt(i);
@@ -201,9 +234,9 @@ function fillPanneauLateralCapPossibles(a) {
 	}
 }
 
-function updatePanneauLateralCapCourant(a) {
+function updatePanneauLateralCapCourant() {
 	var spanCurrentCapAvion = document.getElementById('currentCap');
-	var CurrentCapAvion = listeNiveaux[niveauCourant].getListOfAvions()[a].getH() ;
+	var CurrentCapAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getH() ;
 	spanCurrentCapAvion.textContent = "  "+CurrentCapAvion;
 }
 
@@ -335,7 +368,8 @@ function clicCanvas(e){
 		var R = 100000;
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()-xSourisCanvas) < R
 			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()-ySourisCanvas) < R){
-			updatePanneauLateral(a);
+			selectedPlane = a;
+			updatePanneauLateral();
 		}
 	}
 }
