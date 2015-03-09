@@ -82,16 +82,16 @@ function init(){
 	tempsNiveau = 0;
 	niveauCourant = 0;
 	ecranCourant = null;
-	tempsLimite = 60;
-	tempsNiveauLimite = 20;
+	tempsLimite = 600;
+	tempsNiveauLimite = 200;
 	//init target initial sur le premier target point
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 		xA = listeNiveaux[niveauCourant].getListOfAvions()[a].getX();
 		yA = listeNiveaux[niveauCourant].getListOfAvions()[a].getY();
-		var pA = Point(xA, yA);
+		var pA = new Point(xA, yA);
 		xT = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()[0].getX();
 		yT = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()[0].getY();
-		var pT = Point(xT, yT);
+		var pT = new Point(xT, yT);
 		listeNiveaux[niveauCourant].getListOfAvions()[a].setHTarget(calculateOrientation(pA, pT));
 	}
 
@@ -360,9 +360,9 @@ function dessineAvion(a){
 		a.setX1(x);
 		a.setY1(y);
 	}
-	console.debug(a.getH()+"  "+a.getHTarget());
 	if (a.getH() != a.getHTarget()){
 		// sensVirage a changer plus tard en fonction du panneau a droite
+		//PB ICI: l'avion tourne en rond
 		calculateHead(a, 0);
 	}
 	else {
@@ -373,6 +373,7 @@ function dessineAvion(a){
 		a.setX(x);
 		a.setY(y);
 	}
+	console.log(a.getH()+"  "+a.getHTarget());
 	// sauvegarde de l'état du contexte
 	dessinA(a.getX()/500, a.getY()/500, 5, "#FF9900");
 	dessinA(a.getX1()/500, a.getY1()/500, 2.5, "#FFAD5C");
