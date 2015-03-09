@@ -1,5 +1,5 @@
-canvasWidth = "579";
-canvasHeight = "436";
+//canvasWidth = "579";
+//canvasHeight = "436";
 distLimite = 20;
 
 //quand 2 avions se rapprochent

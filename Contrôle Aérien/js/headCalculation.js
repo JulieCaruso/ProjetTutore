@@ -22,29 +22,29 @@ function calculateHead(avion,sensVirage){
 	// speed en mètres/seconde, R en mètres 
 	R = parseInt((speed*speed)/(Math.tan(inclinaison*Math.PI/180)*9.81));
 
-	console.debug("R = "+R);
+	//console.debug("R = "+R);
 
 	//var point = calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage);
 
-	console.debug("Current head = "+currentHead+", Type = "+type+", speed = "+speed+", Sens du virage = "+(sensVirage==0?"Gauche":"Droite"));
+	//console.debug("Current head = "+currentHead+", Type = "+type+", speed = "+speed+", Sens du virage = "+(sensVirage==0?"Gauche":"Droite"));
 
 	// On multiplie la distance en m/s par deltaT = 1 seconde
 	distanceAB = parseInt(speed*1);
 
 
-	console.debug("DistanceAB/2R (doit être entre -1 et 1): "+distanceAB/(2*R));
-	console.debug("ArcCos (renvoie un angle entre 0 et Pi/2): "+Math.acos(distanceAB/(2*R)));
+	//console.debug("DistanceAB/2R (doit être entre -1 et 1): "+distanceAB/(2*R));
+	//console.debug("ArcCos (renvoie un angle entre 0 et Pi/2): "+Math.acos(distanceAB/(2*R)));
 	// On en déduit delta
 	delta = (Math.acos(distanceAB/(2*R)))*180/Math.PI;
 	
-	console.debug("Delta (convertie en degrès) = "+delta);
+	//console.debug("Delta (convertie en degrès) = "+delta);
 	// Et donc deltaH
 	deltaH = (90 - delta)%360+1;
-	console.debug("DeltaH = "+deltaH);
+	//console.debug("DeltaH = "+deltaH);
 
 	if(sensVirage == 0)
 	{
-		console.debug("Cap + 1 = "+(currentHead-deltaH));
+		//console.debug("Cap + 1 = "+(currentHead-deltaH));
 		// On va par la gauche en diminuant (ex : on va de 180° à 9O°)
 		if (currentHead > targetHead){
 
@@ -80,7 +80,7 @@ function calculateHead(avion,sensVirage){
 	}
 	else 
 	{
-		console.debug("Cap +1 = "+(currentHead+deltaH));
+		//console.debug("Cap +1 = "+(currentHead+deltaH));
 		// On va par la droite en augmentant (ex : on va de 90° à 180°)
 		if (currentHead < targetHead){
 
@@ -121,7 +121,7 @@ function calculateHead(avion,sensVirage){
 	xB = avion.getX();
 	yB = avion.getY();
 
-	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+avion.getH()+", Cap visé : "+targetHead+", Position initiale (A) : X = "+xA+", Y = "+yA+", Position + 1 seconde (B) : X = "+xB+", Y = "+yB);
+	//console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+avion.getH()+", Cap visé : "+targetHead+", Position initiale (A) : X = "+xA+", Y = "+yA+", Position + 1 seconde (B) : X = "+xB+", Y = "+yB);
 	// On vérifie le décalage
 
 

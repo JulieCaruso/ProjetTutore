@@ -84,6 +84,16 @@ function init(){
 	ecranCourant = null;
 	tempsLimite = 60;
 	tempsNiveauLimite = 20;
+	//init target initial sur le premier target point
+	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
+		xA = listeNiveaux[niveauCourant].getListOfAvions()[a].getX();
+		yA = listeNiveaux[niveauCourant].getListOfAvions()[a].getY();
+		var pA = Point(xA, yA);
+		xT = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()[0].getX();
+		yT = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()[0].getY();
+		var pT = Point(xT, yT);
+		listeNiveaux[niveauCourant].getListOfAvions()[a].setHTarget(calculateOrientation(pA, pT));
+	}
 
 	// GESTIONNAIRES
 	// gestionnaire du bouton #boutonJeu
@@ -309,7 +319,15 @@ function animer() {
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
-			dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+			if (listeNiveaux[niveauCourant].getListOfAvions()[a].getIndexCurrentTarget >= listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length){
+				// end of game?
+			}
+			else {
+				// test airproc pour toutes les combinaisons d'avions
+				// rajouter test avec les targets
+				dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+				
+			}			
 		}			
 	}			
 }
@@ -342,6 +360,7 @@ function dessineAvion(a){
 		a.setX1(x);
 		a.setY1(y);
 	}
+	console.debug(a.getH()+"  "+a.getHTarget());
 	if (a.getH() != a.getHTarget()){
 		// sensVirage a changer plus tard en fonction du panneau a droite
 		calculateHead(a, 0);

@@ -83,7 +83,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getTypeInLabel = function() { return typeInLabel;}; 
         Avion.prototype.getListOfTargetPoints = function() { return listOfTargetPoints;};
 		Avion.prototype.getIndexCurrentTarget = function() { return indexCurrentTarget;};
-	Avion.prototype.getColor = function() { return color;};
+		Avion.prototype.getColor = function() { return color;};
 		
 		//SETTERS
 		Avion.prototype.setXInitial = function(x) { xInitial = x;}; 
