@@ -174,12 +174,12 @@ function traitementAltitude(changements) {
         var altitudeVoulue = document.getElementById('selectAlt').value;
         if (altitudeCourante > altitudeVoulue) {
             changements.push(Ordre.Changement.DECREASE_ALTITUDE);
-            Avion.getListeAvions()[selectedPlane].setZ(altitudeVoulue);
+            Avion.getListeAvions()[selectedPlane].setZTarget(altitudeVoulue);
             updatePanneauLateralAltitudeCourante();
         }
         else if (altitudeCourante < altitudeVoulue) {
             changements.push(Ordre.Changement.INCREASE_ALTITUDE);
-            Avion.getListeAvions()[selectedPlane].setZ(altitudeVoulue);
+            Avion.getListeAvions()[selectedPlane].setZTarget(altitudeVoulue);
             updatePanneauLateralAltitudeCourante();
         }
 }
@@ -189,12 +189,12 @@ function traitementCap(changements) {
         var capVoulu = document.getElementById('selectCap').value;
         if (capCourant > capVoulu) {
             changementCap(changements);
-            Avion.getListeAvions()[selectedPlane].setH(capVoulu);
+            Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
             updatePanneauLateralCapCourant();
         }
         else if (capCourant < capVoulu) {
             changementCap(changements);
-            Avion.getListeAvions()[selectedPlane].setH(capVoulu);
+            Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
             updatePanneauLateralCapCourant();
         }
 }
