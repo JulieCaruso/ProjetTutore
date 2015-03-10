@@ -189,22 +189,22 @@ function animer() {
 }
 function dessineAvion(a){
 	if (tempsNiveau == 2) {
-		a.setX1(x);
-		a.setY1(y);
+		a.setX1(a.getX());
+		a.setY1(a.getY());
 	}
 	else if (tempsNiveau == 3) {
 		a.setX2(a.getX1());
 		a.setY2(a.getY1());
-		a.setX1(x);
-		a.setY1(y);
+		a.setX1(a.getX());
+		a.setY1(a.getY());
 	}
 	else if (tempsNiveau == 4) {
 		a.setX3(a.getX2());
 		a.setY3(a.getY2());
 		a.setX2(a.getX1());
 		a.setY2(a.getY1());
-		a.setX1(x);
-		a.setY1(y);
+		a.setX1(a.getX());
+		a.setY1(a.getY());
 	}
 	else if (tempsNiveau > 4) {
 		a.setX4(a.getX3());
@@ -213,8 +213,8 @@ function dessineAvion(a){
 		a.setY3(a.getY2());
 		a.setX2(a.getX1());
 		a.setY2(a.getY1());
-		a.setX1(x);
-		a.setY1(y);
+		a.setX1(a.getX());
+		a.setY1(a.getY());
 	}
 	if (a.getH() != a.getHTarget()){
 		// sensVirage a changer plus tard en fonction du panneau a droite
@@ -223,11 +223,7 @@ function dessineAvion(a){
 	}
 	else {
 	// paramètres de l'avion
-		var v = a.getV();
-		var x = a.getX() + v*1;
-		var y = a.getY() + v*1;
-		a.setX(x);
-		a.setY(y);
+		calculateXY(a);
 	}
 	console.log(a.getH()+"  "+a.getHTarget());
 	// sauvegarde de l'état du contexte

@@ -137,6 +137,12 @@ function calculateHead(avion,sensVirage){
 
 }
 
+function calculateXY(avion){
+	var speed = parseInt(avion.getV()*60/1852);
+	avion.setX(avion.getX()+speed*Math.sin(avion.getH()*Math.PI/180));
+	avion.setY(avion.getY()-speed*Math.cos(avion.getH()*Math.PI/180));
+}
+
 function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){
 
 	var headOrthogonal = null, alpha = null, x0 = null, y0 = null; 
