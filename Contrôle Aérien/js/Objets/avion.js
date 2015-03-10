@@ -1,4 +1,4 @@
-
+/*******************************************************************************************
 
 Contient les classes d'objets de type :
 - Avion
@@ -11,8 +11,8 @@ Contient les classes d'objets de type :
 
 // Permet de construire un objet de type : Avion
 // Les attributs/méthodes privés sont les attributs/méthodes commençant par "var ....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
-function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTarget,typeInLabel)
-{
+function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTarget,typeInLabel){
+	
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
 	Avion.total = ++Avion.total || 1;
 	Avion.listeAvions = Avion.listeAvions || [this];
@@ -51,7 +51,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 
 	// GETTERS d'attributs privés
 
-
+	if( typeof Avion.initialized == "undefined" ) {
 		Avion.prototype.getNameOfPlane = function() { return this.nameOfPlane;}
 		Avion.prototype.getTypeOfPlane = function() { return this.typeOfPlane;}
         Avion.prototype.getXInitial = function() { return this.xInitial;}; 
@@ -105,20 +105,19 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.setX4 = function(X) { this.x4 = X;}; 
         Avion.prototype.setY4 = function(Y) { this.y4 = Y;};
 		Avion.prototype.setIndexCurrentTarget = function(i) { this.indexCurrentTarget = i;};
-	Avion.prototype.setColor = function(c) {this.color = c};
+		Avion.prototype.setColor = function(c) {this.color = c};
 	
         Avion.initialized = true; 
     }
 
 	// Permet d'ajouter l'avion à la liste à chaque instanciation de la classe
 	var ajouteAvion = (function(avion){ if (Avion.total !== 1) Avion.listeAvions.push(avion);})(this);
-
-
 }
 
 // Permet d'obtenir le nombre d'avions instancié
 Avion.getNombreAvions = function(){
 	if (typeof Avion.total == "undefined")
+		return 0;
 	return Avion.total;
 }
 
@@ -126,32 +125,25 @@ Avion.getNombreAvions = function(){
 Avion.getListeAvions = function(){
 	if (typeof Avion.listeAvions == "undefined")
 		return [];
-	return [];
 	return Avion.listeAvions;
 }
 
 Avion.getPerformancesPerType = function(){ 
 	return Avion.performancesParType; 
-Avion.getPerformancesPerType = function(){
-	return Avion.performancesParType;
 }
 
 Avion.setPerformancesPerType = function(performances) {
 	Avion.performancesParType = performances;
 } 
-}
 
 // Permet de réinitialiser les variables statiques
 Avion.flush = function(){
-		Zone.total = 0;
-		Zone.listeZones = [];
 	Zone.total = 0;
 	Zone.listeZones = [];
 }
 
 // Constructeur pour l'objet de type TargetPoint
-function TargetPoint(x,y,label)
-{
+function TargetPoint(x,y,label){
 	this.type = "TargetPoint";
 	
 	this.x = x;
@@ -161,4 +153,4 @@ function TargetPoint(x,y,label)
 	this.getX = function(){ return x;}
 	this.getY = function(){ return y;}
 	this.getLabel = function() {return label;}
-}}
+}
