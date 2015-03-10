@@ -39,7 +39,7 @@ function calculateHead(avion,sensVirage){
 	
 	//console.debug("Delta (convertie en degrès) = "+delta);
 	// Et donc deltaH
-	deltaH = (90 - delta)%360+1;
+	deltaH = mod((90-delta),360)+1;
 	//console.debug("DeltaH = "+deltaH);
 
 	if(sensVirage == 0)
@@ -54,7 +54,7 @@ function calculateHead(avion,sensVirage){
 			}
 			else
 			{
-				avion.setH((currentHead-deltaH)%360+1);
+				avion.setH(mod((currentHead-deltaH),360)+1);
 			}
 
 		}
@@ -62,7 +62,7 @@ function calculateHead(avion,sensVirage){
 		{
 			// On va par la gauche mais avec un cap visé plus grand que le cap actuel (ex : on va de 90° à 310°)
 			// On diminue donc forcément
-			var new_cap = (currentHead-deltaH)%360+1; 
+			var new_cap = mod((currentHead-deltaH),360)+1; 
 			if (new_cap > 270 && currentHead < 90){
 				if(targetHead > new_cap){
 					avion.setH(targetHead);
@@ -90,13 +90,13 @@ function calculateHead(avion,sensVirage){
 			}
 			else
 			{
-				avion.setH((currentHead+deltaH)%360+1);
+				avion.setH(mod((currentHead+deltaH),360)+1);
 			}
 		}
 		else
 		{
 			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
-			var new_cap = (currentHead+deltaH)%360+1; 
+			var new_cap = mod((currentHead+deltaH),360)+1; 
 			if (currentHead > 270 && new_cap < 90){
 				if(targetHead < new_cap){
 					avion.setH(targetHead);
@@ -134,16 +134,16 @@ function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){
 	
 	if(sensVirage == 0){
 		// On va à gauche
-		headOrthogonal = (currentHead-90)%360+1;
-		alpha = (90 - headOrthogonal)%360+1;
+		headOrthogonal = mod((currentHead-90),360)+1;
+		alpha = mod((90-headOrthogonal),360)+1;
 		x0 = R*Math.cos(alpha*Math.PI/180);
 		y0 = -R*Math.sin(alpha*Math.PI/180);
 	}
 	else
 	{
 		// On va à droite
-		headOrthogonal = (currentHead+90)%360+1;
-		alpha = (90 + headOrthogonal)%360+1;
+		headOrthogonal = mod((currentHead+90),360)+1;
+		alpha = mod((90+headOrthogonal),360)+1;
 		x0 = R*Math.cos(alpha*Math.PI/180);
 		y0 = R*Math.sin(alpha*Math.PI/180);
 	}
@@ -229,4 +229,9 @@ function calculateBetterWayToReachTargetHead(avion){
 	}
 
 	return betterWay;
+}
+
+
+function mod(m,n) {
+        return ((m % n) + n) % n;
 }
