@@ -266,7 +266,7 @@ function clicCanvas(e){
 	var avionSelected = 0;
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 	// TODO
-		var R = 100000;
+		var R = 500;
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()-xSourisCanvas) < R
 			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()-ySourisCanvas) < R){
 			selectedPlane = a;
@@ -277,6 +277,7 @@ function clicCanvas(e){
 	if (avionSelected == 0) {
 	    // aucun avion selectionné -> clear du panneau
 	    reinitialisationPanneau();
+	    selectedPlane = -1;
 	}
 }
 function reinitialisation(){

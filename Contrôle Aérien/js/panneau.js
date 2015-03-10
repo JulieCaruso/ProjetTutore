@@ -103,8 +103,14 @@ function updatePanneauLateral() {
 
     /* REINIT PANNEAU LATERAL */
 function reinitialisationPanneau() {
-    var spanNomAvion = document.getElementById('nomAvion');
-    spanNomAvion.textContent = "";
+    clearNomAvion();
+    clearVitesse();
+	clearAltitudeCourante();
+	clearCapCourant();
+	clearCibleCourante();
+	clearCapPossibles();
+	clearAltitudesPossibles();
+	clearCiblesPossibles();
 }
 
 function updatePanneauLateralNom() {
@@ -181,7 +187,7 @@ function fillPanneauLateralCiblesPossibles() {
 	for(var i in listeCiblesAvion)
 	{
 	    var Element = document.createElement('option');
-	    var nomCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[i].getLabel() ;
+	    var nomCibleAvion = listeCiblesAvion[i].getLabel() ;
 		Element.value = i;
 		// si le cap est le cap courant, alors cette valeur est selectionnee par defaut
 		if (i == indexCurrentCible) {
@@ -193,7 +199,43 @@ function fillPanneauLateralCiblesPossibles() {
 }
 
 /* FONCTIONS CLEAR */
+
 function clearNomAvion() {
     var spanNomAvion = document.getElementById('nomAvion');
     spanNomAvion.textContent = "";
 }
+function clearVitesse() {
+    var spanVitesseAvion = document.getElementById('vitesseAvion');
+	spanVitesseAvion.textContent = "";
+}
+function clearAltitudeCourante() {
+    var spanAltitudeCouranteAvion = document.getElementById('currentAltitude');
+	spanAltitudeCouranteAvion.textContent = "";    
+}
+function clearAltitudesPossibles() {
+    var selectElement = document.getElementById('selectAlt');
+    while (selectElement.firstChild) {
+        selectElement.removeChild(selectElement.firstChild);
+    }    
+}
+function clearCapCourant() {
+    var spanCurrentCapAvion = document.getElementById('currentCap');
+    spanCurrentCapAvion.textContent = "";    
+}
+function clearCapPossibles() {
+    var selectElement = document.getElementById('SelectCap');
+    while (selectElement.firstChild) {
+        selectElement.removeChild(selectElement.firstChild);
+    } 
+}
+function clearCibleCourante() {
+	var spanCurrentCibleAvion = document.getElementById('currentTarget');
+	spanCurrentCibleAvion.textContent = "";
+    console.debug("Init cible :"+spanCurrentCibleAvion.textContent);
+}
+function clearCiblesPossibles() {
+    var selectElement = document.getElementById('SelectTarget');
+    while (selectElement.firstChild) {
+        selectElement.removeChild(selectElement.firstChild);
+    } 	    
+	}
