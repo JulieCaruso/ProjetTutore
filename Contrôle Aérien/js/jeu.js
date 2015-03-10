@@ -86,13 +86,9 @@ function init(){
 	tempsNiveauLimite = 200;
 	//init target initial sur le premier target point
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
-		xA = listeNiveaux[niveauCourant].getListOfAvions()[a].getX();
-		yA = listeNiveaux[niveauCourant].getListOfAvions()[a].getY();
-		var pA = new Point(xA, yA);
-		xT = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()[0].getX();
-		yT = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()[0].getY();
-		var pT = new Point(xT, yT);
-		listeNiveaux[niveauCourant].getListOfAvions()[a].setHTarget(calculateOrientation(pA, pT));
+		updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+		var avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
+		console.log(avion.getX()+"  "+avion.getY());
 	}
 
 	// GESTIONNAIRES

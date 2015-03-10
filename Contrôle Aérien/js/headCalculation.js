@@ -12,6 +12,16 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 */
 
+function updateHeadToTargetPoint(avion){
+	var xA = avion.getX();
+	var yA = avion.getY();
+	var pA = new Point(xA, yA);
+	var xT = avion.getListOfTargetPoints()[0].getX();
+	var yT = avion.getListOfTargetPoints()[0].getY();
+	var pT = new Point(xT, yT);
+	avion.setHTarget(calculateOrientation(pA, pT));
+}
+
 // Méthode d'entrée pour le calcul d'un nouveau cap, on y fournit l'objet de type "Avion" ainsi que le sens de virage (0 si par la gauche, 1 si par la droite)
 function calculateHead(avion,sensVirage){
 	// speed est en noeuds = 1 MN / h avec 1 MN = 1852 m
