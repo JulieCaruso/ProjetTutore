@@ -18,7 +18,6 @@ function testAirProX(avion1, avion2){
 }
 
 //quand l'avion s'approche la limite de la carte
-
 function testAirProXLim(avion){
 	aX1 = avion1.getX();
 	aY1 = avion1.getY();
@@ -27,3 +26,10 @@ function testAirProXLim(avion){
 		avion1.setColor("red");	
 	} else if (avion1.getColor()=="red") {avion2.setColor("blue");}
 }
+
+function testTargetP(avion, targetPoint){
+	dist_avion_targetP = Math.sqrt((avion.getX-targetPoint.getX)^2+(avion.getY-targetPoint.getY)^2);
+	if (dist_avion_targetP <=5){
+		avion.setIndexCurrentTarget(avion.getIndexCurrentTarget+1);
+	} 
+}	
