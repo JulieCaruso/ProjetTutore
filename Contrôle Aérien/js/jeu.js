@@ -235,7 +235,7 @@ function dessineAvion(a){
 	}
 	console.log(a.getH()+"  "+a.getHTarget());
 	// sauvegarde de l'état du contexte
-	dessinA(a.getX()/500, a.getY()/500, 5, "#FF9900");
+	dessinA(a.getX()/100, a.getY()/100, 5, a.getColor());
 	dessinA(a.getX1()/500, a.getY1()/500, 2.5, "#FFAD5C");
 	dessinA(a.getX2()/500, a.getY2()/500, 2, "#FFCE9D");
 	dessinA(a.getX3()/500, a.getY3()/500, 1.5, "#FFCE9D");
