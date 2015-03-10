@@ -87,8 +87,6 @@ function init(){
 	//init target initial sur le premier target point
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 		updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
-		var avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
-		console.log(avion.getX()+"  "+avion.getY());
 	}
 
 	// GESTIONNAIRES
@@ -217,21 +215,20 @@ function dessineAvion(a){
 		a.setY1(a.getY());
 	}
 	if (a.getH() != a.getHTarget()){
-		// sensVirage a changer plus tard en fonction du panneau a droite
-		//PB ICI: l'avion tourne en rond
-		calculateHead(a, 0);
+		// sensVirage A CHANGER plus tard en fonction du panneau a droite
+		calculateHead(a, calculateBetterWayToReachTargetHead(a));
+		
 	}
 	else {
 	// paramètres de l'avion
 		calculateXY(a);
 	}
-	console.log(a.getH()+"  "+a.getHTarget());
 	// sauvegarde de l'état du contexte
-	dessinA(a.getX()/100, a.getY()/100, 5, a.getColor());
-	dessinA(a.getX1()/500, a.getY1()/500, 2.5, "#FFAD5C");
-	dessinA(a.getX2()/500, a.getY2()/500, 2, "#FFCE9D");
-	dessinA(a.getX3()/500, a.getY3()/500, 1.5, "#FFCE9D");
-	dessinA(a.getX4()/500, a.getY4()/500, 1, "#FFCE9D");
+	dessinA(a.getX()/5, a.getY()/5, 5, a.getColor());
+	dessinA(a.getX1()/5, a.getY1()/5, 2.5, "#FFAD5C");
+	dessinA(a.getX2()/5, a.getY2()/5, 2, "#FFCE9D");
+	dessinA(a.getX3()/5, a.getY3()/5, 1.5, "#FFCE9D");
+	dessinA(a.getX4()/5, a.getY4()/5, 1, "#FFCE9D");
 }
 function dessinA(x, y, R, couleur){
 	// sauvegarde de l'état du contexte

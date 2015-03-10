@@ -12,8 +12,8 @@ Contient les classes d'objets de type :
 
 // Permet de construire un objet de type : Avion
 // Les attributs/méthodes privés sont les attributs/méthodes commençant par "var ....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
-function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTarget,typeInLabel)
-{
+function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTarget,typeInLabel){
+	
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
 	Avion.total = ++Avion.total || 1;
 	Avion.listeAvions = Avion.listeAvions || [this];
@@ -107,15 +107,13 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.setX4 = function(X) { this.x4 = X;}; 
         Avion.prototype.setY4 = function(Y) { this.y4 = Y;};
 		Avion.prototype.setIndexCurrentTarget = function(i) { this.indexCurrentTarget = i;};
-	Avion.prototype.setColor = function(c) {this.color = c};
+		Avion.prototype.setColor = function(c) {this.color = c};
 	
         Avion.initialized = true; 
     }
 
 	// Permet d'ajouter l'avion à la liste à chaque instanciation de la classe
 	var ajouteAvion = (function(avion){ if (Avion.total !== 1) Avion.listeAvions.push(avion);})(this);
-
-
 }
 
 // Permet d'obtenir le nombre d'avions instancié

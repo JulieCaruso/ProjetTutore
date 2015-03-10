@@ -30,6 +30,6 @@ function testAirProXLim(avion){
 function testTargetP(avion, targetPoint){
 	dist_avion_targetP = Math.sqrt((avion.getX-targetPoint.getX)^2+(avion.getY-targetPoint.getY)^2);
 	if (dist_avion_targetP <=5){
-		avion.setIndexCurrentTarget(avion.getIndexCurrentTarget+1);
+		avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
 	} 
 }	
