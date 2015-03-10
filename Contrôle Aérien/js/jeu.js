@@ -216,7 +216,6 @@ function dessineAvion(a){
 	}
 	if (a.getH() != a.getHTarget()){
 		// sensVirage A CHANGER plus tard en fonction du panneau a droite
-		console.log(a.getH()+"  "+a.getHTarget());
 		calculateHead(a, calculateBetterWayToReachTargetHead(a));
 		
 	}
