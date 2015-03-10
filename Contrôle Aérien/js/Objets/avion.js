@@ -119,14 +119,14 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 // Permet d'obtenir le nombre d'avions instancié
 Avion.getNombreAvions = function(){
 	if (typeof Avion.total == "undefined")
-	return 0;
+		return 0;
 	return Avion.total;
 }
 
 // Permet d'obtenir la liste des avions instancié
 Avion.getListeAvions = function(){
 	if (typeof Avion.listeAvions == "undefined")
-	return [];
+		return [];
 	return Avion.listeAvions;
 }
 
