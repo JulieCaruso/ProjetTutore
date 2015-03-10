@@ -21,9 +21,9 @@ function testAirProX(avion1, avion2){
 function testAirProXLim(avion){
 	aX1 = avion1.getX();
 	aY1 = avion1.getY();
-	
+
 	if (Math.abs(aX1-parseInt(canvasWidth))<=distLimite|Math.abs(aY1-parseInt(canvasHeight))<=distLimite||Math.abs(aX1)<=distLimite||Math.abs(aY1)<=distLimite){
-		avion1.setColor("red");	
+		avion1.setColor("red");
 	} else if (avion1.getColor()=="red") {avion2.setColor("blue");}
 }
 
