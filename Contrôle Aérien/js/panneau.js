@@ -29,6 +29,9 @@ function sendData() {
         }
     }
 }
+
+/* FONCTIONS DE TRAITEMENT */
+
 function traitementAltitude(changements) {
         var altitudeCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
         var altitudeVoulue = document.getElementById('selectAlt').value;
@@ -71,6 +74,20 @@ function changementCap(changements) {
     
 }
 
+function traitementCible(changements) {
+    /*  TODO / IL MANQUE LA FCT CHANGEMENT CIBLE */
+    /*
+        var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+	    var cibleCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ; 
+        var cibleVoulue = document.getElementById('selectTarget').value;
+        if (cibleCourante != cibleVoulue) {
+            changements.push(Ordre.Changement.TODO);
+            Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
+            updatePanneauLateralCibleCourante();
+        }*/
+}
+
+/* MISE A JOUR DU PANNEAU LATERAL */
 
 function updatePanneauLateral() {
 	updatePanneauLateralNom();
@@ -79,7 +96,15 @@ function updatePanneauLateral() {
 	fillPanneauLateralAltitudesPossibles();
 	updatePanneauLateralCapCourant();
 	fillPanneauLateralCapPossibles();
+	updatePanneauLateralCibleCourante();
+	fillPanneauLateralCiblesPossibles();
 	//$('#nomAvion').html(nomAvion+"-"+typeAvion);
+}
+
+    /* REINIT PANNEAU LATERAL */
+function reinitialisationPanneau() {
+    var spanNomAvion = document.getElementById('nomAvion');
+    spanNomAvion.textContent = "";
 }
 
 function updatePanneauLateralNom() {
@@ -117,6 +142,8 @@ function fillPanneauLateralAltitudesPossibles() {
 	}
 }
 
+/* cap */
+
 function fillPanneauLateralCapPossibles() {
 	var selectElement = document.getElementById('selectCap');
 	for(var i=1; i<361;i++)
@@ -136,4 +163,37 @@ function updatePanneauLateralCapCourant() {
 	var spanCurrentCapAvion = document.getElementById('currentCap');
 	var CurrentCapAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getH() ;
 	spanCurrentCapAvion.textContent = "  "+CurrentCapAvion;
+}
+
+/* cible */
+
+function updatePanneauLateralCibleCourante() {
+	var spanCurrentCibleAvion = document.getElementById('currentTarget');
+	var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+	var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ;
+	spanCurrentCibleAvion.textContent = "  "+CurrentCibleAvion+" (point "+(indexCurrentCible+1)+")";
+}
+
+function fillPanneauLateralCiblesPossibles() {
+	var selectElement = document.getElementById('selectTarget');
+	var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+	var listeCiblesAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints();
+	for(var i in listeCiblesAvion)
+	{
+	    var Element = document.createElement('option');
+	    var nomCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[i].getLabel() ;
+		Element.value = i;
+		// si le cap est le cap courant, alors cette valeur est selectionnee par defaut
+		if (i == indexCurrentCible) {
+			Element.selected = "selected" ;
+		}
+		Element.textContent = nomCibleAvion+" (point "+parseInt(i+1)+")";;
+		selectElement.appendChild(Element);
+	}
+}
+
+/* FONCTIONS CLEAR */
+function clearNomAvion() {
+    var spanNomAvion = document.getElementById('nomAvion');
+    spanNomAvion.textContent = "";
 }

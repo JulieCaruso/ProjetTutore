@@ -1,4 +1,3 @@
-/*********************************************************************************************
 
 
 Contient les classes d'objets de type :
@@ -51,7 +50,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	this.color = "blue";
 
 	// GETTERS d'attributs privés
-	if( typeof Avion.initialized == "undefined" ) { 
+
 
 		Avion.prototype.getNameOfPlane = function() { return this.nameOfPlane;}
 		Avion.prototype.getTypeOfPlane = function() { return this.typeOfPlane;}
@@ -106,6 +105,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.setX4 = function(X) { this.x4 = X;}; 
         Avion.prototype.setY4 = function(Y) { this.y4 = Y;};
 		Avion.prototype.setIndexCurrentTarget = function(i) { this.indexCurrentTarget = i;};
+	Avion.prototype.setColor = function(c) {this.color = c};
 	
         Avion.initialized = true; 
     }
@@ -119,7 +119,6 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 // Permet d'obtenir le nombre d'avions instancié
 Avion.getNombreAvions = function(){
 	if (typeof Avion.total == "undefined")
-		return 0;
 	return Avion.total;
 }
 
@@ -127,21 +126,27 @@ Avion.getNombreAvions = function(){
 Avion.getListeAvions = function(){
 	if (typeof Avion.listeAvions == "undefined")
 		return [];
+	return [];
 	return Avion.listeAvions;
 }
 
 Avion.getPerformancesPerType = function(){ 
 	return Avion.performancesParType; 
+Avion.getPerformancesPerType = function(){
+	return Avion.performancesParType;
 }
 
 Avion.setPerformancesPerType = function(performances) {
 	Avion.performancesParType = performances;
 } 
+}
 
 // Permet de réinitialiser les variables statiques
 Avion.flush = function(){
 		Zone.total = 0;
 		Zone.listeZones = [];
+	Zone.total = 0;
+	Zone.listeZones = [];
 }
 
 // Constructeur pour l'objet de type TargetPoint
@@ -156,4 +161,4 @@ function TargetPoint(x,y,label)
 	this.getX = function(){ return x;}
 	this.getY = function(){ return y;}
 	this.getLabel = function() {return label;}
-}
+}}

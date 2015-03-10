@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        
+        <link rel="stylesheet" media="screen" href="./css/styles.css" type="text/css"/>
+    </head>
+    <body>
+        <table border="1">
+            <tr><td>
+                <form action="post">
+                <table>
+               <tr>
+                   <td>Nom<div id="nomAvion"/></td>
+                </tr>
+                <tr>
+                    <td>Vitesse<div id="vitesseAvion"/></td>
+                </tr>
+                <tr>
+                    <td>Altitude : <br/>
+                        <span class="marge">Actuelle : <span class="currentAltitude"/></span><br/>
+                        <span class="marge">Nouvelle altitude :
+                            <select name="selectAltitude" id="selectAlt">
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                            </select>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cible :<br/>
+                        <span class="marge">Actuelle : <span class="currentTarget"/></span><br/>
+                        <span class="marge">Nouvelle cible :
+                            <select name="selectTarget" id="selectTarget">
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                            </select>
+                        </span></td>
+                </tr>
+                <tr>
+                    <td>Cap :<br/>
+                        <span class="marge">Actuel :<span class="currentCap"/></span><br/>
+                        <span class="marge">Nouveau cap :   
+                            <select name="selectCap" id="selectCap">
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                            </select>
+                            <br/>
+                        <input type="checkbox" name="virageCourt" value="0"/>Virage le plus court 
+                        <input type="checkbox" name="virageDroite" value="1"/>Virage droite
+                        <input type="checkbox" name="virageGauche" value="2"/>Virage gauche
+                            <br/>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <input type="button" name="bSend" value="Envoyer"
+                        onclick="sendData"/>
+                    </td>
+                </tr>
+                </table>
+                <table>
+                <tr>
+                    <td>Vitesse du jeu<div id="vitesseJeu"/>
+                    <input type="range" min="1" max="10" step="1"/></td>
+                </tr>
+                </table>
+                </form>
+            </td></tr>
+        </table>
+    </body>
+</html>
