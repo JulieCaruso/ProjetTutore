@@ -1,3 +1,5 @@
+Lien : https://ensiwiki.ensimag.fr/index.php/G%C3%A9rer_des_branches_avec_Git
+
 Répartition travail : 
 
 PHU THANH = fonctions tests (décrites un peu au dessus et dans le document)
