@@ -22,10 +22,19 @@ function chgt(){
 			calculateHead(Avion.getListeAvions()[0],1);
 			compteur++;
 		}
+		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");*/
+/*
+		var compteur = 0;
+		Avion.getListeAvions()[0].setVTarget(Avion.getListeAvions()[0].getV()-80);
+		while(Avion.getListeAvions()[0].getVTarget() != Avion.getListeAvions()[0].getV()){
+			console.debug("*********************************** CALCUL DE L'INCREMENT DE VITESSE ***********************************");
+			calculateSpeed(Avion.getListeAvions()[0]);
+			compteur++;
+		}
 		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
 
 
-		PARTIE POUR JULIE R
+		//PARTIE POUR JULIE R
 		/*var changements = [];
 		changements.push(Ordre.Changement.INCREASE_ALTITUDE);
 		changements.push(Ordre.Changement.INCREASE_SPEED);

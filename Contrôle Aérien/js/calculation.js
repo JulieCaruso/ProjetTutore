@@ -252,3 +252,50 @@ function calculateBetterWayToReachTargetHead(avion){
 function mod(m,n) {
         return ((m % n) + n) % n;
 }
+
+function calculateSpeed(avion){
+	var vCurrent = avion.getV(), vTarget = avion.getVTarget(), vCalculate = -1;
+
+	console.debug("COUCOU");
+	if (vCurrent < vTarget){
+		vCalculate = vCurrent * 1.02;
+		if (vCalculate > vTarget)
+		{
+			vCalculate = vTarget;
+		}
+	}
+	else
+	{
+		vCalculate = vCurrent * 0.98;
+		if (vCalculate < vTarget)
+		{
+			vCalculate = vTarget;
+		}
+	}
+	console.debug(vCalculate);
+	avion.setV(parseInt(vCalculate));
+
+}
+
+function calculateAltitude(avion){
+	var zCurrent = avion.getZ(), zTarget = avion.getZTarget(), zCalculate = -1;
+
+	if (zCurrent < zTarget){
+		zCalculate = zCurrent * 1.02;
+		if (zCalculate > zTarget)
+		{
+			zCalculate = zTarget;
+		}
+	}
+	else
+	{
+		zCalculate = zCurrent * 0.98;
+		if (zCalculate < zTarget)
+		{
+			zCalculate = zTarget;
+		}
+	}
+
+	avion.setZ(parseInt(zCalculate));
+
+}
