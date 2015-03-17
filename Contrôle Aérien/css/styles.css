@@ -19,11 +19,14 @@ footer, .paragraphe, p {
 }
 
 #panneauLateral {
-    position : absolute;
     top:40px;
     right:20%;
 }
 
+#panneauLateral, #animation {
+	display : inline-block;
+
+}
 canvas {
 	border-style:solid;
 	border-width:1px;
