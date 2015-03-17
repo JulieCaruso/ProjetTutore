@@ -213,29 +213,34 @@ function clearAltitudeCourante() {
 	spanAltitudeCouranteAvion.textContent = "";    
 }
 function clearAltitudesPossibles() {
-    var selectElement = document.getElementById('selectAlt');
-    while (selectElement.firstChild) {
-        selectElement.removeChild(selectElement.firstChild);
-    }    
+    var selectElementAltitude = document.getElementById('selectAlt');
+    var opts = selectElementAltitude.getElementsByTagName('option');
+    while(opts[0]) {
+        selectElementAltitude.removeChild(opts[0]);
+    }
 }
 function clearCapCourant() {
     var spanCurrentCapAvion = document.getElementById('currentCap');
     spanCurrentCapAvion.textContent = "";    
 }
+
 function clearCapPossibles() {
-    var selectElement = document.getElementById('SelectCap');
-    while (selectElement.firstChild) {
-        selectElement.removeChild(selectElement.firstChild);
-    } 
+    var selectElementCap = document.getElementById('selectCap');
+    var opts = selectElementCap.getElementsByTagName('option');
+    while(opts[0]) {
+        selectElementCap.removeChild(opts[0]);
+    }
 }
+
 function clearCibleCourante() {
 	var spanCurrentCibleAvion = document.getElementById('currentTarget');
 	spanCurrentCibleAvion.textContent = "";
-    console.debug("Init cible :"+spanCurrentCibleAvion.textContent);
 }
+
 function clearCiblesPossibles() {
-    var selectElement = document.getElementById('SelectTarget');
-    while (selectElement.firstChild) {
-        selectElement.removeChild(selectElement.firstChild);
-    } 	    
-	}
+    selectElementTarget = document.getElementById('selectTarget');
+    var opts = selectElementTarget.getElementsByTagName('option');
+    while(opts[0]) {
+        selectElementTarget.removeChild(opts[0]);
+    }	    
+}

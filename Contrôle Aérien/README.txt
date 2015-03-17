@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 Lien : https://ensiwiki.ensimag.fr/index.php/G%C3%A9rer_des_branches_avec_Git
+=======
+Les Branches avec GIT :
+
+https://ensiwiki.ensimag.fr/index.php/G%C3%A9rer_des_branches_avec_Git
+
+
+>>>>>>> origin/master
 
 Répartition travail : 
 
