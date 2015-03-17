@@ -70,4 +70,4 @@ Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on
 
 17/03 à 15h30 : point
 
-31/03 à 15h30 : point 
+31/03 à 15h30 : point
