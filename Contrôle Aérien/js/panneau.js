@@ -70,21 +70,18 @@ function changementCap(changements) {
 	}
 	else {
 	    changements.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
-	}
-    
+	}    
 }
 
 function traitementCible(changements) {
-    /*  TODO / IL MANQUE LA FCT CHANGEMENT CIBLE */
-    /*
         var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
 	    var cibleCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ; 
         var cibleVoulue = document.getElementById('selectTarget').value;
         if (cibleCourante != cibleVoulue) {
-            changements.push(Ordre.Changement.TODO);
             Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
+            changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
             updatePanneauLateralCibleCourante();
-        }*/
+        }
 }
 
 /* MISE A JOUR DU PANNEAU LATERAL */
@@ -92,6 +89,7 @@ function traitementCible(changements) {
 function updatePanneauLateral() {
 	updatePanneauLateralNom();
 	updatePanneauLateralVitesse();
+	fillPanneauLateralVitessesPossibles();
 	updatePanneauLateralAltitudeCourante();
 	fillPanneauLateralAltitudesPossibles();
 	updatePanneauLateralCapCourant();
@@ -105,6 +103,7 @@ function updatePanneauLateral() {
 function reinitialisationPanneau() {
     clearNomAvion();
     clearVitesse();
+    clearVitessesPossibles();
 	clearAltitudeCourante();
 	clearCapCourant();
 	clearCibleCourante();
@@ -131,6 +130,36 @@ function updatePanneauLateralAltitudeCourante() {
 	var AltitudeCouranteAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
 	spanAltitudeCouranteAvion.textContent = "  "+AltitudeCouranteAvion+" pieds";
 }
+
+function fillPanneauLateralVitessesPossibles() {
+	var selectElement = document.getElementById('selectVitesse');
+	var perfos = Avion.getPerformancesPerType()[listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].typeOfPlane];
+	for(var i in perfos["performances"])
+	{
+	   // il faut verifier que la vitesse n'est pas deja dans le menu déroulant
+	   var selectElementVitesses = document.getElementById('selectVitesse');
+       var opts = selectElementVitesses.getElementsByTagName('option');
+	   var ecrire = true;
+	   for (var j=0; j< opts.length; j++) {
+            if(opts[j].value == perfos["performances"][i]["Vpc"])
+                {
+                    ecrire = false;
+                }
+        };
+        
+        if (ecrire) {
+      		var Element = document.createElement('option');
+      		Element.value = perfos["performances"][i]["Vpc"];
+      		// si l'altitude est l'altitude courante, alors cette valeur est selectionnee par defaut
+      		if (i == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV()) {
+      			Element.selected = "selected" ;
+      		}
+      		Element.textContent = parseInt(perfos["performances"][i]["Vpc"]);
+      		selectElement.appendChild(Element);
+        }
+	}
+}
+
 
 function fillPanneauLateralAltitudesPossibles() {
 	var selectElement = document.getElementById('selectAlt');
@@ -208,6 +237,15 @@ function clearVitesse() {
     var spanVitesseAvion = document.getElementById('vitesseAvion');
 	spanVitesseAvion.textContent = "";
 }
+
+function clearVitessesPossibles() {
+    var selectElementVitesse = document.getElementById('selectVitesse');
+    var opts = selectElementVitesse.getElementsByTagName('option');
+    while(opts[0]) {
+        selectElementVitesse.removeChild(opts[0]);
+    }
+}
+
 function clearAltitudeCourante() {
     var spanAltitudeCouranteAvion = document.getElementById('currentAltitude');
 	spanAltitudeCouranteAvion.textContent = "";    

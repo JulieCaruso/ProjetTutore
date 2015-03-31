@@ -147,6 +147,21 @@ function Ordre(avion,changements){
 				case(Ordre.Changement.LEAVE_CONTROL_ZONE):
 
 					break;
+				case(Ordre.Changement.MODIFY_TARGET_POINT):
+						// On va chercher le prochain target point
+						var targetPointAvion = avion.getListOfTargetPoints()[avion.getIndexCurrentTarget()];
+						var A = new Point(avion.getX(),avion.getY()), B = new Point(targetPointAvion.getX(),targetPointAvion.getY());
+						var orientation = calculateOrientation(A,B);
+						choice = randomChoice(2);
+						switch(choice){
+							case(1):
+								message += ", <font color=\"red\">leading </font> new target point "+targetPointAvion.getLabel()+" following <font color=\"red\">"+orientation+" degrees</font>";
+							break;
+							case(2):
+								message += ", <font color=\"red\">please, following "+targetPointAvion.getLabel()+" heading "+orientation+" degrees</font>";
+							break;
+						}
+					break;
 				default:
 					console.debug("[Erreur] Un ordre de changement inconnu a été passé : "+changement);
 					break; 
@@ -172,7 +187,8 @@ Ordre.Changement = {
     CHANGE_HEAD_BY_RIGHT : 6,
     STORM_ZONE_ENTRY_WARNING : 7,
     STORM_ZONE_LEAVING : 8,
-    LEAVE_CONTROL_ZONE : 9
+    LEAVE_CONTROL_ZONE : 9,
+    MODIFY_TARGET_POINT : 10
 
 }
 

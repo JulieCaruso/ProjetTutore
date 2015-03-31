@@ -248,15 +248,15 @@ function calculateBetterWayToReachTargetHead(avion){
 	return betterWay;
 }
 
-
+// Permet de calculer un modulo car celui de javascript ne marche pas
 function mod(m,n) {
         return ((m % n) + n) % n;
 }
 
+// Permet de calculer la vitesse d'un avion progressivement
 function calculateSpeed(avion){
 	var vCurrent = avion.getV(), vTarget = avion.getVTarget(), vCalculate = -1;
 
-	console.debug("COUCOU");
 	if (vCurrent < vTarget){
 		vCalculate = vCurrent * 1.02;
 		if (vCalculate > vTarget)
@@ -277,6 +277,7 @@ function calculateSpeed(avion){
 
 }
 
+// Permet de calculer l'altitude d'un avion progressivement
 function calculateAltitude(avion){
 	var zCurrent = avion.getZ(), zTarget = avion.getZTarget(), zCalculate = -1;
 
