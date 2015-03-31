@@ -89,5 +89,8 @@ todo :
 fait : 
 - vitesses possibles : JR
 
+todo julie : bug des numeros des target points
+ne pas envoyer les chgt si pas de chgment
+
 
 POURQUOI LA 4E POSITION EST TJ A L OUEST

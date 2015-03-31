@@ -22,6 +22,7 @@ function sendData() {
     // selectedPlane = -1 => aucun avion cliqué
     if (selectedPlane != -1) {
         var changements = [];
+        traitementVitesse(changements);
         traitementAltitude(changements);
         traitementCap(changements);
         traitementCible(changements);
@@ -32,6 +33,21 @@ function sendData() {
 }
 
 /* FONCTIONS DE TRAITEMENT */
+
+function traitementVitesse(changements) {
+        var vCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV() ;
+        var vVoulue = document.getElementById('selectVitesse').value;
+        if (vCourante > vVoulue) {
+            changements.push(Ordre.Changement.DECREASE_SPEED);
+            Avion.getListeAvions()[selectedPlane].setVTarget(vVoulue);
+            updatePanneauLateralVitesse();
+        }
+        else if (vCourante < vVoulue) {
+            changements.push(Ordre.Changement.INCREASE_SPEED);
+            Avion.getListeAvions()[selectedPlane].setVTarget(altitudeVoulue);
+            updatePanneauLateralVitesse();
+        }
+}
 
 function traitementAltitude(changements) {
         var altitudeCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
@@ -153,7 +169,7 @@ function fillPanneauLateralVitessesPossibles() {
       		var Element = document.createElement('option');
       		Element.value = perfos["performances"][i]["Vpc"];
       		// si l'altitude est l'altitude courante, alors cette valeur est selectionnee par defaut
-      		if (i == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV()) {
+      		if (perfos["performances"][i]["Vpc"] == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV()) {
       			Element.selected = "selected" ;
       		}
       		Element.textContent = parseInt(perfos["performances"][i]["Vpc"]);
