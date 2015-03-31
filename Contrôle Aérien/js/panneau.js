@@ -24,6 +24,7 @@ function sendData() {
         var changements = [];
         traitementAltitude(changements);
         traitementCap(changements);
+        traitementCible(changements);
         if (changements.length > 0) {
             var ordre = new Ordre(Avion.getListeAvions()[selectedPlane],changements);
         }
