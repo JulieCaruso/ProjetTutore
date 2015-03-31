@@ -80,6 +80,7 @@ function traitementCible(changements) {
         var cibleVoulue = document.getElementById('selectTarget').value;
         if (cibleCourante != cibleVoulue) {
             Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
+            updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
             changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
             updatePanneauLateralCibleCourante();
         }
