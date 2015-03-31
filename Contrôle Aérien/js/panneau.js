@@ -1,3 +1,4 @@
+var t=null; 
 
 function initPanneauLateral() {
     $('#panneauLateral').html("<table border= \"1\"><tr><td><table><tr><td>Nom<span id=\"nomAvion\"/></td></tr> \
@@ -14,8 +15,29 @@ function initPanneauLateral() {
     
     $('#bSend').click(function() {
 		sendData();
-	});		
+	});	
 }
+
+/* fonction appelee pour actualiser periodiquement le panneau lateral
+TODO : valeurs par defaut dans le menu deroulant !!!!
+* */
+function update() {
+    if (selectedPlane != -1) {
+        if (vHasChanged()) {
+            updatePanneauLateralVitesse();
+        }
+        if (zHasChanged()) {
+            updatePanneauLateralAltitudeCourante();
+        }
+        if (hHasChanged()) {
+            updatePanneauLateralCapCourant();
+        }
+        if (tHasChanged()) {
+            updatePanneauLateralCibleCourante();
+        }  
+    }
+}
+
 
 function sendData() {
     //selectedPlane correspond au numero de l'avion actuellement cliqué
@@ -114,6 +136,13 @@ function updatePanneauLateral() {
 	fillPanneauLateralCapPossibles();
 	updatePanneauLateralCibleCourante();
 	fillPanneauLateralCiblesPossibles();
+	
+	function affichageDynamique() { 
+        update(); 
+        console.debug("update appelée");
+        t=setInterval("update()",1000); 
+    } 
+	affichageDynamique();
 	//$('#nomAvion').html(nomAvion+"-"+typeAvion);
 }
 
@@ -224,7 +253,8 @@ function updatePanneauLateralCibleCourante() {
 	var spanCurrentCibleAvion = document.getElementById('currentTarget');
 	var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
 	var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ;
-	spanCurrentCibleAvion.textContent = "  "+CurrentCibleAvion+" (point "+(indexCurrentCible+1)+")";
+	var indexAffiche = indexCurrentCible+1;
+	spanCurrentCibleAvion.textContent = "  "+CurrentCibleAvion+" (point "+(indexAffiche)+")";
 }
 
 function fillPanneauLateralCiblesPossibles() {
@@ -240,7 +270,10 @@ function fillPanneauLateralCiblesPossibles() {
 		if (i == indexCurrentCible) {
 			Element.selected = "selected" ;
 		}
-		Element.textContent = nomCibleAvion+" (point "+parseInt(i+1)+")";;
+		//Element.textContent = nomCibleAvion+" (point "+parseInt(i+1)+")";;
+		var valeurAffichee = parseInt(i);
+		valeurAffichee = valeurAffichee +1 ;
+		Element.textContent = nomCibleAvion+" (point "+valeurAffichee+")";;
 		selectElement.appendChild(Element);
 	}
 }
@@ -300,3 +333,64 @@ function clearCiblesPossibles() {
         selectElementTarget.removeChild(opts[0]);
     }	    
 }
+
+/* les fonctions xHasChanged permettent de savoir si "x" a changé */
+
+// pour la vitesse
+function vHasChanged() {
+    var spanVitesseAvion = document.getElementById('vitesseAvion');
+	var vitesseAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV() ;
+	if (spanVitesseAvion.textContent != "  "+vitesseAvion+" noeuds") {
+    	//console.debug("vitesse changee");
+	    return 1;
+	}
+	else {
+	    //console.debug("vitesse non changee");
+	    return 0;
+	}
+}
+
+// pour le cap
+function hHasChanged() {
+    var spanCurrentCapAvion = document.getElementById('currentCap');
+	var CurrentCapAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getH() ;
+	if (spanCurrentCapAvion.textContent != "  "+CurrentCapAvion) {
+    	//console.debug("cap changé");
+	    return 1;
+	}
+	else {
+	    //console.debug("cap non changé");
+	    return 0;
+	}    
+}
+
+// pour l'altitude
+function zHasChanged() {
+    var spanAltitudeCouranteAvion = document.getElementById('currentAltitude');
+	var AltitudeCouranteAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
+	if (spanAltitudeCouranteAvion.textContent != "  "+AltitudeCouranteAvion+" pieds") {
+    	//console.debug("altitude changee");
+	    return 1;
+	}
+	else {
+	    //console.debug("altitude non changee");
+	    return 0;
+	}    
+}
+
+// pour la cible
+function tHasChanged() {
+    var spanCurrentCibleAvion = document.getElementById('currentTarget');
+	var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+	var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ;
+	var indexAffiche = indexCurrentCible+1;
+	if (spanCurrentCibleAvion.textContent != "  "+CurrentCibleAvion+" (point "+(indexAffiche)+")") {
+    	//console.debug("target has changed");
+	    return 1;
+	}
+	else {
+	    //console.debug("target hasnt changed");
+	    return 0;
+	}    
+}
+  
