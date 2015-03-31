@@ -6,6 +6,7 @@ function init0(){
 	begin = setInterval(chgt, 100);
 }
 
+// PROBLEME ECHELLE
 
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0){
@@ -193,6 +194,10 @@ function animer() {
 						testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
 					}
 				}
+
+				// test airproc limite écran
+				testAirProXLim(avion);
+
 				// test avec les targets
 				var listTP = avion.getListOfTargetPoints();
 				testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
@@ -294,22 +299,39 @@ function clicCanvas(e){
 	ySourisCanvas = ySourisDocument - yCanvas;
 	// test si un avion est cliqué
 	var avionSelected = 0;
+	var targetSelected = 0;
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
+		var avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
 
-		// TODO
+		// TODO : PANNEAU SPECIAL TARGET
 
 		var R = 5;
-		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()/5-xSourisCanvas) < R
-		&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()/5-ySourisCanvas) < R){
+		if(Math.abs(avion.getX()/5-xSourisCanvas) < R
+		&& Math.abs(avion.getY()/5-ySourisCanvas) < R){
 			selectedPlane = a;
 			updatePanneauLateral();
 			avionSelected = 1;
+		}
+
+		for (var t = 0; t < avion.getListOfTargetPoints(); t++){
+			if(Math.abs(avion.getListOfTargetPoints()[t].getX()/5-xSourisCanvas) < R
+			&& Math.abs(avion.getListOfTargetPoints()[t].getY()/5-ySourisCanvas) < R){
+				// on lui passe l'objet target?
+				selectedTarget = avion.getListOfTargetPoints()[t];
+				// updatePanneauTarget();
+				targetSelected = 1;
+			}
 		}
 	}
 	if (avionSelected == 0) {
 		// aucun avion selectionné -> clear du panneau
 		reinitialisationPanneau();
 		selectedPlane = -1;
+	}
+	if (targetSelected == 0) {
+		// aucun avion selectionné -> clear du panneau
+		// reinitialisationPanneauTarget();
+		selectedTarget = -1;
 	}
 }
 
