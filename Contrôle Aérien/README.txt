@@ -87,3 +87,4 @@ todo :
 - maj dynamique des valeurs du panneau d'affichage : JR
 - apporter le café et les croissants : A
 
+POURQUOI LA 4E POSITION EST TJ A L OUEST
