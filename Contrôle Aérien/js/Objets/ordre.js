@@ -14,20 +14,22 @@ Lien permettant d'obtenir une idée des vrais dialogues venant d'une tour de con
 // Permet de construire un objet de type Ordre, changements un objet de type tableau d'objet CHANGEMENT
 function Ordre(avion,changements){
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
-	
+	Ordre.total = ++Ordre.total || 1;
+	Ordre.listeOrdres = Ordre.listeOrdres || [this];
 
 	// Attributs public
 	this.type = "Ordre";
+	this.message = "";
 
 	// Attributs privés
-	var message = "";
 	var changements = changements;
+
 
 	// Getters d'attributs privés
 
 	if( typeof Ordre.initialized == "undefined" ) { 
 
-		Ordre.prototype.getMessage = function() { return message;}
+		Ordre.prototype.getMessage = function() { return this.message;}
 
 		Ordre.prototype.getTabChangements = function() { return changements;}
         
@@ -35,9 +37,9 @@ function Ordre(avion,changements){
         Ordre.initialized = true; 
     }
 
-    // Permet de définir quelles modifications ont été faites et seront à afficher dans le message
+    // Permet de définir quelles modifications ont été faites et seront à afficher dans le this.message
     Ordre.prototype.processShowChangements = function() {
-		message = "<br /><b>"+avion.getNameOfPlane()+"</b>";
+		this.message = "<br /><b>"+avion.getNameOfPlane()+"</b>";
 		var changement = -1, choice = -1;
 		// On observe tous les changements dans le tableau, c'est ici que l'on détaille ici toutes les possiblités
 		for(var i = 0; i < changements.length; i++){
@@ -49,10 +51,10 @@ function Ordre(avion,changements){
 					choice = randomChoice(2);
 					switch(choice){
 						case(1):
-							message += ", increase speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
+							this.message += ", increase speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
 						break;
 						case(2):
-							message += ", raise your speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
+							this.message += ", raise your speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
 						break;
 					}
 					break;
@@ -60,10 +62,10 @@ function Ordre(avion,changements){
 					choice = randomChoice(2);
 					switch(choice){
 						case(1):
-							message += ", reduce speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
+							this.message += ", reduce speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
 						break;
 						case(2):
-							message += ", decrease speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
+							this.message += ", decrease speed to <font color=\"red\">"+avion.getVTarget()+"</font> knots"
 						break;
 					}
 					break;
@@ -71,16 +73,16 @@ function Ordre(avion,changements){
 					choice = randomChoice(4);
 					switch(choice){
 						case(1):
-							message += ", climb to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", climb to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 						case(2):
-							message += ", climb immediately to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", climb immediately to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 						case(3):
-							message += ", ascend to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", ascend to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 						case(4):
-							message += ", go up to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", go up to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 					}
 					
@@ -89,16 +91,16 @@ function Ordre(avion,changements){
 					choice = randomChoice(4);
 					switch(choice){
 						case(1):
-							message += ", descend to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", descend to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 						case(2):
-							message += ", descend immediately to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", descend immediately to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 						case(3):
-							message += ", go down to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", go down to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 						case(4):
-							message += ", come down to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
+							this.message += ", come down to <font color=\"red\">FL "+avion.getZTarget()+"</font>"
 						break;
 					}
 					break;
@@ -119,10 +121,10 @@ function Ordre(avion,changements){
 						choice = randomChoice(2);
 						switch(choice){
 							case(1):
-								message += ", <font color=\"red\">turn left</font> heading <font color=\"red\">"+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font>";
+								this.message += ", <font color=\"red\">turn left</font> heading <font color=\"red\">"+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font>";
 							break;
 							case(2):
-								message += ", <font color=\"red\">turn left "+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font> degrees";
+								this.message += ", <font color=\"red\">turn left "+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font> degrees";
 							break;
 						}
 						break;
@@ -131,10 +133,10 @@ function Ordre(avion,changements){
 						choice = randomChoice(2);
 						switch(choice){
 							case(1):
-								message += ", <font color=\"red\">turn right</font> heading <font color=\"red\">"+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font>";
+								this.message += ", <font color=\"red\">turn right</font> heading <font color=\"red\">"+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font>";
 							break;
 							case(2):
-								message += ", <font color=\"red\">turn right "+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font> degrees";
+								this.message += ", <font color=\"red\">turn right "+(avion.getHTarget()<100?"0"+avion.getHTarget():avion.getHTarget())+"</font> degrees";
 							break;
 						}
 					break;
@@ -155,10 +157,10 @@ function Ordre(avion,changements){
 						choice = randomChoice(2);
 						switch(choice){
 							case(1):
-								message += ", <font color=\"red\">leading </font> new target point "+targetPointAvion.getLabel()+" following <font color=\"red\">"+orientation+" degrees</font>";
+								this.message += ", leading new target point <font color=\"red\">"+targetPointAvion.getLabel()+"</font> following <font color=\"red\">"+orientation+" degrees</font>";
 							break;
 							case(2):
-								message += ", <font color=\"red\">please, following "+targetPointAvion.getLabel()+" heading "+orientation+" degrees</font>";
+								this.message += ", please, following <font color=\"red\">"+targetPointAvion.getLabel()+"</font> heading <font color=\"red\">"+orientation+" degrees</font>";
 							break;
 						}
 					break;
@@ -169,10 +171,34 @@ function Ordre(avion,changements){
 
 		}
 
+		console.debug("MESSAGE DE SORTIE : "+this.message);
+
 	}
 
-    // Permet d'ajouter le message à la zone d'ordres envoyés
-	var showOrder = (function(ordre){ var messages = document.getElementById('zoneOrdres').textContent; ordre.processShowChangements(); $('#zoneOrdres').html(messages+message);})(this);
+    // Permet d'ajouter le this.message à la zone d'ordres envoyés
+	var showOrder = (function(ordre){ 
+		ordre.processShowChangements();
+		console.debug("MESSAGE !!!! "+ordre.getMessage());
+		if (Ordre.total !== 1)
+		{
+			if (Ordre.total == 11)
+			{
+				Ordre.total--;
+				Ordre.listeOrdres.unshift(ordre);
+				Ordre.listeOrdres.pop();
+			}
+			else
+			{
+				Ordre.listeOrdres.unshift(ordre);
+			}
+		}
+		var historique = "";
+		for(var ord in Ordre.listeOrdres)
+		{
+			historique += Ordre.listeOrdres[ord].getMessage();
+			console.debug("Historique : "+historique);
+		}
+		$('#zoneOrdres').html(historique);})(this);
 
 	
 }
