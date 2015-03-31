@@ -178,7 +178,6 @@ function Ordre(avion,changements){
     // Permet d'ajouter le this.message à la zone d'ordres envoyés
 	var showOrder = (function(ordre){ 
 		ordre.processShowChangements();
-		console.debug("MESSAGE !!!! "+ordre.getMessage());
 		if (Ordre.total !== 1)
 		{
 			if (Ordre.total == 11)
@@ -196,7 +195,6 @@ function Ordre(avion,changements){
 		for(var ord in Ordre.listeOrdres)
 		{
 			historique += Ordre.listeOrdres[ord].getMessage();
-			console.debug("Historique : "+historique);
 		}
 		$('#zoneOrdres').html(historique);})(this);
 
