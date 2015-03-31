@@ -158,7 +158,7 @@ function Ordre(avion,changements){
 								message += ", <font color=\"red\">leading </font> new target point "+targetPointAvion.getLabel()+" following <font color=\"red\">"+orientation+" degrees</font>";
 							break;
 							case(2):
-								message += ", <font color=\"red\">please, following "+targetPointAvion.getLabel()+" heading "++orientation" degrees</font>";
+								message += ", <font color=\"red\">please, following "+targetPointAvion.getLabel()+" heading "+orientation+" degrees</font>";
 							break;
 						}
 					break;
