@@ -67,4 +67,23 @@ Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on
 
 17/03 à 15h30 : point
 
-31/03 à 15h30 : point
+==================================================================
+
+seance du 31/03 :
+
+todo : 
+- arranger fenetre logs : JR
+- faire tous les tests avant affichage : JC
+- mettre les noms des avions et des targets : JC + A
+- pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
+- vitesses possibles : JR
+- verifier la maj des données : P
+- mettre a jour l'interface pour prendre en compte le chemin le plus court
+- utiliser le fichier de config
+- langues + niveau à choisir : JC
+- implementer le vent + calcul nouvelle position : A
+- faire fct changement cible : A
+- prendre en compte le changement de vitesse / altitude progressif : P
+- maj dynamique des valeurs du panneau d'affichage : JR
+- apporter le café et les croissants : A
+
