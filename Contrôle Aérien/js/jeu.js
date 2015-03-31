@@ -6,8 +6,6 @@ function init0(){
 	begin = setInterval(chgt, 100);
 }
 
-// faire test Target !!!
-
 
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0){
@@ -18,42 +16,42 @@ function chgt(){
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+120)%360);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
-			console.debug("*********************************** CALCUL DE L'INCREMENT DE CAP ***********************************");
-			calculateHead(Avion.getListeAvions()[0],1);
-			compteur++;
-		}
-		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");*/
-/*
-		var compteur = 0;
-		Avion.getListeAvions()[0].setVTarget(Avion.getListeAvions()[0].getV()-80);
-		while(Avion.getListeAvions()[0].getVTarget() != Avion.getListeAvions()[0].getV()){
-			console.debug("*********************************** CALCUL DE L'INCREMENT DE VITESSE ***********************************");
-			calculateSpeed(Avion.getListeAvions()[0]);
-			compteur++;
-		}
-		console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
-
-
-		//PARTIE POUR JULIE R
-		/*var changements = [];
-		changements.push(Ordre.Changement.INCREASE_ALTITUDE);
-		changements.push(Ordre.Changement.INCREASE_SPEED);
-		changements.push(Ordre.Changement.CHANGE_HEAD_BETTER_WAY);
-		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()-120)%360+1);
-		var ordre = new Ordre(Avion.getListeAvions()[0],changements);
-		var changements2 = [];
-		changements2.push(Ordre.Changement.DECREASE_SPEED);
-		changements2.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
-		Avion.getListeAvions()[1].setHTarget((Avion.getListeAvions()[1].getH()-40)%360+1);
-		var ordre2 = new Ordre(Avion.getListeAvions()[1],changements2);
-		// FIN TEST*/
-		init();
+		console.debug("*********************************** CALCUL DE L'INCREMENT DE CAP ***********************************");
+		calculateHead(Avion.getListeAvions()[0],1);
+		compteur++;
 	}
+	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");*/
+	/*
+	var compteur = 0;
+	Avion.getListeAvions()[0].setVTarget(Avion.getListeAvions()[0].getV()-80);
+	while(Avion.getListeAvions()[0].getVTarget() != Avion.getListeAvions()[0].getV()){
+	console.debug("*********************************** CALCUL DE L'INCREMENT DE VITESSE ***********************************");
+	calculateSpeed(Avion.getListeAvions()[0]);
+	compteur++;
+}
+console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
+
+
+//PARTIE POUR JULIE R
+/*var changements = [];
+changements.push(Ordre.Changement.INCREASE_ALTITUDE);
+changements.push(Ordre.Changement.INCREASE_SPEED);
+changements.push(Ordre.Changement.CHANGE_HEAD_BETTER_WAY);
+Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()-120)%360+1);
+var ordre = new Ordre(Avion.getListeAvions()[0],changements);
+var changements2 = [];
+changements2.push(Ordre.Changement.DECREASE_SPEED);
+changements2.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
+Avion.getListeAvions()[1].setHTarget((Avion.getListeAvions()[1].getH()-40)%360+1);
+var ordre2 = new Ordre(Avion.getListeAvions()[1],changements2);
+// FIN TEST*/
+init();
+}
 }
 
 function init(){
 	canvasWidth = "579";
-  canvasHeight = "436";
+	canvasHeight = "436";
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -129,14 +127,14 @@ function init(){
 }
 
 function dessinerImage() {
-    monCanvas = document.getElementById('dessin');
+	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
 		var img = new Image();   // Crée un nouvel objet Image
-        img.src = 'Images/jeu.png'; // Définit le chemin vers sa source
-        ctx.drawImage(img, 0, 0);
-        }
-    else {
+		img.src = 'Images/jeu.png'; // Définit le chemin vers sa source
+		ctx.drawImage(img, 0, 0);
+	}
+	else {
 		alert('canvas non supporté par ce navigateur');
 	}
 }
@@ -182,21 +180,33 @@ function animer() {
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
-			if (listeNiveaux[niveauCourant].getListOfAvions()[a].getIndexCurrentTarget() >= listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length){
+			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
+			if (avion.getIndexCurrentTarget() >= avion.getListOfTargetPoints().length){
 				// end of game?
+				// afficheBilan();
 			}
 			else {
+
 				// test airproc pour toutes les combinaisons d'avions
-				// rajouter test avec les targets
-				dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
-				var listTP = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()
+				if (a < listeNiveaux[niveauCourant].getListOfAvions().length - 1){
+					for (var b=a+1; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
+						testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
+					}
+				}
+				// test avec les targets
+				var listTP = avion.getListOfTargetPoints();
+				testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
+
+				dessineAvion(avion);
+
 				for (var t = 0; t < listTP.length; t++) {
-						dessinA(listTP[t].getX(), listTP[t].getY(), 5, "green")
+					dessinA(listTP[t].getX()/5, listTP[t].getY()/5, 5, "green")
 				}
 			}
 		}
 	}
 }
+
 function dessineAvion(a){
 	if (tempsNiveau == 2) {
 		a.setX1(a.getX());
@@ -226,13 +236,24 @@ function dessineAvion(a){
 		a.setX1(a.getX());
 		a.setY1(a.getY());
 	}
+
+	// console.debug("h courant : "+a.getH()+", h target : "+a.getHTarget()+", current target : "+a.getIndexCurrentTarget());
+
 	if (a.getH() != a.getHTarget()){
 		// sensVirage A CHANGER plus tard en fonction du panneau a droite
-		calculateHead(a, calculateBetterWayToReachTargetHead(a));
-
+		var sensVirage = -1;
+		if(document.getElementById('virageC').checked){
+			sensVirage = calculateBetterWayToReachTargetHead(a);
+		} else if (document.getElementById('virageD').checked) {
+			sensVirage = 1;
+		}
+		else {
+			sensVirage = 0;
+		}
+		calculateHead(a, sensVirage);
 	}
 	else {
-	// paramètres de l'avion
+		// paramètres de l'avion
 		calculateXY(a);
 	}
 	// sauvegarde de l'état du contexte
@@ -247,9 +268,9 @@ function dessinA(x, y, R, couleur){
 	ctx.save();
 	ctx.translate(x, y);
 	ctx.beginPath();
-   	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
-   	ctx.fillStyle = couleur;
-   	ctx.fill();
+	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
+	ctx.fillStyle = couleur;
+	ctx.fill();
 	// restore le contexte
 	ctx.restore();
 }
@@ -264,7 +285,7 @@ function afficheBilan(){
 function clicCanvas(e){
 	// position de la souris / document
 	var xSourisDocument = e.pageX;
-    var ySourisDocument = e.pageY;
+	var ySourisDocument = e.pageY;
 	// position du canvas / document
 	var xCanvas = monCanvas.offsetLeft;
 	var yCanvas = monCanvas.offsetTop;
@@ -274,21 +295,24 @@ function clicCanvas(e){
 	// test si un avion est cliqué
 	var avionSelected = 0;
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
-	// TODO
+
+		// TODO
+
 		var R = 5;
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()/5-xSourisCanvas) < R
-			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()/5-ySourisCanvas) < R){
+		&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()/5-ySourisCanvas) < R){
 			selectedPlane = a;
 			updatePanneauLateral();
 			avionSelected = 1;
 		}
 	}
 	if (avionSelected == 0) {
-	    // aucun avion selectionné -> clear du panneau
-	    reinitialisationPanneau();
-	    selectedPlane = -1;
+		// aucun avion selectionné -> clear du panneau
+		reinitialisationPanneau();
+		selectedPlane = -1;
 	}
 }
+
 function reinitialisation(){
 	niveauCourant = 0;
 	tempsJeu = 0;

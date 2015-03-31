@@ -1,6 +1,6 @@
 //canvasWidth = "579";
 //canvasHeight = "436";
-distLimite = 20;
+dist_limite = 20;
 
 //quand 2 avions se rapprochent
 function testAirProX(avion1, avion2){
@@ -28,8 +28,12 @@ function testAirProXLim(avion){
 }
 
 function testTargetP(avion, targetPoint){
-	dist_avion_targetP = Math.sqrt((avion.getX-targetPoint.getX)^2+(avion.getY-targetPoint.getY)^2);
-	if (dist_avion_targetP <=5){
-		avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
-	} 
-}	
+	dist_avion_targetP = Math.sqrt(Math.abs((avion.getX()-targetPoint.getX())^2+(avion.getY()-targetPoint.getY())^2));
+	if (dist_avion_targetP <= 5/5){
+		console.debug("hola : "+dist_avion_targetP);
+		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length-1){
+			avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
+			updateHeadToTargetPoint(avion);
+		}
+	}
+}
