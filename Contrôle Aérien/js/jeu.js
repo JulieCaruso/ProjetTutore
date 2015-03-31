@@ -173,14 +173,17 @@ function animer() {
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
-			if (listeNiveaux[niveauCourant].getListOfAvions()[a].getIndexCurrentTarget >= listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length){
+			if (listeNiveaux[niveauCourant].getListOfAvions()[a].getIndexCurrentTarget() >= listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length){
 				// end of game?
 			}
 			else {
 				// test airproc pour toutes les combinaisons d'avions
 				// rajouter test avec les targets
 				dessineAvion(listeNiveaux[niveauCourant].getListOfAvions()[a]);
-
+				var listTP = listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints()
+				for (var t = 0; t < listTP.length; t++) {
+						dessinA(listTP[t].getX(), listTP[t].getY(), 5, "green")
+				}
 			}
 		}
 	}
