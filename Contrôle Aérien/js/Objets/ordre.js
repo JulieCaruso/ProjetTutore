@@ -149,7 +149,7 @@ function Ordre(avion,changements){
 					break;
 				default:
 					console.debug("[Erreur] Un ordre de changement inconnu a été passé : "+changement);
-					break;
+					break; 
 			}
 
 		}
