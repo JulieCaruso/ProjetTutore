@@ -70,21 +70,18 @@ function changementCap(changements) {
 	}
 	else {
 	    changements.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
-	}
-    
+	}    
 }
 
 function traitementCible(changements) {
-    /*  TODO / IL MANQUE LA FCT CHANGEMENT CIBLE */
-    /*
         var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
 	    var cibleCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ; 
         var cibleVoulue = document.getElementById('selectTarget').value;
         if (cibleCourante != cibleVoulue) {
-            changements.push(Ordre.Changement.TODO);
             Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
+            changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
             updatePanneauLateralCibleCourante();
-        }*/
+        }
 }
 
 /* MISE A JOUR DU PANNEAU LATERAL */
