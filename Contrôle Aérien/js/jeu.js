@@ -67,6 +67,7 @@ function init(){
 	// contenu initial de l'écran de jeu
 	$('#animation').html("<canvas id=\"dessin\" width=\""+canvasWidth+"\" height=\""+canvasHeight+"\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
 	initPanneauLateral();
+	initPanneauCible();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
@@ -313,13 +314,13 @@ function clicCanvas(e){
 			avionSelected = 1;
 		}
 
-		for (var t = 0; t < avion.getListOfTargetPoints(); t++){
+		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){
 			if(Math.abs(avion.getListOfTargetPoints()[t].getX()/5-xSourisCanvas) < R
 			&& Math.abs(avion.getListOfTargetPoints()[t].getY()/5-ySourisCanvas) < R){
 				// on lui passe l'objet target?
 				selectedTarget = avion.getListOfTargetPoints()[t];
-				// updatePanneauTarget();
 				targetSelected = 1;
+				updatePanneauCible();
 			}
 		}
 	}
@@ -330,7 +331,7 @@ function clicCanvas(e){
 	}
 	if (targetSelected == 0) {
 		// aucun avion selectionné -> clear du panneau
-		// reinitialisationPanneauTarget();
+		reinitialisationPanneauCible();
 		selectedTarget = -1;
 	}
 }
@@ -351,4 +352,8 @@ function reinitialisation(){
 			listeNiveaux[lv].getListOfAvions()[idA].setY2(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
 		}
 	}
+	// réinitialisation du panneau lateral
+	selectedPlane = -1;
+	reinitialisationPanneau();
+	reinitialisationPanneauCible();
 }

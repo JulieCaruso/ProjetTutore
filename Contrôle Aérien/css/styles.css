@@ -19,11 +19,16 @@ footer, .paragraphe, p {
 }
 
 #panneauLateral {
-    top:40px;
-    right:20%;
+    position:relative;
+    top:-43px;
 }
 
-#panneauLateral, #animation {
+#panneauCible {
+    position:relative;
+    top:-377px;
+}
+
+#panneauLateral, #panneauCible, #animation {
 	display : inline-block;
 
 }

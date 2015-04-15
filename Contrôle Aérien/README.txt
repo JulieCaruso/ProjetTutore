@@ -75,7 +75,6 @@ todo :
 - arranger fenetre logs : JR
 - faire tous les tests avant affichage : JC
 - mettre les noms des avions et des targets : JC + A
-- pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
 - verifier la maj des données : P
 - mettre a jour l'interface pour prendre en compte le chemin le plus court
 - utiliser le fichier de config
@@ -83,14 +82,27 @@ todo :
 - implementer le vent + calcul nouvelle position : A
 - faire fct changement cible : A
 - prendre en compte le changement de vitesse / altitude progressif : P
-- maj dynamique des valeurs du panneau d'affichage : JR
-- apporter le café et les croissants : A
+
 
 fait : 
 - vitesses possibles : JR
+- réinitialisation quand on clique sur quitter
+- pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
+- maj dynamique des valeurs du panneau d'affichage : JR (a tester davantage)
 
-todo julie : bug des numeros des target points
+///////////////////////////////////////////////////////////////
+
+
+todo julieR : 
+
 ne pas envoyer les chgt si pas de chgment
 
 
+updater les defaults du menu deroulant : inutile ?
+
+//////////////////////////////////////////////////////////////
+
+QUESTIONS :
+
 POURQUOI LA 4E POSITION EST TJ A L OUEST
+- limite taille zone avions

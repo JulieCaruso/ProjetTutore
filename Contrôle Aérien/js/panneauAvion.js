@@ -1,16 +1,16 @@
-var t=null; 
+//var t=null; 
 
 function initPanneauLateral() {
-    $('#panneauLateral').html("<table border= \"1\"><tr><td><table><tr><td>Nom<span id=\"nomAvion\"/></td></tr> \
-    <tr><td>Vitesse : <br/><span class=\"marge\">Actuelle : <span id=\"vitesseAvion\"/></span><br/><span class=\"marge\">Nouvelle vitesse :<select name=\"selectVitesse\" \
-    id=\"selectVitesse\"></select></span></td></tr><tr><td>Altitude : <br/><span class=\"marge\">Actuelle : \
+    $('#panneauLateral').html("<table border= \"1\"><tr><td><table><tr><td><b>Nom de l'avion :</b><span id=\"nomAvion\"/></td></tr> \
+    <tr><td><b>Vitesse :</b> <br/><span class=\"marge\">Actuelle : <span id=\"vitesseAvion\"/></span><br/><span class=\"marge\">Nouvelle vitesse :<select name=\"selectVitesse\" \
+    id=\"selectVitesse\"></select></span></td></tr><tr><td><b>Altitude :</b> <br/><span class=\"marge\">Actuelle : \
     <span id=\"currentAltitude\"/></span><br/><span class=\"marge\">Nouvelle altitude :<select name=\"selectAltitude\" \
-    id=\"selectAlt\"></select></span></td></tr><tr><td>Cible :<br/><span class=\"marge\">Actuelle : <span id=\"currentTarget\"/> \
+    id=\"selectAlt\"></select></span></td></tr><tr><td><b>Cible :</b><br/><span class=\"marge\">Actuelle : <span id=\"currentTarget\"/> \
     </span><br/><span class=\"marge\">Nouvelle cible :<select name=\"selectTarget\" id=\"selectTarget\"></select></span></td></tr><tr> \
-    <td>Cap :<br/><span class=\"marge\">Actuel :<span id=\"currentCap\"/></span><br/><span class=\"marge\">Nouveau cap :   <select name=\"selectCap\" \
+    <td><b>Cap :</b><br/><span class=\"marge\">Actuel :<span id=\"currentCap\"/></span><br/><span class=\"marge\">Nouveau cap :   <select name=\"selectCap\" \
     id=\"selectCap\"></select><br/><input type=\"radio\" id=\"virageC\" name=\"virage\" checked=\"checked\" value=\"0\"/>Virage le plus court <input type=\"radio\" name=\"virage\" \
     id=\"virageD\" value=\"1\"/>Virage droite<input type=\"radio\" name=\"virage\" id=\"virageG\" value=\"2\"/>Virage gauche<br/></span></td></tr><tr><td><input id=\"bSend\" type=\"submit\" value=\"Envoyer\"/> \
-    </td></tr></table><table><tr><td>Vitesse du jeu<div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
+    </td></tr></table><table><tr><td><b>Vitesse du jeu</b><div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
     max=\"10\" step=\"1\"/></td></tr></table></td></tr></table>");
     
     $('#bSend').click(function() {
@@ -139,7 +139,6 @@ function updatePanneauLateral() {
 	
 	function affichageDynamique() { 
         update(); 
-        console.debug("update appelée");
         t=setInterval("update()",1000); 
     } 
 	affichageDynamique();
@@ -253,7 +252,8 @@ function updatePanneauLateralCibleCourante() {
 	var spanCurrentCibleAvion = document.getElementById('currentTarget');
 	var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
 	var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ;
-	var indexAffiche = indexCurrentCible+1;
+	var indexAffiche = parseInt(indexCurrentCible);
+	indexAffiche = indexAffiche +1 ;
 	spanCurrentCibleAvion.textContent = "  "+CurrentCibleAvion+" (point "+(indexAffiche)+")";
 }
 
@@ -301,6 +301,7 @@ function clearAltitudeCourante() {
     var spanAltitudeCouranteAvion = document.getElementById('currentAltitude');
 	spanAltitudeCouranteAvion.textContent = "";    
 }
+
 function clearAltitudesPossibles() {
     var selectElementAltitude = document.getElementById('selectAlt');
     var opts = selectElementAltitude.getElementsByTagName('option');
@@ -383,7 +384,8 @@ function tHasChanged() {
     var spanCurrentCibleAvion = document.getElementById('currentTarget');
 	var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
 	var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel() ;
-	var indexAffiche = indexCurrentCible+1;
+	var indexAffiche = parseInt(indexCurrentCible);
+	indexAffiche = indexAffiche +1 ;
 	if (spanCurrentCibleAvion.textContent != "  "+CurrentCibleAvion+" (point "+(indexAffiche)+")") {
     	//console.debug("target has changed");
 	    return 1;
@@ -393,4 +395,41 @@ function tHasChanged() {
 	    return 0;
 	}    
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////
+// fonctions updateSelectedX utilisées pour mettre a jour les valeurs
+// par defaut dans le menu deroulant X possibles
+
+//  A SUPPRIMER ??? normalement inutile 
+
+/////////////////////////////////////////////////////////////////////////
+
+function updateSelectedVitesse() {}
+
+function updateSelectedAltitude() {
+    var altitudeCouranteAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ() ;
+    var selectAltPossibles = document.getElementById('selectAlt');
+	var opts = selectAltPossibles.getElementsByTagName('option');
+	for (var j=0; j< opts.length; j++) {
+	   if(opts[j].value == altitudeCouranteAvion) {
+            opts[j].selected = "selected" ;        
+        }
+    }
+}
+
+function updateSelectedCap() {}
+
+function updateSelectedCible() {
+    var indexCurrentTarget = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+    var selectPossiblesTarget = document.getElementById('selectTarget');
+	var opts = selectPossiblesTarget.getElementsByTagName('option');
+	for (var j=0; j< opts.length; j++) {
+	   if(opts[j].value == indexCurrentTarget) {
+            opts[j].selected = "selected" ;        
+        }
+    }
+}
+
   
