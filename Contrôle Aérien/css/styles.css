@@ -18,14 +18,22 @@ footer, .paragraphe, p {
 	/*text-align:center;*/
 }
 
+#panneaux {
+    width: 362px;
+    padding-left: 590px;
+    margin-top: -464px;
+}
+
 #panneauLateral {
     position:relative;
-    top:-43px;
 }
 
 #panneauCible {
     position:relative;
-    top:-377px;
+}
+
+#panneauCible table {
+    width: 352px;
 }
 
 #panneauLateral, #panneauCible, #animation {
@@ -41,6 +49,9 @@ canvas {
 #zoneOrdres {
 	border-style:solid;
 	border-width:1px;
+	margin-bottom: 5px;
+	padding-left: 5px;
+	width: 945px;
 }
 
 .marge {
