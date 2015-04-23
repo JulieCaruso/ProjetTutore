@@ -62,11 +62,8 @@ function init(){
 	scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 
 	canvasWidth = "579";
-<<<<<<< HEAD
 	canvasHeight = "436";
-=======
-    canvasHeight = "436";
->>>>>>> alexandre
+
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -325,13 +322,9 @@ function clicCanvas(e){
 		// TODO : PANNEAU SPECIAL TARGET
 
 		var R = 5;
-<<<<<<< HEAD
-		if(Math.abs(avion.getX()/5-xSourisCanvas) < R
-		&& Math.abs(avion.getY()/5-ySourisCanvas) < R){
-=======
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()*scale-xSourisCanvas) < R
 			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()*scale-ySourisCanvas) < R){
->>>>>>> alexandre
+
 			selectedPlane = a;
 			updatePanneauLateral();
 			avionSelected = 1;
