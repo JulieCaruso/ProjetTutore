@@ -10,7 +10,7 @@ Contient les classes d'objets de type :
 
 
 // Permet de construire un objet de type : Niveau
-// Les attributs/méthodes privés sont les attributs/méthodes commençant par "var ....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
+// Les attributs/méthodes privés sont les attributs/méthodes commençant par "this.....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
 function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
 {
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
@@ -24,40 +24,40 @@ function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
 	this.type = "Niveau";
 
 	// Attributs privés
-	var levelID = levelID;
-	var levelTitle = levelTitle;
-	var listOfAvions = listOfAvions;
-	var listOfZones = listOfZones;
-	var initInterface = initInterface;
+	this.levelID = levelID;
+	this.levelTitle = levelTitle;
+	this.listOfAvions = listOfAvions;
+	this.listOfZones = listOfZones;
+	this.initInterface = initInterface;
 
 	// Getters d'attributs privés
 	if( typeof Niveau.initialized == "undefined" ) { 
 
         Niveau.prototype.getID = function() { 
-            return levelID;
+            return this.levelID;
         };
 
         Niveau.prototype.getTitle = function() { 
-            return levelTitle;
+            return this.levelTitle;
         };
 
         Niveau.prototype.getListOfAvions = function() { 
-            return listOfAvions;
+            return this.listOfAvions;
         };
 
         Niveau.prototype.getListOfZones = function() { 
-            return listOfZones;
+            return this.listOfZones;
         };
 
         Niveau.prototype.getInitInterface = function() { 
-            return initInterface;
+            return this.initInterface;
         };
 
         Niveau.initialized = true; 
     }
 
 	// Permet d'ajouter le niveau à la liste à chaque instanciation de la classe
-	var ajouteNiveau = (function(niveau){ if (Niveau.total !== 1) Niveau.listeNiveaux.push(niveau);})(this);
+	this.ajouteNiveau = (function(niveau){ if (Niveau.total !== 1) Niveau.listeNiveaux.push(niveau);})(this);
 
 
 }
