@@ -1,3 +1,10 @@
+// VARIABLES GLOBALES
+
+// Correspond à l'échelle des distances sur le canva (ratio réalité/simulation)
+var scale = -1;
+
+// FIN VARIABLES GLOBALES
+
 $(function() {
 	init0();
 });
@@ -52,8 +59,11 @@ function chgt(){
 }
 
 function init(){
+	// On récupère les informations contenues dans le fichier XML
+	scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
+
 	canvasWidth = "579";
-  canvasHeight = "436";
+    canvasHeight = "436";
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -236,15 +246,15 @@ function dessineAvion(a){
 		calculateXY(a);
 	}
 	// sauvegarde de l'état du contexte
-	dessinA(a.getX()/5, a.getY()/5, 5, a.getColor());
-	dessinA(a.getX1()/5, a.getY1()/5, 2.5, "#FFAD5C");
-	dessinA(a.getX2()/5, a.getY2()/5, 2, "#FFCE9D");
-	dessinA(a.getX3()/5, a.getY3()/5, 1.5, "#FFCE9D");
-	dessinA(a.getX4()/5, a.getY4()/5, 1, "#FFCE9D");
+	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
+	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
+	dessinA(a.getX2()*scale, a.getY2()*scale, 2, "#FFCE9D");
+	dessinA(a.getX3()*scale, a.getY3()*scale, 1.5, "#FFCE9D");
+	dessinA(a.getX4()*scale, a.getY4()*scale, 1, "#FFCE9D");
 
 	// On ajoute le nom de l'avion
-	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()+20)/5, (a.getY()-70)/5);
-	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()+20)/5, (a.getY()-20)/5);
+	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()+20)*scale, (a.getY()-70)*scale);
+	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()+20)*scale, (a.getY()-20)*scale);
 }
 function dessinA(x, y, R, couleur){
 	// sauvegarde de l'état du contexte
@@ -280,8 +290,8 @@ function clicCanvas(e){
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 	// TODO
 		var R = 5;
-		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()/5-xSourisCanvas) < R
-			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()/5-ySourisCanvas) < R){
+		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()*scale-xSourisCanvas) < R
+			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()*scale-ySourisCanvas) < R){
 			selectedPlane = a;
 			updatePanneauLateral();
 			avionSelected = 1;

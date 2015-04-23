@@ -11,7 +11,7 @@ Contient les classes d'objets de type :
 
 
 // Permet de construire un objet de type : Avion
-// Les attributs/méthodes privés sont les attributs/méthodes commençant par "var ....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
+// Les attributs/méthodes privés sont les attributs/méthodes commençant par "this.....", les attributs/méthodes public sont les attributs/méthodes commençant par "this ..."
 function Interface(backgroundImage,backgroundX,backgroundY,maxTime,performancesTable,scale,windOption,normVerticalSeparation,normHorizontalSeparation,normDistanceToZone,tolerance,normLineSeparation,tempo,turnDirectionRequired,zoomScale,controlPanel,texts)
 {
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
@@ -20,93 +20,93 @@ function Interface(backgroundImage,backgroundX,backgroundY,maxTime,performancesT
 	this.type = "Interface";
 
 	// Attributs privés
-	var backgroundImage = backgroundImage;
-	var backgroundX = backgroundX;
-	var backgroundY = backgroundY;
-	var maxTime = maxTime;
-	var performancesTable = performancesTable;
-	var scale = scale;
-	var windOption = windOption;
-	var normVerticalSeparation = normVerticalSeparation;
-	var normHorizontalSeparation = normHorizontalSeparation;
-	var normDistanceToZone = normDistanceToZone;
-	var tolerance = tolerance;
-	var normLineSeparation = normLineSeparation;
-	var tempo = tempo;
-	var turnDirectionRequired = turnDirectionRequired;
-	var zoomScale = zoomScale;
-	var controlPanel = controlPanel;
-	var texts = texts;
+	this.backgroundImage = backgroundImage;
+	this.backgroundX = backgroundX;
+	this.backgroundY = backgroundY;
+	this.maxTime = maxTime;
+	this.performancesTable = performancesTable;
+	this.scale = scale;
+	this.windOption = windOption;
+	this.normVerticalSeparation = normVerticalSeparation;
+	this.normHorizontalSeparation = normHorizontalSeparation;
+	this.normDistanceToZone = normDistanceToZone;
+	this.tolerance = tolerance;
+	this.normLineSeparation = normLineSeparation;
+	this.tempo = tempo;
+	this.turnDirectionRequired = turnDirectionRequired;
+	this.zoomScale = zoomScale;
+	this.controlPanel = controlPanel;
+	this.texts = texts;
 
 	// Getters d'attributs privés
 	if( typeof Interface.initialized == "undefined" ) { 
 
         Interface.prototype.getBackgroundImage = function() { 
-            return backgroundImage;
+            return this.backgroundImage;
         };
 
         Interface.prototype.getBackgroundX = function() { 
-            return backgroundX;
+            return this.backgroundX;
         };
 
         Interface.prototype.getBackgroundY = function() { 
-            return backgroundY;
+            return this.backgroundY;
         };
 
         Interface.prototype.getMaxTime = function() { 
-            return maxTime;
+            return this.maxTime;
         };
 
         Interface.prototype.getPerformancesTable = function() { 
-            return performancesTable;
+            return this.performancesTable;
         };
 
         Interface.prototype.getScale = function() { 
-            return scale;
+            return this.scale;
         };
 
         Interface.prototype.getWindOption = function() { 
-            return windOption;
+            return this.windOption;
         };
 
         Interface.prototype.getNormHorizontalSeparation = function() { 
-            return normHorizontalSeparation;
+            return this.normHorizontalSeparation;
         };
 
         Interface.prototype.getNormVerticalSeparation = function() { 
-            return normVerticalSeparation;
+            return this.normVerticalSeparation;
         };
 
         Interface.prototype.getNormDistanceToZone = function() { 
-            return normDistanceToZone;
+            return this.normDistanceToZone;
         };
 
         Interface.prototype.getTolerance = function() { 
-            return tolerance;
+            return this.tolerance;
         };
 
         Interface.prototype.getNormLineSeparation = function() { 
-            return normLineSeparation;
+            return this.normLineSeparation;
         };
 
         Interface.prototype.getTempo= function() { 
-            return tempo;
+            return this.tempo;
         };
 
         Interface.prototype.getTurnDirectionRequired = function() { 
-            return turnDirectionRequired;
+            return this.turnDirectionRequired;
         };
 
         Interface.prototype.getZoomScale = function() { 
-            return zoomScale;
+            return this.zoomScale;
         };
 
         Interface.prototype.getControlPanel = function() { 
-            return controlPanel;
+            return this.controlPanel;
         };
 
         Interface.prototype.getTexts = function() { 
-            return texts;
+            return this.texts;
         };
 
         Interface.initialized = true; 
@@ -121,43 +121,43 @@ function ControlPanel(hControl,vControl,rateControl,zControl,directPointControl,
 	this.type = "ControlPanel";
 
 	// Attributs privés
-	var hControl = hControl;
-	var vControl = vControl;
-	var rateControl = rateControl;
-	var zControl = zControl;
-	var directPointControl = directPointControl;
-	var waitingControl = waitingControl;
-	var tempoControl = tempoControl;
+	this.hControl = hControl;
+	this.vControl = vControl;
+	this.rateControl = rateControl;
+	this.zControl = zControl;
+	this.directPointControl = directPointControl;
+	this.waitingControl = waitingControl;
+	this.tempoControl = tempoControl;
 
 	// Getters d'attributs privés
 	if( typeof ControlPanel.initialized == "undefined" ) { 
 
         ControlPanel.prototype.isHControl = function() { 
-            return hControl;
+            return this.hControl;
         };
 
         ControlPanel.prototype.isVControl = function() { 
-            return vControl;
+            return this.vControl;
         };
 
         ControlPanel.prototype.isRateControl = function() { 
-            return rateControl;
+            return this.rateControl;
         };
 
         ControlPanel.prototype.isZControl = function() { 
-            return zControl;
+            return this.zControl;
         };
 
         ControlPanel.prototype.isDirectPointControl = function() { 
-            return directPointControl;
+            return this.directPointControl;
         };
 
         ControlPanel.prototype.isWaitingControl = function() { 
-            return waitingControl;
+            return this.waitingControl;
         };
 
         ControlPanel.prototype.isTempoControl = function() { 
-            return tempoControl;
+            return this.tempoControl;
         };
 
         ControlPanel.initialized = true; 
@@ -171,23 +171,23 @@ function Texts(tabTextIntro,tabTextEnd,tabTextHelp){
 
 	// Remarque : ce sont des tableaux vus comme des "map", il suffit d'avoir la clé (code de la langue) pour obtenir le texte (Exemple : tabTextIntro[FR] = ....)
 	// Attributs privés
-	var tabTextIntro = tabTextIntro;
-	var tabTextEnd = tabTextEnd;
-	var tabTextHelp = tabTextHelp;
+	this.tabTextIntro = tabTextIntro;
+	this.tabTextEnd = tabTextEnd;
+	this.tabTextHelp = tabTextHelp;
 
 	// Getters d'attributs privés
 	if( typeof Texts.initialized == "undefined" ) { 
 
         Texts.prototype.getTabTextIntro = function() { 
-            return tabTextIntro;
+            return this.tabTextIntro;
         };
 
         Texts.prototype.getTabTextEnd = function() { 
-            return tabTextEnd;
+            return this.tabTextEnd;
         };
 
         Texts.prototype.getTabTextHelp = function() { 
-            return tabTextHelp;
+            return this.tabTextHelp;
         };
 
         Texts.initialized = true; 

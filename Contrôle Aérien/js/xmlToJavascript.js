@@ -251,7 +251,7 @@ function processXMLData(XMLData) {
 				parseInt(configAttributes["backgroundY"]),
 				parseInt(configAttributes["maxTime"]),
 				configAttributes["performancesTable"],
-				parseInt(configAttributes["scale"]),
+				parseFloat(configAttributes["scale"]),
 				parseInt(configAttributes["windOption"]),
 				parseInt(configAttributes["normVerticalSeparation"]),
 				parseInt(configAttributes["normHorizontalSeparation"]),
