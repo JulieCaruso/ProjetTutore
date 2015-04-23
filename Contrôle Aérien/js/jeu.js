@@ -241,6 +241,10 @@ function dessineAvion(a){
 	dessinA(a.getX2()/5, a.getY2()/5, 2, "#FFCE9D");
 	dessinA(a.getX3()/5, a.getY3()/5, 1.5, "#FFCE9D");
 	dessinA(a.getX4()/5, a.getY4()/5, 1, "#FFCE9D");
+
+	// On ajoute le nom de l'avion
+	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()+20)/5, (a.getY()-70)/5);
+	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()+20)/5, (a.getY()-20)/5);
 }
 function dessinA(x, y, R, couleur){
 	// sauvegarde de l'état du contexte
