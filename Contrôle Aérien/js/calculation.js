@@ -33,22 +33,12 @@ function calculateHead(avion,sensVirage){
 	// speed en mètres/seconde, R en mètres 
 	R = parseInt((speed*speed)/(Math.tan(inclinaison*Math.PI/180)*9.81));
 
-	//console.debug("R = "+R);
-
-	//var point = calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage);
-
-	//console.debug("Current head = "+currentHead+", Type = "+type+", speed = "+speed+", Sens du virage = "+(sensVirage==0?"Gauche":"Droite"));
-
 	// On multiplie la distance en m/s par deltaT = 1 seconde
 	distanceAB = parseInt(speed*1);
 
-
-	//console.debug("DistanceAB/2R (doit être entre -1 et 1): "+distanceAB/(2*R));
-	//console.debug("ArcCos (renvoie un angle entre 0 et Pi/2): "+Math.acos(distanceAB/(2*R)));
 	// On en déduit delta
 	delta = (Math.acos(distanceAB/(2*R)))*180/Math.PI;
 	
-	//console.debug("Delta (convertie en degrès) = "+delta);
 	// Et donc deltaH
 	deltaH = mod((90-delta),360)+1;
 	//console.debug("DeltaH = "+deltaH);

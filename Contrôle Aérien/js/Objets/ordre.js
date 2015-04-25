@@ -171,8 +171,6 @@ function Ordre(avion,changements){
 
 		}
 
-		console.debug("MESSAGE DE SORTIE : "+this.message);
-
 	}
 
     // Permet d'ajouter le this.message à la zone d'ordres envoyés

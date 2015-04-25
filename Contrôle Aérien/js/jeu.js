@@ -20,8 +20,8 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		/*
-		var compteur = 0;
+		
+		/*var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+120)%360);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
 		console.debug("*********************************** CALCUL DE L'INCREMENT DE CAP ***********************************");
