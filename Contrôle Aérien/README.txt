@@ -79,6 +79,7 @@ todo :
 - langues + niveau à choisir : JC
 - implementer le vent + calcul nouvelle position : A
 - prendre en compte le changement de vitesse / altitude progressif : P
+- afficher la route (en cliquant sur l'avion)
 
 
 fait : 
@@ -109,3 +110,4 @@ POURQUOI LA 4E POSITION EST TJ A L OUEST
 
 
 PROCHAINE REUNION : 12 Mai à 15h30
+
