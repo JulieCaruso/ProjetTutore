@@ -72,15 +72,12 @@ Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on
 seance du 31/03 :
 
 todo : 
-- arranger fenetre logs : JR
 - faire tous les tests avant affichage : JC
-- mettre les noms des avions et des targets : JC + A
 - verifier la maj des données : P
-- mettre a jour l'interface pour prendre en compte le chemin le plus court
+- mettre a jour l'interface pour prendre en compte le chemin le plus court (en cours)
 - utiliser le fichier de config
 - langues + niveau à choisir : JC
 - implementer le vent + calcul nouvelle position : A
-- faire fct changement cible : A
 - prendre en compte le changement de vitesse / altitude progressif : P
 
 
@@ -89,6 +86,9 @@ fait :
 - réinitialisation quand on clique sur quitter
 - pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
 - maj dynamique des valeurs du panneau d'affichage : JR (a tester davantage)
+- mettre les noms des avions et des targets : JC + A
+- arranger fenetre logs : JR
+- faire fct changement cible : A
 
 ///////////////////////////////////////////////////////////////
 
@@ -106,3 +106,6 @@ QUESTIONS :
 
 POURQUOI LA 4E POSITION EST TJ A L OUEST
 - limite taille zone avions
+
+
+PROCHAINE REUNION : 12 Mai à 15h30
