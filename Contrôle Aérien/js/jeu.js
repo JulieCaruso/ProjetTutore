@@ -234,7 +234,10 @@ function animer() {
 				dessineAvion(avion);
 
 				for (var t = 0; t < listTP.length; t++) {
-					dessinA(listTP[t].getX()/5, listTP[t].getY()/5, 5, "green")
+					
+					dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
+					// On ajoute le nom du target point
+					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()-20)*scale);
 				}
 			}
 		}
@@ -262,7 +265,7 @@ function dessineAvion(a){
 	}
 	else if (tempsNiveau > 4) {
 		a.setX4(a.getX3());
-		a.setY4(a.getX3());
+		a.setY4(a.getY3());
 		a.setX3(a.getX2());
 		a.setY3(a.getY2());
 		a.setX2(a.getX1());
