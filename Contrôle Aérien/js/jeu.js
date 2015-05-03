@@ -3,6 +3,10 @@
 // Correspond à l'échelle des distances sur le canva (ratio réalité/simulation)
 var scale = -1;
 
+// Correspond à l'intervalle de rafraichissement du jeu
+var inter = -1;
+
+
 // FIN VARIABLES GLOBALES
 
 $(function() {
@@ -132,8 +136,21 @@ function init(){
 	});
 
 	// REGLES
-	inter = setInterval(regles, 100);
+	// Réglage de la vitesse du jeu
+	
+	// On fixe l'évènement
+	$("#vitesse_jeu").change(traitementVitesseJeu);
+	
+	// On récupère la valeur par défaut
+	/*
 
+	INITIALISATION DE LA VITESSE DE JEU - PARTIE A DECOMMENTER DES QUE LE DEVELOPPEMENT EST FINI
+
+	var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+	var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+	inter = setInterval(regles, rafraichissement_ms);
+	*/
+	inter = setInterval(regles, 100);
 	// LANCEMENT
 	afficheAccueil();
 

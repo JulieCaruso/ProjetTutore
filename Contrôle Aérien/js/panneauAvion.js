@@ -13,8 +13,8 @@ function initPanneauLateral() {
     <tr><td><input type=\"radio\" id=\"followTarget\" name=\"follow\" checked=\"checked\" value=\"1\"/>Suivre la cible \
     <input type=\"radio\" name=\"follow\" id=\"followCap\" value=\"0\"/>Suivre le cap \
     <tr><td><input id=\"bSend\" type=\"submit\" value=\"Envoyer\"/> \
-    </td></tr></table><table><tr><td><b>Vitesse du jeu</b><div id=\"vitesseJeu\"/><input type=\"range\" min=\"1\"\
-    max=\"10\" step=\"1\"/></td></tr></table></td></tr></table>");
+    </td></tr></table><table><tr><td><b>Vitesse du jeu</b><div id=\"vitesseJeu\"/><input id=\"vitesse_jeu\" type=\"range\" min=\"1\"\
+    max=\"6\" step=\"1\" value=\"5\"/></td></tr></table></td></tr></table>");
     
     $('#bSend').click(function () {
         sendData();
@@ -143,6 +143,56 @@ function traitementCible(changements) {
         changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
         updatePanneauLateralCibleCourante();
     }
+}
+
+/*
+/ Fonction permettant de modifier la vitesse de jeu en cas de changement
+*/
+function traitementVitesseJeu() {
+	
+	// On supprime l'ancienne valeur
+	clearInterval(inter);
+	
+	// On récupère la nouvelle
+	var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+	var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+	inter = setInterval(regles, rafraichissement_ms);
+	
+}
+
+/*
+/ Fonction permettant de trouver la vitesse de jeu en fonction du curseur, renvoie le temps de rafraichissement en ms
+*/
+function getSpeedWithCursor(curseur){
+	
+	// Stockage du résultat
+	var resultat = -1;
+	
+	// On effectue un switch sur le curseur
+	switch(curseur)
+	{
+		case(1):
+			resultat = 100;
+		break;
+		case(2):
+			resultat = 250;
+		break;
+		case(3):
+			resultat = 500;
+		break;
+		case(4):
+			resultat = 750;
+		break;
+		case(5):
+			resultat = 1000;
+		break;
+		case(6):
+			resultat = 2000;
+		break;
+	}
+	
+	return resultat;
+	
 }
 
 /* MISE A JOUR DU PANNEAU LATERAL */
