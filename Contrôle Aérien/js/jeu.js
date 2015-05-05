@@ -65,12 +65,7 @@ function init(){
 	// On récupère les informations contenues dans le fichier XML
 	scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 
-    /*
 	canvasWidth = "579";
-	canvasHeight = "436";
-    */
-    
-    canvasWidth = "1000";
 	canvasHeight = "436";
     
 	// STRUCTURE
