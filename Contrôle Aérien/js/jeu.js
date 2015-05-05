@@ -24,7 +24,7 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		
+		/*
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+310)%360);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
@@ -32,7 +32,7 @@ function chgt(){
 		calculateHead(Avion.getListeAvions()[0],1);
 		compteur++;
 	}
-	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
+	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");*/
 	/*
 	var compteur = 0;
 	Avion.getListeAvions()[0].setVTarget(Avion.getListeAvions()[0].getV()-80);
@@ -235,7 +235,7 @@ function animer() {
 
 				for (var t = 0; t < listTP.length; t++) {
 					
-					dessinA(listTP[t].getX(), listTP[t].getY(), 5, "green")
+					dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
 					// On ajoute le nom du target point
                     ctx.font = "10px Arial";
 					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
@@ -276,9 +276,19 @@ function dessineAvion(a){
 	}
 
 	// console.debug("h courant : "+a.getH()+", h target : "+a.getHTarget()+", current target : "+a.getIndexCurrentTarget());
-
+    
+    /* DEPLACEMENT DE L AVION
+    PRIORITE :
+    1. ALTITUDE 
+    2. VITESSE
+    */
+    if (a.getZ() != a.getZTarget()) {
+            calculateAltitude(a);
+    }
+    else if (a.getV() != a.getVTarget()) {
+            calculateSpeed(a);
+    }
 	if (a.getH() != a.getHTarget()){
-		// sensVirage A CHANGER plus tard en fonction du panneau a droite
 		var sensVirage = -1;
 		if(document.getElementById('virageC').checked){
 			sensVirage = calculateBetterWayToReachTargetHead(a);
@@ -290,16 +300,11 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-    else {
-        if (a.getV() != a.getVTarget()) {
-            calculateSpeed(a);
-        }
-        if (a.getZ() != a.getZTarget()) {
-            calculateAltitude(a);
-        }
-		// paramètres de l'avion
-		calculateXY(a);
-	}
+    // paramètres de l'avion
+    calculateXY(a);
+    
+    
+    
 	// sauvegarde de l'état du contexte
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
 	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
@@ -346,13 +351,13 @@ function clicCanvas(e){
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 		var avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
 
-		// TODO : PANNEAU SPECIAL TARGET
 
 		var R = 5;
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()*scale-xSourisCanvas) < R
 			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()*scale-ySourisCanvas) < R){
 
 			selectedPlane = a;
+            reinitialisationPanneau();
 			updatePanneauLateral();
 			avionSelected = 1;
 		}
