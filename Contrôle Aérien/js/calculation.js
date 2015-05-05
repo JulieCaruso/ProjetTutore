@@ -107,7 +107,7 @@ function calculateHead(avion,sensVirage){
 		{
 			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
 			var new_cap = mod((parseFloat(currentHead)+parseFloat(deltaH)),360)+1; 
-            console.debug("TOTOTOTOTOTOTOTOTOTOTTO"+" "+new_cap);
+            
 			if (currentHead > 270 && new_cap < 90){
 				if(targetHead < new_cap){
                     
@@ -167,34 +167,14 @@ function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){
 
 // Permet de calculer le cap suivant deux points, A et B sont deux objets de type "Point"
 function calculateOrientation(A,B){
-	var xA = A.getX()*scale, xB = B.getX()*scale, yA = A.getY()*scale, yB = B.getY()*scale, cadran = -1, rayon = -1, angle = -1;
-	if (xA > xB){
-		if (yA > yB){
-			cadran = 0;
-		}
-		else
-		{
-			cadran = 90;
-		}
-	}
-	else
-	{
-		if (yA > yB){
-			cadran = 270;
-		}
-		else
-		{
-			cadran = 180;
-		}
-	}
+	var xA = A.getX()*scale, xB = B.getX()*scale, yA = A.getY()*scale, yB = B.getY()*scale, angle = -1;
+	
 
-	// On ramène donc le calcul à un angle entre 0 et Pi/2
-
-	rayon = Math.sqrt((xB-xA)*(xB-xA)+(yB-yA)*(yB-yA));
-
-	angle = Math.acos((xB-xA)/rayon);
+	angle = Math.atan2(yB-yA,xB-xA)*180/Math.PI + 90;
     
-	return parseInt(mod(angle*180/Math.PI+cadran,360) + 1);
+	//alert(parseInt(mod(angle*180/Math.PI+cadran,360) + 1));
+	
+	return parseInt(mod(angle,360) + 1);
 } 
 
 // Permet de déterminer la meilleure manière d'atteindre le cap visé. Renvoie 0 si gauche, 1 si droite et -1 en cas d'erreur
