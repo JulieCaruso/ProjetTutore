@@ -6,6 +6,8 @@ var scale = -1;
 // Correspond à l'intervalle de rafraichissement du jeu
 var inter = -1;
 
+var selectedPlane = -1 ;
+
 
 // FIN VARIABLES GLOBALES
 
@@ -207,6 +209,9 @@ function animer() {
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
+        if (selectedPlane != -1) {
+            dessinerChemin(selectedPlane);
+        }
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
 			if (avion.getIndexCurrentTarget() >= avion.getListOfTargetPoints().length){
@@ -310,7 +315,7 @@ function dessineAvion(a){
 	dessinA(a.getX2()*scale, a.getY2()*scale, 2, "#FFCE9D");
 	dessinA(a.getX3()*scale, a.getY3()*scale, 1.5, "#FFCE9D");
 	dessinA(a.getX4()*scale, a.getY4()*scale, 1, "#FFCE9D");
-
+    
 	// On ajoute le nom de l'avion
 	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()+20)*scale, (a.getY()-70)*scale);
 	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()+20)*scale, (a.getY()-20)*scale);
@@ -359,7 +364,6 @@ function clicCanvas(e){
             reinitialisationPanneau();
 			updatePanneauLateral();
 			avionSelected = 1;
-            dessinerChemin(selectedPlane);
 		}
 
 		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){
@@ -407,6 +411,39 @@ function reinitialisation(){
 }
 
 function dessinerChemin (avion) {
+    a = listeNiveaux[niveauCourant].getListOfAvions()[avion];
     
-    
+    if (a.getSuivreTarget() == 1) {
+        // on suit une target
+        i = a.getIndexCurrentTarget();
+        indiceMax = parseInt(a.getListOfTargetPoints().length);
+        for (indice = i ; indice<a.getListOfTargetPoints().length;indice++) {
+            if (indice == i) {
+                dessinerTrait(a.getX(),a.getY(),a.getListOfTargetPoints()[i].getX(),a.getListOfTargetPoints()[i].getY());
+            }
+            else if (indice != (indiceMax)) {
+                dessinerTrait(a.getListOfTargetPoints()[indice-1].getX(),a.getListOfTargetPoints()[indice-1].getY(),a.getListOfTargetPoints()[indice].getX(),a.getListOfTargetPoints()[indice].getY());
+            }
+        }
+    }
+    else {
+        // on suit un cap
+        /*
+        capASuivre = a.getHTarget();
+        ctx.beginPath();
+        ctx.strokeStyle='green';
+        ctx.lineWidth=2; 
+        */
+    }    
+}
+
+function dessinerTrait (X1,Y1,X2,Y2) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle='yellow';
+    ctx.lineWidth=2; 
+    ctx.moveTo(X1*scale,Y1*scale);
+    ctx.lineTo(X2*scale,Y2*scale);
+    ctx.stroke(); 
+    ctx.restore();
 }
