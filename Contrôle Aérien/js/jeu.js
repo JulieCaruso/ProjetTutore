@@ -161,7 +161,7 @@ function dessinerImage() {
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
 		var img = new Image();   // Crée un nouvel objet Image
-		img.src = 'Images/jeu.png'; // Définit le chemin vers sa source
+		img.src = 'images/jeu.png'; // Définit le chemin vers sa source
 		ctx.drawImage(img, 0, 0);
 	}
 	else {
