@@ -360,6 +360,7 @@ function clicCanvas(e){
             reinitialisationPanneau();
 			updatePanneauLateral();
 			avionSelected = 1;
+            dessinerChemin(selectedPlane);
 		}
 
 		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){
@@ -404,4 +405,9 @@ function reinitialisation(){
 	selectedPlane = -1;
 	reinitialisationPanneau();
 	reinitialisationPanneauCible();
+}
+
+function dessinerChemin (avion) {
+    
+    
 }
