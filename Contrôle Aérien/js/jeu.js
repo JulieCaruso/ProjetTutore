@@ -25,14 +25,14 @@ function chgt(){
 
 		// TEST ALEX
 		
-		/*var compteur = 0;
-		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+120)%360);
+		var compteur = 0;
+		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+310)%360);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
 		console.debug("*********************************** CALCUL DE L'INCREMENT DE CAP ***********************************");
 		calculateHead(Avion.getListeAvions()[0],1);
 		compteur++;
 	}
-	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");*/
+	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
 	/*
 	var compteur = 0;
 	Avion.getListeAvions()[0].setVTarget(Avion.getListeAvions()[0].getV()-80);
@@ -65,9 +65,14 @@ function init(){
 	// On récupère les informations contenues dans le fichier XML
 	scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 
+    /*
 	canvasWidth = "579";
 	canvasHeight = "436";
-
+    */
+    
+    canvasWidth = "1000";
+	canvasHeight = "436";
+    
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -75,7 +80,7 @@ function init(){
 	les différentes zones de conflit du secteur. Chaque exercice présente une série de conflits sur une même zone mais avec des positions \
 	respectives des avions différentes. <br\> \
 	Le but est de respecter le minimum de 5Nm latéral et de ne pas s'approcher des limites secteurs à moins de 3Nm.");
-	$('#image').html("<img src='images/jeu.png'>");
+	$('#image').html("<img src='images/jeu.png' id=\"wallpaper_game\">");
 	$('#boutonJeu').html("<input type=\"submit\" value=\"Commencer le jeu !\">");
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
 
@@ -235,7 +240,7 @@ function animer() {
 
 				for (var t = 0; t < listTP.length; t++) {
 					
-					dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
+					dessinA(listTP[t].getX(), listTP[t].getY(), 5, "green")
 					// On ajoute le nom du target point
 					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()-20)*scale);
 				}
