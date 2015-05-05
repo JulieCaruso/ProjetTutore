@@ -171,22 +171,22 @@ function getSpeedWithCursor(curseur){
 	switch(curseur)
 	{
 		case(1):
-			resultat = 100;
+			resultat = 2000;
 		break;
 		case(2):
-			resultat = 250;
-		break;
-		case(3):
-			resultat = 500;
-		break;
-		case(4):
-			resultat = 750;
-		break;
-		case(5):
 			resultat = 1000;
 		break;
+		case(3):
+			resultat = 750;
+		break;
+		case(4):
+			resultat = 500;
+		break;
+		case(5):
+			resultat = 250;
+		break;
 		case(6):
-			resultat = 2000;
+			resultat = 100;
 		break;
 	}
 	
