@@ -274,9 +274,19 @@ function dessineAvion(a){
 	}
 
 	// console.debug("h courant : "+a.getH()+", h target : "+a.getHTarget()+", current target : "+a.getIndexCurrentTarget());
-
+    
+    /* DEPLACEMENT DE L AVION
+    PRIORITE :
+    1. ALTITUDE 
+    2. VITESSE
+    */
+    if (a.getZ() != a.getZTarget()) {
+            calculateAltitude(a);
+    }
+    else if (a.getV() != a.getVTarget()) {
+            calculateSpeed(a);
+    }
 	if (a.getH() != a.getHTarget()){
-		// sensVirage A CHANGER plus tard en fonction du panneau a droite
 		var sensVirage = -1;
 		if(document.getElementById('virageC').checked){
 			sensVirage = calculateBetterWayToReachTargetHead(a);
@@ -288,16 +298,11 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-    else {
-        if (a.getV() != a.getVTarget()) {
-            calculateSpeed(a);
-        }
-        if (a.getZ() != a.getZTarget()) {
-            calculateAltitude(a);
-        }
-		// paramètres de l'avion
-		calculateXY(a);
-	}
+    // paramètres de l'avion
+    calculateXY(a);
+    
+    
+    
 	// sauvegarde de l'état du contexte
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
 	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
