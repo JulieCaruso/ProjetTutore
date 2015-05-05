@@ -29,8 +29,8 @@ function testAirProXLim(avion){
 
 function testTargetP(avion, targetPoint){
 	dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2)));
-	
-	if (dist_avion_targetP <= 1){
+//    console.debug("dist a-t : "+dist_avion_targetP); 
+	if (dist_avion_targetP <= dist_limite*scale){
 		console.debug("Avion a atteint sa target, dist : " + dist_avion_targetP);
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length-1){
 			avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);

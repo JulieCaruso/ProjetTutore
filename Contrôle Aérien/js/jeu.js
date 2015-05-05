@@ -73,10 +73,7 @@ function init(){
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
-	$('#texte').html("Le but de ces exercices est de développer la capacité d'orientation des élèves par rapport aux cap magnétiques dans \
-	les différentes zones de conflit du secteur. Chaque exercice présente une série de conflits sur une même zone mais avec des positions \
-	respectives des avions différentes. <br\> \
-	Le but est de respecter le minimum de 5Nm latéral et de ne pas s'approcher des limites secteurs à moins de 3Nm.");
+	$('#texte').html(Niveau.getListeNiveaux()[0].getInitInterface().getTexts().getTabTextIntro()["FR"]);
 	$('#image').html("<img src='images/jeu.png' id=\"wallpaper_game\">");
 	$('#boutonJeu').html("<input type=\"submit\" value=\"Commencer le jeu !\">");
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
@@ -219,7 +216,8 @@ function animer() {
 				// afficheBilan();
 			}
 			else {
-
+                var listTP = avion.getListOfTargetPoints();
+                
 				// test airproc pour toutes les combinaisons d'avions
 				if (a < listeNiveaux[niveauCourant].getListOfAvions().length - 1){
 					for (var b=a+1; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
@@ -232,7 +230,6 @@ function animer() {
 
                 // test avec les targets si le'avion suit ses target points
                 if (avion.getSuivreTarget() == 1) {
-				    var listTP = avion.getListOfTargetPoints();
 				    testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
                 }
 

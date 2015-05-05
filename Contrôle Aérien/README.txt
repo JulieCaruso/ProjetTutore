@@ -105,7 +105,6 @@ updater les defaults du menu deroulant : inutile ?
 
 QUESTIONS :
 
-POURQUOI LA 4E POSITION EST TJ A L OUEST
 - limite taille zone avions
 
 
