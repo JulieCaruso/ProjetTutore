@@ -142,15 +142,13 @@ function init(){
 	$("#vitesse_jeu").change(traitementVitesseJeu);
 	
 	// On récupère la valeur par défaut
-	/*
+	
 
-	INITIALISATION DE LA VITESSE DE JEU - PARTIE A DECOMMENTER DES QUE LE DEVELOPPEMENT EST FINI
+	//INITIALISATION DE LA VITESSE DE JEU - PARTIE A DECOMMENTER DES QUE LE DEVELOPPEMENT EST FINI
 
 	var curseur_vitesse = parseInt($("#vitesse_jeu").val());
 	var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
 	inter = setInterval(regles, rafraichissement_ms);
-	*/
-	inter = setInterval(regles, 100);
 	// LANCEMENT
 	afficheAccueil();
 
@@ -290,7 +288,13 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-	else {
+    else {
+        if (a.getV() != a.getVTarget()) {
+            calculateSpeed(a);
+        }
+        if (a.getZ() != a.getZTarget()) {
+            calculateAltitude(a);
+        }
 		// paramètres de l'avion
 		calculateXY(a);
 	}
