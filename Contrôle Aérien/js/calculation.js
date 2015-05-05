@@ -14,11 +14,11 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 function updateHeadToTargetPoint(avion){
 	var t = avion.getIndexCurrentTarget();
-	var xA = avion.getX();
-	var yA = avion.getY();
+	var xA = avion.getX()*scale;
+	var yA = avion.getY()*scale;
 	var pA = new Point(xA, yA);
-	var xT = avion.getListOfTargetPoints()[t].getX();
-	var yT = avion.getListOfTargetPoints()[t].getY();
+	var xT = avion.getListOfTargetPoints()[t].getX()*scale;
+	var yT = avion.getListOfTargetPoints()[t].getY()*scale;
 	var pT = new Point(xT, yT);
 	avion.setHTarget(calculateOrientation(pA, pT));
 }
