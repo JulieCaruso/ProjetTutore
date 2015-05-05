@@ -438,12 +438,16 @@ function dessinerChemin (avion) {
     }
     else {
         // on suit un cap
-        /*
         capASuivre = a.getHTarget();
         ctx.beginPath();
-        ctx.strokeStyle='green';
+        ctx.strokeStyle='yellow';
         ctx.lineWidth=2; 
+        ctx.moveTo(a.getX()*scale,a.getY()*scale);
+        /*  x' = r*cos(a) + x
+            y' = r*sin(a) + y
         */
+        ctx.lineTo(Math.cos(capASuivre*Math.PI/180)*canvasWidth+a.getX()*scale,canvasHeight*Math.sin(capASuivre*Math.PI/180)+a.getY()*scale);
+        ctx.stroke(); 
     }    
 }
 
