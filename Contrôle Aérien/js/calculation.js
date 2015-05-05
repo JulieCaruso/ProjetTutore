@@ -26,7 +26,7 @@ function updateHeadToTargetPoint(avion){
 // Méthode d'entrée pour le calcul d'un nouveau cap, on y fournit l'objet de type "Avion" ainsi que le sens de virage (0 si par la gauche, 1 si par la droite)
 function calculateHead(avion,sensVirage){
 	// speed est en noeuds = 1 MN / h avec 1 MN = 1852 m
-	var type = avion.getTypeOfPlane(), currentHead = avion.getH(), targetHead = avion.getHTarget(), speed = parseInt(avion.getV()*60/1852), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
+	var type = avion.getTypeOfPlane(), currentHead = parseFloat(avion.getH()), targetHead = avion.getHTarget(), speed = parseInt(avion.getV()*60/1852), xA = avion.getX(), yA = avion.getY(), inclinaison = Avion.getPerformancesPerType()[type]["inclinaisonMax"], R = 0;
 
 	var point = null, distanceAB = 0, delta = 0, xB = 0, yB = 0;
 
@@ -40,8 +40,9 @@ function calculateHead(avion,sensVirage){
 	delta = (Math.acos(distanceAB/(2*R)))*180/Math.PI;
 	
 	// Et donc deltaH
-	deltaH = mod((90-delta),360)+1;
+	deltaH = parseFloat(mod((90-delta),360)+1);
 	//console.debug("DeltaH = "+deltaH);
+    
 	if(sensVirage == 0)
 	{
 		//console.debug("Cap + 1 = "+(currentHead-deltaH));
@@ -50,10 +51,12 @@ function calculateHead(avion,sensVirage){
 
 			if(currentHead-deltaH < targetHead)
 			{
+                
 				avion.setH(targetHead);
 			}
 			else
 			{
+                
 				avion.setH(mod((currentHead-deltaH),360)+1);
 			}
 
@@ -65,49 +68,54 @@ function calculateHead(avion,sensVirage){
 			var new_cap = mod((currentHead-deltaH),360)+1; 
 			if (new_cap > 270 && currentHead < 90){
 				if(targetHead > new_cap){
+                    
 					avion.setH(targetHead);
 				}
 				else
 				{
+                    
 					avion.setH(new_cap);
 				}
 			}
 			else
 			{
+                
 				avion.setH(new_cap);
 			}
 		}
 	}
 	else 
 	{
-		//console.debug("Cap +1 = "+(currentHead+deltaH));
 		// On va par la droite en augmentant (ex : on va de 90° à 180°)
 		if (currentHead < targetHead){
 
 			if(currentHead+deltaH > targetHead)
 			{
+                
 				avion.setH(targetHead);
 			}
 			else
-			{
-				avion.setH(mod((currentHead+deltaH),360)+1);
+			{	avion.setH(mod((parseInt(currentHead)+parseInt(deltaH)),360)+1);
 			}
 		}
 		else
 		{
 			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
-			var new_cap = mod((currentHead+deltaH),360)+1; 
+			var new_cap = mod((parseFloat(currentHead)+parseFloat(deltaH)),360)+1; 
 			if (currentHead > 270 && new_cap < 90){
 				if(targetHead < new_cap){
+                    
 					avion.setH(targetHead);
 				}
 				else
 				{
+                    
 					avion.setH(new_cap);
 				}
 			}
 			else
 			{
+                console.debug("10"+" "+new_cap);
 				avion.setH(new_cap);
 			}
 		}
@@ -115,7 +123,7 @@ function calculateHead(avion,sensVirage){
 	}
 
 
-	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+avion.getH()+", Cap visé : "+targetHead);
+	//console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+parseInt(avion.getH())+", Cap visé : "+targetHead);
 
 
 }
