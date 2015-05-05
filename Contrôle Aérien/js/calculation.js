@@ -129,7 +129,7 @@ function calculateHead(avion,sensVirage){
 	}
 
 
-	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+parseInt(avion.getH())+", Cap visé : "+targetHead);
+	//console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+parseInt(avion.getH())+", Cap visé : "+targetHead);
 
 
 }
@@ -167,9 +167,9 @@ function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){
 
 // Permet de calculer le cap suivant deux points, A et B sont deux objets de type "Point"
 function calculateOrientation(A,B){
-	var xA = A.getX(), xB = B.getX(), yA = A.getY(), yB = B.getY(), cadran = -1, rayon = -1, angle = -1;
-	if (xA < xB){
-		if (yA < yB){
+	var xA = A.getX()*scale, xB = B.getX()*scale, yA = A.getY()*scale, yB = B.getY()*scale, cadran = -1, rayon = -1, angle = -1;
+	if (xA > xB){
+		if (yA > yB){
 			cadran = 0;
 		}
 		else
@@ -179,7 +179,7 @@ function calculateOrientation(A,B){
 	}
 	else
 	{
-		if (yA < yB){
+		if (yA > yB){
 			cadran = 270;
 		}
 		else
