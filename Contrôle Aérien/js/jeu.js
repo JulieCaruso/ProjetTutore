@@ -300,12 +300,10 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-    // paramètres de l'avion
+    // calcul paramètres de l'avion
     calculateXY(a);
     
-    
-    
-	// sauvegarde de l'état du contexte
+	// dessin avions et positions précédentes
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
 	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
 	dessinA(a.getX2()*scale, a.getY2()*scale, 2, "#FFCE9D");
