@@ -93,6 +93,18 @@ function init(){
 
 	// contenu initial de l'écran de bilan
 	$('#boutonRejouer').html("<input type=\"submit\" value=\"Rejouer\">");
+    $('#choixNiveau').html("Veuillez sélectionner un niveau : <select name=\"selectCap\" id=\"selectNiveau\"></select>");
+    var selectNiveau = document.getElementById('selectNiveau');
+    for (var i = 0; i < Niveau.getNombreNiveaux(); i++) {
+        var Element = document.createElement('option');
+        Element.value = i;
+        // si le cap est le cap courant, alors cette valeur est selectionnee par defaut
+        if (i == 0) {
+            Element.selected = "selected";
+        }
+        Element.textContent = parseInt(i);
+        selectNiveau.appendChild(Element);
+    }
 	$('#boutonAccueil').html("<input type=\"submit\" value=\"Accueil\">");
 
 	// DONNEES
@@ -115,6 +127,7 @@ function init(){
 	// GESTIONNAIRES
 	// gestionnaire du bouton #boutonJeu
 	$('#boutonJeu').click(function() {
+        niveauCourant = document.getElementById('selectNiveau').value;
 		afficheJeu();
 	});
 	// interactivité sur le canvas
