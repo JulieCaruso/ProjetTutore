@@ -120,6 +120,7 @@ function traitementCap(changements) {
         Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
     }
+    Avion.getListeAvions()[selectedPlane].setSuivreTarget(0);
 }
 
 function changementCap(changements) {
@@ -142,6 +143,7 @@ function traitementCible(changements) {
         changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
         updatePanneauLateralCibleCourante();
     }
+    Avion.getListeAvions()[selectedPlane].setSuivreTarget(1);
 }
 
 /*

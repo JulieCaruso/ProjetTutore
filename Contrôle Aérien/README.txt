@@ -72,7 +72,6 @@ Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on
 seance du 31/03 :
 
 todo : 
-- faire tous les tests avant affichage : JC
 - verifier la maj des données : P
 - mettre a jour l'interface pour prendre en compte le chemin le plus court (en cours)
 - utiliser le fichier de config
@@ -90,6 +89,7 @@ fait :
 - mettre les noms des avions et des targets : JC + A
 - arranger fenetre logs : JR
 - faire fct changement cible : A
+- faire tous les tests avant affichage (test airproc entre avion, avec lim carte et avec target) : JC
 
 ///////////////////////////////////////////////////////////////
 

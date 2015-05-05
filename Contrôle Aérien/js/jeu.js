@@ -168,7 +168,7 @@ function dessinerImage() {
 }
 
 function afficheAccueil(){
-	ecranCourant = "accueil";
+	ecranCourant = "accueil"; 
 	// affichage de l'écran et masquage des autres écrans
 	$('#accueil').show();
 	$('#jeu').hide();
@@ -225,9 +225,11 @@ function animer() {
 				// test airproc limite écran
 				testAirProXLim(avion);
 
-				// test avec les targets
-				var listTP = avion.getListOfTargetPoints();
-				testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
+                // test avec les targets si le'avion suit ses target points
+                if (avion.getSuivreTarget() == 1) {
+				    var listTP = avion.getListOfTargetPoints();
+				    testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
+                }
 
 				dessineAvion(avion);
 
