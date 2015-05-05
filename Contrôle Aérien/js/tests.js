@@ -22,16 +22,16 @@ function testAirProXLim(avion){
 	aX1 = avion.getX() * scale;
 	aY1 = avion.getY() * scale;
 
-	if (Math.abs(aX1-parseInt(canvasWidth))<=dist_limite|Math.abs(aY1-parseInt(canvasHeight))<=dist_limite||Math.abs(aX1)<=dist_limite||Math.abs(aY1)<=dist_limite){
+	if (Math.abs(aX1 - parseInt(canvasWidth)) <= dist_limite || Math.abs(aY1-parseInt(canvasHeight)) <= dist_limite || Math.abs(aX1) <= dist_limite || Math.abs(aY1) <= dist_limite){
 		avion.setColor("red");
-	} else if (avion.getColor()=="red") {avion.setColor("blue");}
+	} else if (avion.getColor() == "red") {avion.setColor("blue");}
 }
 
 function testTargetP(avion, targetPoint){
 	dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2)));
 	
 	if (dist_avion_targetP <= 1){
-		console.debug("Avion a atteint sa target, dist : "+dist_avion_targetP);
+		console.debug("Avion a atteint sa target, dist : " + dist_avion_targetP);
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length-1){
 			avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
 			updateHeadToTargetPoint(avion);

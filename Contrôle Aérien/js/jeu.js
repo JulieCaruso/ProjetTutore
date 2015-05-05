@@ -288,6 +288,7 @@ function dessineAvion(a){
     else if (a.getV() != a.getVTarget()) {
             calculateSpeed(a);
     }
+    updateHeadToTargetPoint(a);
 	if (a.getH() != a.getHTarget()){
 		var sensVirage = -1;
 		if(document.getElementById('virageC').checked){
