@@ -12,6 +12,11 @@ Ensemble des méthodes permettant de calculer la variation de cap à effectuer p
 
 */
 
+// Permet de calculer un modulo car celui de javascript ne marche pas
+function mod(m,n) {
+        return ((m % n) + n) % n;
+}
+
 function updateHeadToTargetPoint(avion){
 	var t = avion.getIndexCurrentTarget();
 	var xA = avion.getX()*scale;
@@ -102,6 +107,7 @@ function calculateHead(avion,sensVirage){
 		{
 			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
 			var new_cap = mod((parseFloat(currentHead)+parseFloat(deltaH)),360)+1; 
+            console.debug("TOTOTOTOTOTOTOTOTOTOTTO"+" "+new_cap);
 			if (currentHead > 270 && new_cap < 90){
 				if(targetHead < new_cap){
                     
@@ -115,7 +121,7 @@ function calculateHead(avion,sensVirage){
 			}
 			else
 			{
-                console.debug("10"+" "+new_cap);
+                
 				avion.setH(new_cap);
 			}
 		}
@@ -123,7 +129,7 @@ function calculateHead(avion,sensVirage){
 	}
 
 
-	//console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+parseInt(avion.getH())+", Cap visé : "+targetHead);
+	console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+parseInt(avion.getH())+", Cap visé : "+targetHead);
 
 
 }
@@ -187,9 +193,9 @@ function calculateOrientation(A,B){
 	rayon = Math.sqrt((xB-xA)*(xB-xA)+(yB-yA)*(yB-yA));
 
 	angle = Math.acos((xB-xA)/rayon);
-
-	return parseInt(angle*180/Math.PI+cadran);
-}
+    
+	return parseInt(mod(angle*180/Math.PI+cadran,360) + 1);
+} 
 
 // Permet de déterminer la meilleure manière d'atteindre le cap visé. Renvoie 0 si gauche, 1 si droite et -1 en cas d'erreur
 function calculateBetterWayToReachTargetHead(avion){
@@ -236,11 +242,6 @@ function calculateBetterWayToReachTargetHead(avion){
 	}
 
 	return betterWay;
-}
-
-// Permet de calculer un modulo car celui de javascript ne marche pas
-function mod(m,n) {
-        return ((m % n) + n) % n;
 }
 
 // Permet de calculer la vitesse d'un avion progressivement
