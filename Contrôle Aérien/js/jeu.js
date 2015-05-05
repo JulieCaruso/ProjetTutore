@@ -9,18 +9,18 @@ var inter = -1;
 
 // FIN VARIABLES GLOBALES
 
-$(function() {
+$(function () {
 	init0();
 });
 
-function init0(){
+function init0() {
 	begin = setInterval(chgt, 100);
 }
 
 // PROBLEME ECHELLE
 
 function chgt(){
-	if (Niveau.getChargementDonnees() == 0){
+	if (Niveau.getChargementDonnees() == 0) {
 		clearInterval(begin);
 
 		// TEST ALEX
@@ -237,7 +237,8 @@ function animer() {
 					
 					dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
 					// On ajoute le nom du target point
-					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()-20)*scale);
+                    ctx.font = "10px Arial";
+					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
 				}
 			}
 		}
