@@ -73,10 +73,10 @@ seance du 31/03 :
 
 todo : 
 - verifier la maj des données : P
-- utiliser le fichier de config
-- langues + niveau à choisir : JC
+- utiliser le fichier de config : JC (en cours)
+- langues : JC
 - implementer le vent + calcul nouvelle position : A
-- afficher la route (en cliquant sur l'avion) (en cours) JR
+- afficher la route (en cliquant sur l'avion) JR (en cours)
 
 
 fait : 
@@ -90,6 +90,7 @@ fait :
 - faire tous les tests avant affichage (test airproc entre avion, avec lim carte et avec target) : JC
 - mettre a jour l'interface pour prendre en compte le chemin le plus court (en cours)
 - prendre en compte le changement de vitesse / altitude progressif : A
+- ajout niveau à choisir : JC
 
 ///////////////////////////////////////////////////////////////
 
