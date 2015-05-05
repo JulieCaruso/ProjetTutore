@@ -349,13 +349,13 @@ function clicCanvas(e){
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 		var avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
 
-		// TODO : PANNEAU SPECIAL TARGET
 
 		var R = 5;
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()*scale-xSourisCanvas) < R
 			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()*scale-ySourisCanvas) < R){
 
 			selectedPlane = a;
+            reinitialisationPanneau();
 			updatePanneauLateral();
 			avionSelected = 1;
 		}
