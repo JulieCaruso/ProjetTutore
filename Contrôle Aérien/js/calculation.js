@@ -42,7 +42,6 @@ function calculateHead(avion,sensVirage){
 	// Et donc deltaH
 	deltaH = mod((90-delta),360)+1;
 	//console.debug("DeltaH = "+deltaH);
-
 	if(sensVirage == 0)
 	{
 		//console.debug("Cap + 1 = "+(currentHead-deltaH));

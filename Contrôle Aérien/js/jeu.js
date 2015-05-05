@@ -24,7 +24,7 @@ function chgt(){
 		clearInterval(begin);
 
 		// TEST ALEX
-		
+		/*
 		var compteur = 0;
 		Avion.getListeAvions()[0].setHTarget((Avion.getListeAvions()[0].getH()+310)%360);
 		while(Avion.getListeAvions()[0].getHTarget() != Avion.getListeAvions()[0].getH()){
@@ -32,7 +32,7 @@ function chgt(){
 		calculateHead(Avion.getListeAvions()[0],1);
 		compteur++;
 	}
-	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");
+	console.debug("Nombre de secondes nécessaires pour atteindre le cap = "+compteur+" secondes");*/
 	/*
 	var compteur = 0;
 	Avion.getListeAvions()[0].setVTarget(Avion.getListeAvions()[0].getV()-80);
@@ -233,7 +233,7 @@ function animer() {
 
 				for (var t = 0; t < listTP.length; t++) {
 					
-					dessinA(listTP[t].getX(), listTP[t].getY(), 5, "green")
+					dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
 					// On ajoute le nom du target point
                     ctx.font = "10px Arial";
 					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
