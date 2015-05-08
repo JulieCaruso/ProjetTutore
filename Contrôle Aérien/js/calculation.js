@@ -45,7 +45,7 @@ function calculateHead(avion,sensVirage){
 	delta = (Math.acos(distanceAB/(2*R)))*180/Math.PI;
 	
 	// Et donc deltaH
-	deltaH = parseFloat(mod((90-delta),360)+1);
+	deltaH = parseFloat(mod((90-delta),360));
 	//console.debug("DeltaH = "+deltaH);
     
 	if(sensVirage == 0)
@@ -62,7 +62,7 @@ function calculateHead(avion,sensVirage){
 			else
 			{
                 
-				avion.setH(mod((currentHead-deltaH),360)+1);
+				avion.setH(mod((currentHead-deltaH),360));
 			}
 
 		}
@@ -70,7 +70,7 @@ function calculateHead(avion,sensVirage){
 		{
 			// On va par la gauche mais avec un cap visé plus grand que le cap actuel (ex : on va de 90° à 310°)
 			// On diminue donc forcément
-			var new_cap = mod((currentHead-deltaH),360)+1; 
+			var new_cap = mod((currentHead-deltaH),360); 
 			if (new_cap > 270 && currentHead < 90){
 				if(targetHead > new_cap){
                     
@@ -101,13 +101,13 @@ function calculateHead(avion,sensVirage){
 			}
 			else
 			{	
-				avion.setH(mod((parseInt(currentHead)+parseInt(deltaH)),360)+1);
+				avion.setH(mod((parseInt(currentHead)+parseInt(deltaH)),360));
 			}
 		}
 		else
 		{
 			// On va par la droite mais avec un cap visé plus petit que le cap actuel (ex : on va de 310° à 90°)
-			var new_cap = mod((parseFloat(currentHead)+parseFloat(deltaH)),360)+1; 
+			var new_cap = mod((parseFloat(currentHead)+parseFloat(deltaH)),360); 
             
 			if (currentHead > 270 && new_cap < 90){
 				if(targetHead < new_cap){
@@ -160,16 +160,16 @@ function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){
 	
 	if(sensVirage == 0){
 		// On va à gauche
-		headOrthogonal = mod((currentHead-90),360)+1;
-		alpha = mod((90-headOrthogonal),360)+1;
+		headOrthogonal = mod((currentHead-90),360);
+		alpha = mod((90-headOrthogonal),360);
 		x0 = R*Math.cos(alpha*Math.PI/180);
 		y0 = -R*Math.sin(alpha*Math.PI/180);
 	}
 	else
 	{
 		// On va à droite
-		headOrthogonal = mod((currentHead+90),360)+1;
-		alpha = mod((90+headOrthogonal),360)+1;
+		headOrthogonal = mod((currentHead+90),360);
+		alpha = mod((90+headOrthogonal),360);
 		x0 = R*Math.cos(alpha*Math.PI/180);
 		y0 = R*Math.sin(alpha*Math.PI/180);
 	}
@@ -185,9 +185,8 @@ function calculateOrientation(A,B){
 
 	angle = Math.atan2(yB-yA,xB-xA)*180/Math.PI + 90;
     
-	//alert(parseInt(mod(angle*180/Math.PI+cadran,360) + 1));
 	
-	return parseInt(mod(angle,360) + 1);
+	return parseInt(mod(angle,360));
 } 
 
 // Permet de déterminer la meilleure manière d'atteindre le cap visé. Renvoie 0 si gauche, 1 si droite et -1 en cas d'erreur

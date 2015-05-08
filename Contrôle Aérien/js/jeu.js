@@ -219,9 +219,7 @@ function animer() {
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
-        if (selectedPlane != -1) {
-            dessinerChemin(selectedPlane);
-        }
+        
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
 			if (avion.getIndexCurrentTarget() >= avion.getListOfTargetPoints().length){
@@ -247,6 +245,7 @@ function animer() {
                 }
 
 				dessineAvion(avion);
+				
 
 				for (var t = 0; t < listTP.length; t++) {
 					
@@ -256,6 +255,10 @@ function animer() {
 					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
 				}
 			}
+		}
+		
+		if (selectedPlane != -1) {
+			dessinerChemin(selectedPlane);
 		}
 	}
 }
@@ -327,8 +330,8 @@ function dessineAvion(a){
 	dessinA(a.getX4()*scale, a.getY4()*scale, 1, "#FFCE9D");
     
 	// On ajoute le nom de l'avion
-	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()+20)*scale, (a.getY()-70)*scale);
-	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()+20)*scale, (a.getY()-20)*scale);
+	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()*scale+20)*scale, (a.getY()-70)*scale);
+	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()*scale+20)*scale, (a.getY()-20)*scale);
 }
 function dessinA(x, y, R, couleur){
 	// sauvegarde de l'état du contexte
@@ -446,16 +449,16 @@ function dessinerChemin (avion) {
 		
 		// On détermine alors la droite (liée au cap) du type y = p * x + c
 		// Si p est infini, c'est qu'il n'y a pas d'intersection entre les deux droites
-		if (nextCoordinates["X"]-a.getX() !== 0)
+		if (nextCoordinates["X"]*scale-a.getX()*scale !== 0)
 		{
-			p = (nextCoordinates["Y"]-a.getY())/(parseFloat(nextCoordinates["X"]-a.getX()));
+			p = (nextCoordinates["Y"]*scale-a.getY()*scale)/(parseFloat(nextCoordinates["X"]*scale-a.getX()*scale));
 		}
 		else
 		{
 			p = Math.POSITIVE_INFINITY;	
 		}
 		
-		c = a.getY() - p * a.getX();
+		c = a.getY()*scale - p * a.getX()*scale;
 		
 		// On trouve alors la bonne orientation en fonction du cap
 		head = a.getH();
@@ -465,6 +468,7 @@ function dessinerChemin (avion) {
 			// Intersection avec Y_bord1 = 0
 			Y_bord1 = 0;
 			X_bord1 = - c / parseFloat(p);
+			
 			
 			// Si p n'est pas infini
 			if (p !== Math.POSITIVE_INFINITY)
@@ -476,8 +480,8 @@ function dessinerChemin (avion) {
 			else
 			{
 				// Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
-				X_bord2 = X_bord1;
-				Y_bord2 = X_bord1;
+				X_bord2 = a.getX()*scale;
+				Y_bord2 = Y_bord1;
 			}
 			
 		}
@@ -508,10 +512,10 @@ function dessinerChemin (avion) {
 			{
 				// Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
 				X_bord2 = X_bord1;
-				Y_bord2 = X_bord1;
+				Y_bord2 = Y_bord1;
 			}
 		}
-		else if (head <= 360)
+		else if (head = 360)
 		{
 			// Intersection avec Y_bord1 = 0
 			Y_bord1 = 0;
