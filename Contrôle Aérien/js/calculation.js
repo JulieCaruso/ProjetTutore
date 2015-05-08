@@ -100,7 +100,8 @@ function calculateHead(avion,sensVirage){
 				avion.setH(targetHead);
 			}
 			else
-			{	avion.setH(mod((parseInt(currentHead)+parseInt(deltaH)),360)+1);
+			{	
+				avion.setH(mod((parseInt(currentHead)+parseInt(deltaH)),360)+1);
 			}
 		}
 		else
@@ -128,16 +129,28 @@ function calculateHead(avion,sensVirage){
 		
 	}
 
+	avion.setH(parseInt(avion.getH()));
 
 	//console.debug("Ancien cap : "+currentHead+", Cap + 1 seconde : "+parseInt(avion.getH())+", Cap visé : "+targetHead);
 
 
 }
 
+// Calcule les prochaines coordonnées de l'avion (sans les modifier au sein de l'avion)
 function calculateXY(avion){
 	var speed = parseInt(avion.getV()*60/1852);
-	avion.setX(avion.getX()+speed*Math.sin(avion.getH()*Math.PI/180));
-	avion.setY(avion.getY()-speed*Math.cos(avion.getH()*Math.PI/180));
+	
+	var coordinates = [];
+	
+	coordinates["X"] = avion.getX()+speed*Math.sin(avion.getH()*Math.PI/180);
+	coordinates["Y"] = avion.getY()-speed*Math.cos(avion.getH()*Math.PI/180);
+	
+	return coordinates;
+}
+
+function setCoordinates(avion,coordinates){
+	avion.setX(coordinates["X"]);
+	avion.setY(coordinates["Y"]);
 }
 
 function calculateOrigin(R,xA,yA,currentHead,type,speed,sensVirage){

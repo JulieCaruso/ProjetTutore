@@ -8,6 +8,9 @@ var inter = -1;
 
 var selectedPlane = -1 ;
 
+// Correspond aux dimensions du canvas
+var canvasWidth = "579";
+var canvasHeight = "436";
 
 // FIN VARIABLES GLOBALES
 
@@ -67,9 +70,6 @@ function init(){
 	// On récupère les informations contenues dans le fichier XML
 	scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 
-	canvasWidth = "579";
-	canvasHeight = "436";
-    
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -316,8 +316,8 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-    // calcul paramètres de l'avion
-    calculateXY(a);
+    // calcul paramètres de l'avion puis on modifie les coordonnées dans l'avion
+    setCoordinates(a,calculateXY(a));
     
 	// dessin avions et positions précédentes
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
@@ -437,17 +437,121 @@ function dessinerChemin (avion) {
         }
     }
     else {
-        // on suit un cap
-        capASuivre = a.getHTarget();
-        ctx.beginPath();
-        ctx.strokeStyle='yellow';
-        ctx.lineWidth=2; 
-        ctx.moveTo(a.getX()*scale,a.getY()*scale);
-        /*  x' = r*cos(a) + x
-            y' = r*sin(a) + y
-        */
-        ctx.lineTo(Math.cos(capASuivre*Math.PI/180)*canvasWidth+a.getX()*scale,canvasHeight*Math.sin(capASuivre*Math.PI/180)+a.getY()*scale);
-        ctx.stroke(); 
+        // On trace une ligne en fonction du cap
+		
+		var p, c, head, X_bord1, Y_bord1, X_bord2, Y_bord2;
+		
+		// Calcul des prochaines coordonnées de l'avion (sans les modifier !)
+		var nextCoordinates = calculateXY(a);
+		
+		// On détermine alors la droite (liée au cap) du type y = p * x + c
+		// Si p est infini, c'est qu'il n'y a pas d'intersection entre les deux droites
+		if (nextCoordinates["X"]-a.getX() !== 0)
+		{
+			p = (nextCoordinates["Y"]-a.getY())/(parseFloat(nextCoordinates["X"]-a.getX()));
+		}
+		else
+		{
+			p = Math.POSITIVE_INFINITY;	
+		}
+		
+		c = a.getY() - p * a.getX();
+		
+		// On trouve alors la bonne orientation en fonction du cap
+		head = a.getH();
+		
+		if (head < 90)
+		{
+			// Intersection avec Y_bord1 = 0
+			Y_bord1 = 0;
+			X_bord1 = - c / parseFloat(p);
+			
+			// Si p n'est pas infini
+			if (p !== Math.POSITIVE_INFINITY)
+			{
+				// Intersection avec X_bord2 = canvasWidth
+				X_bord2 = canvasWidth;
+				Y_bord2 = p * X_bord2 + c;
+			}
+			else
+			{
+				// Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
+				X_bord2 = X_bord1;
+				Y_bord2 = X_bord1;
+			}
+			
+		}
+		else if (head < 180)
+		{
+			// Intersection avec Y_bord1 = canvasHeight
+			Y_bord1 = canvasHeight;
+			X_bord1 = (Y_bord1 - c) / parseFloat(p);
+			
+			// Intersection avec X_bord2 = canvasWidth
+			X_bord2 = canvasWidth;
+			Y_bord2 = p * X_bord2 + c;
+		}
+		else if (head < 270)
+		{
+			// Intersection avec Y_bord1 = canvasHeight
+			Y_bord1 = canvasHeight;
+			X_bord1 = (Y_bord1 - c) / parseFloat(p);
+			
+			// Si p n'est pas infini
+			if (p !== Math.POSITIVE_INFINITY)
+			{
+				// Intersection avec X_bord2 = 0
+				X_bord2 = 0;
+				Y_bord2 = c;
+			}
+			else
+			{
+				// Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
+				X_bord2 = X_bord1;
+				Y_bord2 = X_bord1;
+			}
+		}
+		else if (head <= 360)
+		{
+			// Intersection avec Y_bord1 = 0
+			Y_bord1 = 0;
+			X_bord1 = - c / parseFloat(p);
+			
+			// Intersection avec X_bord2 = 0
+			X_bord2 = 0;
+			Y_bord2 = c;
+		}
+		else
+		{
+			alert("ERREUR, le cap dépasse 360 ° !");	
+		}
+		
+		// On trace le trait
+		
+		
+		if (X_bord1 > 0 && X_bord1 <= canvasWidth && Y_bord1 > 0 && Y_bord1 <= canvasHeight)
+		{
+			
+			 ctx.save();
+			ctx.beginPath();
+			ctx.strokeStyle='yellow';
+			ctx.lineWidth=2; 
+			ctx.moveTo(a.getX()*scale,a.getY()*scale);
+			ctx.lineTo(X_bord1,Y_bord1);
+			ctx.stroke(); 
+			ctx.restore();
+		}
+		else
+		{
+			 ctx.save();
+			ctx.beginPath();
+			ctx.strokeStyle='yellow';
+			ctx.lineWidth=2; 
+			ctx.moveTo(a.getX()*scale,a.getY()*scale);
+			ctx.lineTo(X_bord2,Y_bord2);
+			ctx.stroke(); 
+			ctx.restore();
+		}
     }    
 }
 
