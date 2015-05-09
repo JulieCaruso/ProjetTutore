@@ -136,7 +136,8 @@ function changementCap(changements) {
 function traitementCible(changements) {
     var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
     var cibleCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel();
-    var cibleVoulue = document.getElementById('selectTarget').value;
+    //mettre des parseInt ailleurs aussi?
+    var cibleVoulue = parseInt(document.getElementById('selectTarget').value);
     if (cibleCourante != cibleVoulue) {
         Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
         updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
@@ -447,6 +448,7 @@ function zHasChanged() {
 function tHasChanged() {
     var spanCurrentCibleAvion = document.getElementById('currentTarget');
     var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+    console.debug("panneau index = "+indexCurrentCible);
     var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel();
     var indexAffiche = parseInt(indexCurrentCible);
     indexAffiche = indexAffiche + 1;
