@@ -12,9 +12,31 @@ function testAirProX(avion1, avion2) {
 	aZ2 = avion2.getZ() * scale;
 	dist_a1_a2 = Math.sqrt(Math.pow(aX1 - aX2, 2)+Math.pow(aY1 - aY2, 2)+Math.pow(aZ1 - aZ2, 2));
 	
-	if (dist_a1_a2 <= dist_limite){
+	if (dist_a1_a2 <= dist_limite)
+	{
 		avion1.setColor("red");
-	} else if (avion1.getColor()=="red") {avion2.setColor("blue");}
+		avion2.setColor("red");
+	}
+	else if (avion1.getColor()=="red") 
+	{
+		var a_selected = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
+		if (selectedPlane !== -1 && avion1.getNameOfPlane() === a_selected.getNameOfPlane())
+		{
+			avion1.setColor("orange");
+			avion2.setColor("blue");
+		}
+		else if (selectedPlane !== -1 && avion2.getNameOfPlane() === a_selected.getNameOfPlane())
+		{
+			avion1.setColor("blue");
+			avion2.setColor("orange");
+		}
+		else
+		{
+			avion1.setColor("blue");
+			avion2.setColor("blue");
+		}
+	}
+	
 }
 
 //quand l'avion s'approche la limite de la carte
@@ -23,8 +45,8 @@ function testAirProXLim(avion){
 	aY1 = avion.getY() * scale;
 
 	if (Math.abs(aX1 - parseInt(canvasWidth)) <= dist_limite || Math.abs(aY1-parseInt(canvasHeight)) <= dist_limite || Math.abs(aX1) <= dist_limite || Math.abs(aY1) <= dist_limite){
-		avion.setColor("red");
-	} else if (avion.getColor() == "red") {avion.setColor("blue");}
+		avion.setColor("purple");
+	} else if (avion.getColor() == "purple") {avion.setColor("blue");}
 }
 
 function testTargetP(avion, targetPoint){

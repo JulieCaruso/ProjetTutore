@@ -259,6 +259,8 @@ function animer() {
 		
 		if (selectedPlane != -1) {
 			dessinerChemin(selectedPlane);
+			var a = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
+			a.setColor("orange");
 		}
 	}
 }
@@ -321,7 +323,7 @@ function dessineAvion(a){
 	}
     // calcul paramètres de l'avion puis on modifie les coordonnées dans l'avion
     setCoordinates(a,calculateXY(a));
-    
+
 	// dessin avions et positions précédentes
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
 	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
@@ -330,8 +332,8 @@ function dessineAvion(a){
 	dessinA(a.getX4()*scale, a.getY4()*scale, 1, "#FFCE9D");
     
 	// On ajoute le nom de l'avion
-	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()*scale+20)*scale, (a.getY()-70)*scale);
-	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()*scale+20)*scale, (a.getY()-20)*scale);
+	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()*scale+5), (a.getY()*scale-5));
+	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()*scale+5), (a.getY()*scale-15));
 }
 function dessinA(x, y, R, couleur){
 	// sauvegarde de l'état du contexte
@@ -377,6 +379,11 @@ function clicCanvas(e){
             reinitialisationPanneau();
 			updatePanneauLateral();
 			avionSelected = 1;
+			avion.setColor("orange");
+		}
+		else
+		{
+			avion.setColor("blue");	
 		}
 
 		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){

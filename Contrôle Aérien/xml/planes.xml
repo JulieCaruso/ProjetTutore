@@ -2,7 +2,7 @@
 <g:Game xmlns:g="http://eu.iode.enac.ca.games/1.1" gameTitle="conflit GAI MTL / JAMBI MTL">
   <level id="1" levelTitle="niveau 1">
     <plane xIni="522" yIni="539" vIni="451" zIni="320" hIni="310" rateIni="1000" controllable="true" planeType="B763" planeName="C12345" zTarget="320" typeDansEtiquette="false">
-    <targetPoint x="396" y="469" label="MTL"/>
+    <targetPoint x="397" y="470" label="MTL"/>
     <targetPoint x="293" y="365" label="MINDI"/>
     <targetPoint x="173" y="244" label="CFA"/>
     <targetPoint x="143" y="67" label="VULCA"/>
@@ -65,7 +65,7 @@
     <zone nature="alteration" type="circle" concernedPlanes="All">
     	<circle x="457" y="474" radius="52"/>
     </zone>
-    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-75" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.2" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="3" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
+    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-75" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.5" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="3" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
       <controlPanel hControl="true" vControl="true" rateControl="true" zControl="true" directPointControl="true" waitingControl="true" tempoControl="true"/>
 			<Texts>
 				<textIntro lang="FR">
