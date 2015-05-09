@@ -222,47 +222,43 @@ function animer() {
         
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
-			if (avion.getIndexCurrentTarget() >= avion.getListOfTargetPoints().length){
-				// end of game?
-				// afficheBilan();
-			}
-			else {
-                var listTP = avion.getListOfTargetPoints();
-                
-				// test airproc pour toutes les combinaisons d'avions
-				if (a < listeNiveaux[niveauCourant].getListOfAvions().length - 1){
-					for (var b=a+1; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
-						testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
-					}
-				}
-
-				// test airproc limite écran
-				testAirProXLim(avion);
-
-                // test avec les targets si le'avion suit ses target points
-                if (avion.getSuivreTarget() == 1) {
-				    testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
+            
+            var listTP = avion.getListOfTargetPoints();
+                 
+            // test airproc pour toutes les combinaisons d'avions
+            if (a < listeNiveaux[niveauCourant].getListOfAvions().length - 1){
+                for (var b=a+1; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
+                    testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
                 }
+            }   
+            
+            // test airproc limite écran
+            testAirProXLim(avion);
+            
+            // test avec les targets si le'avion suit ses target points
+            if (avion.getSuivreTarget() == 1) {
+                if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
+                    testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
+                }
+            }
 
-				dessineAvion(avion);
-				
-
-				for (var t = 0; t < listTP.length; t++) {
-					
-					dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
-					// On ajoute le nom du target point
-                    ctx.font = "10px Arial";
-					ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
-				}
-			}
-		}
+            dessineAvion(avion);
+			 	
+            for (var t = 0; t < listTP.length; t++) {
+			 		
+                dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
+                // On ajoute le nom du target point
+                ctx.font = "10px Arial";
+                ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
+            }
+        }
+    }
 		
 		if (selectedPlane != -1) {
 			dessinerChemin(selectedPlane);
 			var a = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
 			a.setColor("orange");
 		}
-	}
 }
 
 function dessineAvion(a){
@@ -308,7 +304,14 @@ function dessineAvion(a){
     else if (a.getV() != a.getVTarget()) {
             calculateSpeed(a);
     }
-    updateHeadToTargetPoint(a);
+    // si suivre targets
+    if (avion.getSuivreTarget() == 1) {
+        // si l'avion a atteint sa derniere target, il continue sur son dernier cap
+        if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
+            updateHeadToTargetPoint(a);
+        }
+    }
+    
 	if (a.getH() != a.getHTarget()){
 		var sensVirage = -1;
 		if(document.getElementById('virageC').checked){
