@@ -137,20 +137,19 @@ function traitementCible(changements) {
     var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
     if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length) {
         var cibleCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel();
-        //mettre des parseInt ailleurs aussi?
-        var cibleVoulue = parseInt(document.getElementById('selectTarget').value);
-        if (cibleCourante != cibleVoulue) {
-            Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
-            updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
-            changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
-            updatePanneauLateralCibleCourante();
-        }
-        Avion.getListeAvions()[selectedPlane].setSuivreTarget(1);
     }
     else {
-        // cas ou on a atteint la derniere cible
-        // todo : ajouter une option au menu "ne rien suivre ?"
+        var cibleCourante = -1;
     }
+    //mettre des parseInt ailleurs aussi?
+    var cibleVoulue = parseInt(document.getElementById('selectTarget').value);
+    if (cibleCourante != cibleVoulue) {
+        Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
+        updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
+        changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
+        updatePanneauLateralCibleCourante();
+    }
+    Avion.getListeAvions()[selectedPlane].setSuivreTarget(1);
 }
 
 /*
