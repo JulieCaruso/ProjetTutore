@@ -95,6 +95,9 @@ fait :
 - mettre a jour l'interface pour prendre en compte le chemin le plus court (en cours)
 - prendre en compte le changement de vitesse / altitude progressif : A
 
+
+- cas où l'on a atteint la derniere target -> possibilité de donner une nouvelle target ??? ligne 152
+
 ///////////////////////////////////////////////////////////////
 
 
