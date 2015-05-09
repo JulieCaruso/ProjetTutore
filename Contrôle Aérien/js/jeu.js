@@ -422,6 +422,13 @@ function reinitialisation(){
 			listeNiveaux[lv].getListOfAvions()[idA].setY1(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
 			listeNiveaux[lv].getListOfAvions()[idA].setX2(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
 			listeNiveaux[lv].getListOfAvions()[idA].setY2(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[lv].getListOfAvions()[idA].setX3(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY3(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[lv].getListOfAvions()[idA].setX4(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY4(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[lv].getListOfAvions()[idA].setIndexCurrentTarget(0);
+            listeNiveaux[lv].getListOfAvions()[idA].setSuivreTarget(1);
+            listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
 		}
 	}
 	// réinitialisation du panneau lateral
