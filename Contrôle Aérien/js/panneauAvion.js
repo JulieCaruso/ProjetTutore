@@ -447,17 +447,25 @@ function zHasChanged() {
 // pour la cible
 function tHasChanged() {
     var spanCurrentCibleAvion = document.getElementById('currentTarget');
-    var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
-    console.debug("panneau index = "+indexCurrentCible);
-    var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel();
-    var indexAffiche = parseInt(indexCurrentCible);
-    indexAffiche = indexAffiche + 1;
-    if (spanCurrentCibleAvion.textContent != "  " + CurrentCibleAvion + " (point " +(indexAffiche) + ")") {
-        //console.debug("target has changed");
-        return 1;
-    } else {
-        //console.debug("target hasnt changed");
-        return 0;
+    if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
+        var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+        var CurrentCibleAvion = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel();
+        var indexAffiche = parseInt(indexCurrentCible);
+        indexAffiche = indexAffiche + 1;
+        if (spanCurrentCibleAvion.textContent != "  " + CurrentCibleAvion + " (point " +(indexAffiche) + ")") {
+            //console.debug("target has changed");
+            return 1;
+        } else {
+            //console.debug("target hasnt changed");
+            return 0;
+        }
+    }
+    else {
+        //***************************************************
+        //
+        // que faire ici? cas ou l'avion a fini tous ses targets
+        //
+        //***************************************************
     }
 }
 

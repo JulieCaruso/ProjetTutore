@@ -53,7 +53,7 @@ function testTargetP(avion, targetPoint){
 	dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
 	if (dist_avion_targetP <= dist_limite*scale){
         avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
-		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length-1){
+		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
 			updateHeadToTargetPoint(avion);
 		}
 	}
