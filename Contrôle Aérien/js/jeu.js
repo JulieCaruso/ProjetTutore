@@ -390,8 +390,8 @@ function clicCanvas(e){
 		}
 
 		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){
-			if(Math.abs(avion.getListOfTargetPoints()[t].getX()/5-xSourisCanvas) < R
-			&& Math.abs(avion.getListOfTargetPoints()[t].getY()/5-ySourisCanvas) < R){
+			if(Math.abs(avion.getListOfTargetPoints()[t].getX()*scale-xSourisCanvas) < R
+			&& Math.abs(avion.getListOfTargetPoints()[t].getY()*scale-ySourisCanvas) < R){
 				// on lui passe l'objet target?
 				selectedTarget = avion.getListOfTargetPoints()[t];
 				targetSelected = 1;
