@@ -58,3 +58,18 @@ function testTargetP(avion, targetPoint){
 		}
 	}
 }
+
+// Permet de tester si l'avion se trouve dans une zone d'altération
+function testAlterationZone(avion, zone){
+	
+	var distance_avion = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-zone.getX()*scale,2)+Math.pow(avion.getY()*scale-zone.getY()*scale,2))); 
+	var coordinates;
+	
+	if (distance_avion <= zone.getRadius())
+	{
+		// On se trouve dans la zone	
+		coordinates = calculateXY_deviation(avion, 280, 240);
+		setCoordinates(avion,coordinates);
+	}
+	
+}

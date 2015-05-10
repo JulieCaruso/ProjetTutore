@@ -206,6 +206,9 @@ function regles(){
 	}
 }
 function animer() {
+	
+	var listOfZones;
+	
 	if((tempsJeu/10 > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		afficheBilan();
 	}
@@ -251,6 +254,20 @@ function animer() {
                 ctx.font = "10px Arial";
                 ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
             }
+			
+			// On trace les zones de turbulences
+			
+			listOfZones = listeNiveaux[niveauCourant].getListOfZones();
+			
+			for (var i in listOfZones)
+			{
+				if (listOfZones[i].getNature() === "alteration")
+				{
+					var zone = listOfZones[i].getListOfPoints_Cercle()[0];
+					dessine_zone_alteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(),"lightblue");
+				}
+			}
+			
         }
     }
 		
@@ -262,6 +279,9 @@ function animer() {
 }
 
 function dessineAvion(a){
+	
+	var listOfZones;
+	
 	if (tempsNiveau == 2) {
 		a.setX1(a.getX());
 		a.setY1(a.getY());
@@ -324,8 +344,24 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-    // calcul paramètres de l'avion puis on modifie les coordonnées dans l'avion
+	
+	
+    // Calcul des paramètres de l'avion puis on modifie les coordonnées dans l'avion
     setCoordinates(a,calculateXY(a));
+	
+	// On vérifie si l'on se trouve dans une zone d'altération
+	listOfZones = listeNiveaux[niveauCourant].getListOfZones();
+			
+	for (var i in listOfZones)
+	{
+		if (listOfZones[i].getNature() === "alteration")
+		{
+			var zone = listOfZones[i].getListOfPoints_Cercle()[0];
+			
+			testAlterationZone(avion, zone);			
+			
+		}
+	}
 
 	// dessin avions et positions précédentes
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
@@ -349,6 +385,21 @@ function dessinA(x, y, R, couleur){
 	// restore le contexte
 	ctx.restore();
 }
+
+// Permet de dessiner une zone d'altération
+function dessine_zone_alteration(x, y, R, couleur){
+	// sauvegarde de l'état du contexte
+	ctx.save();
+	ctx.translate(x, y);
+	ctx.beginPath();
+	ctx.globalAlpha = 0.30;
+	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
+	ctx.fillStyle = couleur;
+	ctx.fill();
+	// restore le contexte
+	ctx.restore();
+}
+
 function afficheBilan(){
 	ecranCourant = "bilan";
 	// affichage de l'écran et masquage des autres écrans

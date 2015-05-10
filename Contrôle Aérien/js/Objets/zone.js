@@ -18,25 +18,23 @@ function Zone(nature,type,concernedPlanes){
 	// Attributs public
 	this.type = "Zone";
 	this.concernedPlanes = concernedPlanes;
-
-	// Attributs privés
-	var nature = nature;
-	var typeOfZone = type;
-	var listOfPoints_Cercle = [];
+	this.nature = nature;
+	this.typeOfZone = type;
+	this.listOfPoints_Cercle = [];
 
 	// Getters d'attributs privés
 	if( typeof Zone.initialized == "undefined" ) { 
 
         Zone.prototype.getNature = function() { 
-            return nature;
+            return this.nature;
         };
 
         Zone.prototype.getTypeOfZone = function() { 
-            return typeOfZone;
+            return this.typeOfZone;
         };
 
         Zone.prototype.getListOfPoints_Cercle = function() { 
-            return listOfPoints_Cercle;
+            return this.listOfPoints_Cercle;
         };
 
         Zone.initialized = true; 

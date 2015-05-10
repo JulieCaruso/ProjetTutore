@@ -148,6 +148,18 @@ function calculateXY(avion){
 	return coordinates;
 }
 
+// Calcule les prochaines coordonnées de l'avion en prenant en compte un vent (sans les modifier au sein de l'avion)
+function calculateXY_deviation(avion, vitesse_vent, cap_vent){
+	var speed = parseInt(vitesse_vent*60/1852);
+	
+	var coordinates = [];
+	
+	coordinates["X"] = avion.getX()+speed*Math.sin(cap_vent*Math.PI/180);
+	coordinates["Y"] = avion.getY()-speed*Math.cos(cap_vent*Math.PI/180);
+	
+	return coordinates;
+}
+
 function setCoordinates(avion,coordinates){
 	avion.setX(coordinates["X"]);
 	avion.setY(coordinates["Y"]);

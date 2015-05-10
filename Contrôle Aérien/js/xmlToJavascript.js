@@ -149,7 +149,7 @@ function processXMLData(XMLData) {
 				attribute = currentZone.attributes.item(k);
 				zoneAttributes[attribute.nodeName] = attribute.nodeValue;
 			}
-
+			
 			zone = new Zone(
 				zoneAttributes["nature"],
 				zoneAttributes["type"],
@@ -185,7 +185,7 @@ function processXMLData(XMLData) {
 						attribute = listOfCercle[k].attributes.item(h);
 						cercleAttributes[attribute.nodeName] = attribute.nodeValue;
 					}
-
+					
 					cercle = new Cercle(
 						parseInt(cercleAttributes["x"]),
 						parseInt(cercleAttributes["y"]),
