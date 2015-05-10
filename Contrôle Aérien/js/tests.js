@@ -68,7 +68,7 @@ function testAlterationZone(avion, zone){
 	if (distance_avion <= zone.getRadius())
 	{
 		// On se trouve dans la zone	
-		coordinates = calculateXY_deviation(avion, 280, 240);
+		coordinates = calculateXY_deviation(avion, zone.getSpeed(), zone.getHead());
 		setCoordinates(avion,coordinates);
 	}
 	

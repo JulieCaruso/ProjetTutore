@@ -186,10 +186,12 @@ function processXMLData(XMLData) {
 						cercleAttributes[attribute.nodeName] = attribute.nodeValue;
 					}
 					
-					cercle = new Cercle(
+					cercle = new Cercle_Alteration(
 						parseInt(cercleAttributes["x"]),
 						parseInt(cercleAttributes["y"]),
-						parseInt(cercleAttributes["radius"]));
+						parseInt(cercleAttributes["radius"]),
+						parseInt(cercleAttributes["speed"]),
+						parseInt(cercleAttributes["head"]));
 
 					zone.getListOfPoints_Cercle().push(cercle);
 				}

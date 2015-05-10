@@ -77,15 +77,20 @@ function Point(xPos,yPos)
 }
 
 // Constructeur pour l'objet de type Cercle
-function Cercle(x,y,radius)
+function Cercle_Alteration(x,y,radius,speed,head)
 {
 	this.type = "Cercle";
 
-	var x = x;
-	var y = y;
-	var radius = radius;
-
-	this.getX = function(){ return x;}
-	this.getY = function(){ return y;}
-	this.getRadius = function(){ return radius;}
+	this.x = x;
+	this.y = y;
+	this.radius = radius;
+	this.speed = speed;
+	this.head = head;
+		
+	
+	this.getX = function(){ return this.x;}
+	this.getY = function(){ return this.y;}
+	this.getRadius = function(){ return this.radius;}
+	this.getSpeed = function(){ return this.speed;}
+	this.getHead = function(){ return this.head;}
 }
