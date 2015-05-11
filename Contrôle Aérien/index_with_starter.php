@@ -33,7 +33,7 @@
 		</div>
 		
 		<div id="jeu">
-			<div id="id_jeu_XML"></div>
+			<div id="id_jeu_XML"><?php echo (isset($_POST["xml_name"]) ? $_POST["xml_name"] : ""); ?></div>
 			<div id="consigne"></div>
             <div id="animation"></div>
             <div id="panneaux">

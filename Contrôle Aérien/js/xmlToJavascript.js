@@ -25,15 +25,20 @@ $(function(){
 function getXMLPlanesToJavascript(callback){
 
 	var xdr = getXDomainRequest();
-
+	var jquery_nom_xml, nom_XML;
+	
 	xdr.onload = function() {
 
 	// On appelle la fonction qui va utiliser le fichier XML
     callback(xdr.responseXML);
 
 	}
-
-	xdr.open("GET", "xml/planes.xml");
+	
+	jquery_nom_xml = $("#id_jeu_XML");
+	
+	nom_XML = "xml/" + (jquery_nom_xml.text() != "" ? jquery_nom_xml.text() : "planes.xml");
+	
+	xdr.open("GET", nom_XML);
 
 	xdr.send();
 
