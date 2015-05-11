@@ -16,6 +16,7 @@ var canvasHeight = "436";
 
 $(function () {
 	init0();
+	$("#id_jeu_XML").hide();
 });
 
 function init0() {

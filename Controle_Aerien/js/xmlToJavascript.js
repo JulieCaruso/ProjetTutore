@@ -36,7 +36,7 @@ function getXMLPlanesToJavascript(callback){
 	
 	jquery_nom_xml = $("#id_jeu_XML");
 	
-	nom_XML = "xml/" + (jquery_nom_xml.text() != "" ? jquery_nom_xml.text() : "planes.xml");
+	nom_XML = "xml/" + (jquery_nom_xml.text() != "" ? jquery_nom_xml.text() : "planes_2A_3TP.xml");
 	
 	xdr.open("GET", nom_XML);
 
