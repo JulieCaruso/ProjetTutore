@@ -1,6 +1,7 @@
 //canvasWidth = "579";
 //canvasHeight = "436";
-dist_limite = 40;
+dist_limite = 10;
+dist_limite_avion = 50;
 
 //quand 2 avions se rapprochent
 function testAirProX(avion1, avion2) {
@@ -12,7 +13,7 @@ function testAirProX(avion1, avion2) {
 	aZ2 = avion2.getZ() * scale;
 	dist_a1_a2 = Math.sqrt(Math.pow(aX1 - aX2, 2)+Math.pow(aY1 - aY2, 2)+Math.pow(aZ1 - aZ2, 2));
 	
-	if (dist_a1_a2 <= dist_limite)
+	if (dist_a1_a2 <= dist_limite_avion)
 	{
 		avion1.setColor("red");
 		avion2.setColor("red");
