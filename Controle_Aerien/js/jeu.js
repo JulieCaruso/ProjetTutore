@@ -6,6 +6,7 @@ var scale = -1;
 // Correspond à l'intervalle de rafraichissement du jeu
 var inter = -1;
 
+// Correspond à l'indice de l'avion selectionné
 var selectedPlane = -1 ;
 
 // Correspond aux dimensions du canvas
@@ -33,9 +34,6 @@ function chgt(){
 }
 
 function init(){
-	// On récupère les informations contenues dans le fichier XML
-	scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
-
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
 	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
@@ -45,7 +43,8 @@ function init(){
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
 
 	// contenu initial de l'écran de jeu
-	$('#animation').html("<canvas id=\"dessin\" width=\""+canvasWidth+"\" height=\""+canvasHeight+"\">Texte pour les navigateurs qui ne supportent pas canvas</canvas>");
+	$('#animation').html("<canvas id=\"dessin\" width=\""+canvasWidth+"\" height=\""+canvasHeight+"\">Texte pour les navigateurs qui \
+                            ne supportent pas canvas</canvas>");
 	initPanneauLateral();
 	initPanneauCible();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
@@ -74,8 +73,6 @@ function init(){
 	$('#boutonAccueil').html("<input type=\"submit\" value=\"Accueil\">");
 
 	// DONNEES
-	// liste des avions
-	// construire la liste a partir du xml
 	listeNiveaux  = Niveau.getListeNiveaux();
 
 	// VARIABLES
@@ -85,7 +82,8 @@ function init(){
 	ecranCourant = null;
 	tempsLimite = 600;
 	tempsNiveauLimite = 200;
-	//init target initial sur le premier target point ou sur rien
+    scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
+	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
         if (listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length > 0){
             updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
@@ -116,35 +114,16 @@ function init(){
 	});
 
 	// REGLES
-	// Réglage de la vitesse du jeu
-	
+	// Réglage de la vitesse du jeu (dynamique)
 	// On fixe l'évènement
 	$("#vitesse_jeu").change(traitementVitesseJeu);
-	
 	// On récupère la valeur par défaut
-	
-
-	//INITIALISATION DE LA VITESSE DE JEU - PARTIE A DECOMMENTER DES QUE LE DEVELOPPEMENT EST FINI
-
 	var curseur_vitesse = parseInt($("#vitesse_jeu").val());
 	var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
 	inter = setInterval(regles, rafraichissement_ms);
+    
 	// LANCEMENT
 	afficheAccueil();
-
-}
-
-function dessinerImage() {
-	monCanvas = document.getElementById('dessin');
-	if (monCanvas.getContext){
-		ctx = monCanvas.getContext('2d');
-		var img = new Image();   // Crée un nouvel objet Image
-		img.src = 'images/jeu.png'; // Définit le chemin vers sa source
-		ctx.drawImage(img, 0, 0);
-	}
-	else {
-		alert('canvas non supporté par ce navigateur');
-	}
 }
 
 function afficheAccueil(){
@@ -169,14 +148,21 @@ function afficheConsigne(ni){
 }
 function regles(){
 	if (ecranCourant == "jeu"){
-		$('#temps').html(tempsJeu/10);
+		$('#temps').html(tempsJeu);
 		animer();
 	}
 }
 
+function afficheBilan(){
+	ecranCourant = "bilan";
+	// affichage de l'écran et masquage des autres écrans
+	$('#accueil').hide();
+	$('#jeu').hide();
+	$('#bilan').show();
+	$('#recap').html("Votre score est de ");
+}
+
 function animer() {
-	
-	var listOfZones;
 	
 	if((tempsJeu/10 > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		afficheBilan();
@@ -207,46 +193,36 @@ function animer() {
             // test airproc limite écran
             testAirProXLim(avion);
             
-            // test avec les targets si le'avion suit ses target points
+            // test avec les targets seulement si l'avion suit ses target points
             if (avion.getSuivreTarget() == 1) {
                 if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
                     testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
                 }
             }
-
             
-			 	
-            for (var t = 0; t < listTP.length; t++) {
-			 		
+			// dessin target points + noms 	
+            for (var t = 0; t < listTP.length; t++) {		
                 dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
-                // On ajoute le nom du target point
                 ctx.font = "10px Arial";
                 ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
             }
-			
+            
 			// On trace les zones de turbulences
-			
-			listOfZones = listeNiveaux[niveauCourant].getListOfZones();
-			
-			for (var i in listOfZones)
-			{
-				if (listOfZones[i].getNature() === "alteration")
-				{
+			var listOfZones = listeNiveaux[niveauCourant].getListOfZones();
+			for (var i in listOfZones) {
+				if (listOfZones[i].getNature() === "alteration") {
 					var zone = listOfZones[i].getListOfPoints_Cercle()[0];
-					dessine_zone_alteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(),"lightblue");
+					dessinZoneAlteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(),"lightblue");
 				}
 			}
-            
             dessineAvion(avion);
-			
         }
     }
-		
-		if (selectedPlane != -1) {
-			dessinerChemin(selectedPlane);
-			var a = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
-			a.setColor("orange");
-		}
+    if (selectedPlane != -1) {
+        dessinerChemin(selectedPlane);
+        var a = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
+        a.setColor("orange");
+    }
 }
 
 function dessineAvion(a){
@@ -282,19 +258,13 @@ function dessineAvion(a){
 		a.setY1(a.getY());
 	}
 
-	// console.debug("h courant : "+a.getH()+", h target : "+a.getHTarget()+", current target : "+a.getIndexCurrentTarget());
-    
-    /* DEPLACEMENT DE L AVION
-    PRIORITE :
-    1. ALTITUDE 
-    2. VITESSE
-    */
     if (a.getZ() != a.getZTarget()) {
             calculateAltitude(a);
     }
     else if (a.getV() != a.getVTarget()) {
             calculateSpeed(a);
     }
+    
     // si suivre targets
     if (avion.getSuivreTarget() == 1) {
         // si l'avion a atteint sa derniere target, il continue sur son dernier cap
@@ -316,24 +286,18 @@ function dessineAvion(a){
 		calculateHead(a, sensVirage);
 	}
 	
-	
     // Calcul des paramètres de l'avion puis on modifie les coordonnées dans l'avion
     setCoordinates(a,calculateXY(a));
 	
 	// On vérifie si l'on se trouve dans une zone d'altération
-	listOfZones = listeNiveaux[niveauCourant].getListOfZones();
-			
-	for (var i in listOfZones)
-	{
-		if (listOfZones[i].getNature() === "alteration")
-		{
+	listOfZones = listeNiveaux[niveauCourant].getListOfZones();	
+	for (var i in listOfZones) {
+		if (listOfZones[i].getNature() === "alteration") {
 			var zone = listOfZones[i].getListOfPoints_Cercle()[0];
-			
-			testAlterationZone(avion, zone);			
-			
+			testAlterationZone(avion, zone);				
 		}
 	}
-
+    
 	// dessin avions et positions précédentes
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
 	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
@@ -345,21 +309,34 @@ function dessineAvion(a){
 	ctx.fillText(a.getNameOfPlane()+" - "+a.getTypeOfPlane()+" - "+a.getH()+"°", (a.getX()*scale+5), (a.getY()*scale-5));
 	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()*scale+5), (a.getY()*scale-15));
 }
+
+// Permet de dessiner un cercle
 function dessinA(x, y, R, couleur){
-	// sauvegarde de l'état du contexte
 	ctx.save();
 	ctx.translate(x, y);
 	ctx.beginPath();
 	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
 	ctx.fillStyle = couleur;
 	ctx.fill();
-	// restore le contexte
 	ctx.restore();
 }
 
+// Permet de dessiner l'image de fond
+function dessinerImage() {
+	monCanvas = document.getElementById('dessin');
+	if (monCanvas.getContext){
+		ctx = monCanvas.getContext('2d');
+		var img = new Image();   // Crée un nouvel objet Image
+		img.src = 'images/jeu.png'; // Définit le chemin vers sa source
+		ctx.drawImage(img, 0, 0);
+	}
+	else {
+		alert('canvas non supporté par ce navigateur');
+	}
+}
+
 // Permet de dessiner une zone d'altération
-function dessine_zone_alteration(x, y, R, couleur){
-	// sauvegarde de l'état du contexte
+function dessinZoneAlteration(x, y, R, couleur){
 	ctx.save();
 	ctx.translate(x, y);
 	ctx.beginPath();
@@ -367,18 +344,9 @@ function dessine_zone_alteration(x, y, R, couleur){
 	ctx.arc(0, 0, R, 0, 2 * Math.PI, false);
 	ctx.fillStyle = couleur;
 	ctx.fill();
-	// restore le contexte
 	ctx.restore();
 }
 
-function afficheBilan(){
-	ecranCourant = "bilan";
-	// affichage de l'écran et masquage des autres écrans
-	$('#accueil').hide();
-	$('#jeu').hide();
-	$('#bilan').show();
-	$('#recap').html("Votre score est de ");
-}
 function clicCanvas(e){
 	// position de la souris / document
 	var xSourisDocument = e.pageX;
@@ -392,14 +360,12 @@ function clicCanvas(e){
 	// test si un avion est cliqué
 	var avionSelected = 0;
 	var targetSelected = 0;
+    // pour chaque avion, on regarde s'il a été selectionné puis traitement
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 		var avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
-
-
 		var R = 5;
 		if(Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getX()*scale-xSourisCanvas) < R
 			&& Math.abs(listeNiveaux[niveauCourant].getListOfAvions()[a].getY()*scale-ySourisCanvas) < R){
-
 			selectedPlane = a;
             reinitialisationPanneau();
 			updatePanneauLateral();
@@ -407,11 +373,10 @@ function clicCanvas(e){
 			avion.setColor("orange");
             animer();
 		}
-		else
-		{
+		else {
 			avion.setColor("blue");	
 		}
-
+        // pour chaque target point, on regarde s'il a été selectionné puis traitement
 		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){
 			if(Math.abs(avion.getListOfTargetPoints()[t].getX()*scale-xSourisCanvas) < R
 			&& Math.abs(avion.getListOfTargetPoints()[t].getY()*scale-ySourisCanvas) < R){
@@ -422,13 +387,13 @@ function clicCanvas(e){
 			}
 		}
 	}
+    // aucun avion selectionné -> clear du panneau
 	if (avionSelected == 0) {
-		// aucun avion selectionné -> clear du panneau
 		reinitialisationPanneau();
 		selectedPlane = -1;
 	}
+    // aucun target selectionné -> clear du panneau
 	if (targetSelected == 0) {
-		// aucun avion selectionné -> clear du panneau
 		reinitialisationPanneauCible();
 		selectedTarget = -1;
 	}
@@ -457,7 +422,7 @@ function reinitialisation(){
             listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
 		}
 	}
-	// réinitialisation du panneau lateral
+	// réinitialisation des panneaux lateraux
 	selectedPlane = -1;
 	reinitialisationPanneau();
 	reinitialisationPanneauCible();
@@ -465,9 +430,8 @@ function reinitialisation(){
 
 function dessinerChemin (avion) {
     a = listeNiveaux[niveauCourant].getListOfAvions()[avion];
-    
+    // si on suit une target
     if (a.getSuivreTarget() == 1) {
-        // on suit une target
         i = a.getIndexCurrentTarget();
         indiceMax = parseInt(a.getListOfTargetPoints().length);
         for (indice = i ; indice<a.getListOfTargetPoints().length;indice++) {
@@ -475,13 +439,12 @@ function dessinerChemin (avion) {
                 dessinerTrait(a.getX(),a.getY(),a.getListOfTargetPoints()[i].getX(),a.getListOfTargetPoints()[i].getY());
             }
             else if (indice != (indiceMax)) {
-                dessinerTrait(a.getListOfTargetPoints()[indice-1].getX(),a.getListOfTargetPoints()[indice-1].getY(),a.getListOfTargetPoints()[indice].getX(),a.getListOfTargetPoints()[indice].getY());
+                dessinerTrait(a.getListOfTargetPoints()[indice-1].getX(), a.getListOfTargetPoints()[indice-1].getY(), a.getListOfTargetPoints()[indice].getX(), a.getListOfTargetPoints()[indice].getY());
             }
         }
     }
     else {
         // On trace une ligne en fonction du cap
-		
 		var p, c, head, X_bord1, Y_bord1, X_bord2, Y_bord2;
 		
 		// Calcul des prochaines coordonnées de l'avion (sans les modifier !)
@@ -489,12 +452,10 @@ function dessinerChemin (avion) {
 		
 		// On détermine alors la droite (liée au cap) du type y = p * x + c
 		// Si p est infini, c'est qu'il n'y a pas d'intersection entre les deux droites
-		if (nextCoordinates["X"]*scale-a.getX()*scale !== 0)
-		{
+		if (nextCoordinates["X"]*scale-a.getX()*scale !== 0) {
 			p = (nextCoordinates["Y"]*scale-a.getY()*scale)/(parseFloat(nextCoordinates["X"]*scale-a.getX()*scale));
 		}
-		else
-		{
+		else {
 			p = Math.POSITIVE_INFINITY;	
 		}
 		
@@ -503,60 +464,51 @@ function dessinerChemin (avion) {
 		// On trouve alors la bonne orientation en fonction du cap
 		head = a.getH();
 		
-		if (head < 90)
-		{
+		if (head < 90) {
 			// Intersection avec Y_bord1 = 0
 			Y_bord1 = 0;
 			X_bord1 = - c / parseFloat(p);
 			
 			
 			// Si p n'est pas infini
-			if (p !== Math.POSITIVE_INFINITY)
-			{
+			if (p !== Math.POSITIVE_INFINITY) {
 				// Intersection avec X_bord2 = canvasWidth
 				X_bord2 = canvasWidth;
 				Y_bord2 = p * X_bord2 + c;
 			}
-			else
-			{
-				// Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
+            // Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
+			else {
 				X_bord2 = a.getX()*scale;
 				Y_bord2 = Y_bord1;
-			}
-			
+			}	
 		}
-		else if (head < 180)
-		{
+		else if (head < 180) {
 			// Intersection avec Y_bord1 = canvasHeight
 			Y_bord1 = canvasHeight;
 			X_bord1 = (Y_bord1 - c) / parseFloat(p);
-			
+            
 			// Intersection avec X_bord2 = canvasWidth
 			X_bord2 = canvasWidth;
 			Y_bord2 = p * X_bord2 + c;
 		}
-		else if (head < 270)
-		{
+		else if (head < 270) {
 			// Intersection avec Y_bord1 = canvasHeight
 			Y_bord1 = canvasHeight;
 			X_bord1 = (Y_bord1 - c) / parseFloat(p);
 			
 			// Si p n'est pas infini
-			if (p !== Math.POSITIVE_INFINITY)
-			{
+			if (p !== Math.POSITIVE_INFINITY) {
 				// Intersection avec X_bord2 = 0
 				X_bord2 = 0;
 				Y_bord2 = c;
 			}
-			else
-			{
-				// Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
+            // Sinon on prend le bord1 déjà calculé (la 1ère solution sera satisfaite)
+			else {
 				X_bord2 = X_bord1;
 				Y_bord2 = Y_bord1;
 			}
 		}
-		else if (head = 360)
-		{
+		else if (head = 360) {
 			// Intersection avec Y_bord1 = 0
 			Y_bord1 = 0;
 			X_bord1 = - c / parseFloat(p);
@@ -565,18 +517,13 @@ function dessinerChemin (avion) {
 			X_bord2 = 0;
 			Y_bord2 = c;
 		}
-		else
-		{
+		else {
 			alert("ERREUR, le cap dépasse 360 ° !");	
 		}
 		
 		// On trace le trait
-		
-		
-		if (X_bord1 > 0 && X_bord1 <= canvasWidth && Y_bord1 > 0 && Y_bord1 <= canvasHeight)
-		{
-			
-			 ctx.save();
+		if (X_bord1 > 0 && X_bord1 <= canvasWidth && Y_bord1 > 0 && Y_bord1 <= canvasHeight) {
+			ctx.save();
 			ctx.beginPath();
 			ctx.strokeStyle='yellow';
 			ctx.lineWidth=2; 
@@ -585,9 +532,8 @@ function dessinerChemin (avion) {
 			ctx.stroke(); 
 			ctx.restore();
 		}
-		else
-		{
-			 ctx.save();
+		else {
+			ctx.save();
 			ctx.beginPath();
 			ctx.strokeStyle='yellow';
 			ctx.lineWidth=2; 

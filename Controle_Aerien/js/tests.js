@@ -1,7 +1,9 @@
-//canvasWidth = "579";
-//canvasHeight = "436";
 dist_limite = 10;
-dist_limite_avion = 50;
+dist_limite_avion = 50; // a supprimer
+normDistanceToZone = Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone();
+normHorizontalSeparation = Niveau.getListeNiveaux()[0].getInitInterface().getNormHorizontalSeparation();
+normLineSeparation = Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation();
+normVerticalSeparation = Niveau.getListeNiveaux()[0].getInitInterface().getNormVerticalSeparation();
 
 //quand 2 avions se rapprochent
 function testAirProX(avion1, avion2) {
@@ -13,7 +15,9 @@ function testAirProX(avion1, avion2) {
 	aZ2 = avion2.getZ() * scale;
 	dist_a1_a2 = Math.sqrt(Math.pow(aX1 - aX2, 2)+Math.pow(aY1 - aY2, 2)+Math.pow(aZ1 - aZ2, 2));
 	
-	if (dist_a1_a2 <= dist_limite_avion)
+    if (Math.abs(aX1 - aX2) <= normHorizontalSeparation && Math.abs(aY1 - aY2) <= normVerticalSeparation)
+    // a supprimer
+	//if (dist_a1_a2 <= dist_limite_avion)
 	{
 		avion1.setColor("red");
 		avion2.setColor("red");
@@ -61,6 +65,14 @@ function testTargetP(avion, targetPoint){
             avion.setHasFinished(1);
         }
 	}
+}
+
+// Permet de tester si l'avion se trouve près d'un zone de fin de jeu (de SA zone de fin de jeu)
+function testEndZone(avion) {
+	aX = avion.getX() * scale;
+	aY = avion.getY() * scale;
+    
+    
 }
 
 // Permet de tester si l'avion se trouve dans une zone d'altération
