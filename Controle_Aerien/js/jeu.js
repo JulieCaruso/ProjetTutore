@@ -403,6 +403,7 @@ function clicCanvas(e){
 			updatePanneauLateral();
 			avionSelected = 1;
 			avion.setColor("orange");
+            animer();
 		}
 		else
 		{
