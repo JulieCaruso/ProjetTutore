@@ -74,47 +74,55 @@ seance du 31/03 :
 todo : 
 
 - verifier la maj des données : P
-- utiliser le fichier de config : JC (en cours)
-- langues : JC
-- implementer le vent + calcul nouvelle position : A
-- afficher la route (en cliquant sur l'avion) : JR (en cours)
-- suivre le cap a IMPLEMENTER !!!!
-- finir dessiner cap
+- utiliser le fichier de config : JC (en cours, pas important)
+- bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
+- afficher temps en bas a D
+- mettre le curseur de vitesse de jeu au min par defaut
+- avion passe au dessus de tout : JC
+- pb couleur avions ! : JC
+- l'avion C12345 ne parvient pas à rejoindre CFA : il passe juste à côté |
+- l'avion D67890 a un comportement bizarre / ses points de route         | => A
+- zone de fin de jeu? arret du jeu + les afficher
+- calculer le score sur l'écran de fin de jeu : JR
+- affichage de tous les logs sur l'écran de fin de jeu (par niveau?)
+- mettre Nouvelle Cible à la valuer de IndexCurrentTarget dans le menu déroulant : JR
+- lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
+  aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas) : JR
 
 
 fait : 
 - vitesses possibles : JR
-- réinitialisation quand on clique sur quitter
+- réinitialisation quand on clique sur quitter : J²
 - pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
-- maj dynamique des valeurs du panneau d'affichage : JR (a tester davantage)
-- mettre les noms des avions et des targets : JC + A
-- arranger fenetre logs : JR
+- maj dynamique des valeurs du panneau d'affichage : JR
+- mettre les noms des avions et des targets : A
+- arranger fenetre logs : A
 - faire fct changement cible : A
 - niveau a choisir : JC
 - faire tous les tests avant affichage (test airproc entre avion, avec lim carte et avec target) : JC
 - mettre a jour l'interface pour prendre en compte le chemin le plus court (en cours)
 - prendre en compte le changement de vitesse / altitude progressif : A
+- afficher la route (en cliquant sur l'avion) : JR
+- suivre le cap : JC
+- implementer le vent + calcul nouvelle position : A
+- jeux de tests : ci-dessous : A
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-- cas où l'on a atteint la derniere target -> possibilité de donner une nouvelle target ??? ligne 152
+TESTS:
+
+- un jeu avec un seul avion, pas de route, mais un cap initial et le fond de carte MTL afin de tester 
+  le comportement de base : mouvement / sol ; virage
+- un jeu avec un seul avion, une route en trois points et une zone de fin de jeu afin de tester le suivi 
+  de route, le positionnement des points de route / carte, le déroutage-reroutage
+- un jeu avec deux avions, une route en trois points et une zone de fin de jeu afin de tester : les conflits
+- un jeu avec un seul avion, pas de route, mais un cap initial, une zone de turbulence et le fond de carte MTL 
+  afin de tester le comportement des zones de turbulence
+
+Ces jeux pourraient faire l'objet de 4 démos rapides qui structureraient votre présentation.
 
 ///////////////////////////////////////////////////////////////
-
-
-todo julieR : 
-
-ne pas envoyer les chgt si pas de chgment
-
-
-updater les defaults du menu deroulant : inutile ?
-
-//////////////////////////////////////////////////////////////
-
-QUESTIONS :
-
-POURQUOI LA 4E POSITION EST TJ A L OUEST
-- limite taille zone avions
-
 
 PROCHAINE REUNION : 12 Mai à 15h30
 
