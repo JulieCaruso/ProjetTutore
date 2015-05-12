@@ -14,7 +14,7 @@ function initPanneauLateral() {
     <input type=\"radio\" name=\"follow\" id=\"followCap\" value=\"0\"/>Suivre le cap \
     <tr><td><input id=\"bSend\" type=\"submit\" value=\"Envoyer\"/> \
     </td></tr></table><table><tr><td><b>Vitesse du jeu</b><div id=\"vitesseJeu\"/><input id=\"vitesse_jeu\" type=\"range\" min=\"1\"\
-    max=\"6\" step=\"1\" value=\"4\"/></td></tr></table></td></tr></table>");
+    max=\"6\" step=\"1\" value=\"1\"/></td></tr></table></td></tr></table>");
     
     $('#bSend').click(function () {
         sendData();

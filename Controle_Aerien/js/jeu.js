@@ -212,7 +212,7 @@ function animer() {
                 }
             }
 
-            dessineAvion(avion);
+            
 			 	
             for (var t = 0; t < listTP.length; t++) {
 			 		
@@ -234,6 +234,8 @@ function animer() {
 					dessine_zone_alteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(),"lightblue");
 				}
 			}
+            
+            dessineAvion(avion);
 			
         }
     }
