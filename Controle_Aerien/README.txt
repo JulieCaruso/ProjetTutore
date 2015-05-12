@@ -73,11 +73,10 @@ seance du 31/03 :
 
 todo : 
 
-- verifier la maj des données : P
-<<<<<<< HEAD
+- verifier la maj des données 
 - utiliser le fichier de config : JC (en cours, pas important)
 - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
-- afficher temps en bas a D
+- temps limite + afficher compteur temps en bas a D : JC
 - mettre le curseur de vitesse de jeu au min par defaut
 - avion passe au dessus de tout : JC
 - pb couleur avions ! : JC
@@ -91,7 +90,6 @@ todo :
   aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas) : JR
 - rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
   + hasfinished dans avion + jeu fini quand ts hasfinished : JC
-- temps limite + rajouter compteur temps
 - bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
 - plusieurs niveaux : niveau -> bilan -> niveau suivant -> ... -> bilan final.
 - page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
