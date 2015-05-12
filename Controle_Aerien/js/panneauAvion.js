@@ -45,6 +45,7 @@ function update() {
         }
         if (tHasChanged()) {
             updatePanneauLateralCibleCourante();
+            updateSelectedCible();
         }
     }
 }

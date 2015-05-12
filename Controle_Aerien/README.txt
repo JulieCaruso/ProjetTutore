@@ -77,7 +77,7 @@ todo :
 - utiliser le fichier de config : JC (en cours, pas important)
 - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
 - temps limite + afficher compteur temps en bas a D : JC
-- mettre le curseur de vitesse de jeu au min par defaut
+
 - avion passe au dessus de tout : JC
 - pb couleur avions ! : JC
 - l'avion C12345 ne parvient pas à rejoindre CFA : il passe juste à côté |
@@ -85,9 +85,8 @@ todo :
 - zone de fin de jeu? arret du jeu + les afficher
 - calculer le score sur l'écran de fin de jeu : JR
 - affichage de tous les logs sur l'écran de fin de jeu (par niveau?)
-- mettre Nouvelle Cible à la valuer de IndexCurrentTarget dans le menu déroulant : JR
-- lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
-  aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas) : JR
+
+
 - rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
   + hasfinished dans avion + jeu fini quand ts hasfinished : JC
 - bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
@@ -113,6 +112,11 @@ fait :
 - suivre le cap : JC
 - implementer le vent + calcul nouvelle position : A
 - jeux de tests : ci-dessous : A
+- mettre le curseur de vitesse de jeu au min par defaut : JR
+- mettre Nouvelle Cible à la valuer de IndexCurrentTarget dans le menu déroulant : JR
+
+- lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
+  aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas) : JR
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
