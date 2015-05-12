@@ -74,6 +74,7 @@ seance du 31/03 :
 todo : 
 
 - verifier la maj des données : P
+<<<<<<< HEAD
 - utiliser le fichier de config : JC (en cours, pas important)
 - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
 - afficher temps en bas a D
@@ -88,6 +89,14 @@ todo :
 - mettre Nouvelle Cible à la valuer de IndexCurrentTarget dans le menu déroulant : JR
 - lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
   aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas) : JR
+- rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
+  + hasfinished dans avion + jeu fini quand ts hasfinished : JC
+- temps limite + rajouter compteur temps
+- bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
+- plusieurs niveaux : niveau -> bilan -> niveau suivant -> ... -> bilan final.
+- page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
+- utiliser config pour les distances airprox, target point, fin de jeu, etc.
+- diagramme de classe
 
 
 fait : 
@@ -125,6 +134,8 @@ Ces jeux pourraient faire l'objet de 4 démos rapides qui structureraient votre p
 ///////////////////////////////////////////////////////////////
 
 PROCHAINE REUNION : 12 Mai à 15h30
+
+
 
 
 
