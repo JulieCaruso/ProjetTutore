@@ -85,10 +85,11 @@ function init(){
 	ecranCourant = null;
 	tempsLimite = 600;
 	tempsNiveauLimite = 200;
-	//init target initial sur le premier target point
-    // BETISE ICI !!! dans avion aussi : init indexcurrenttargetpoint a 0 mais sinon check qui doit marcher indexcurre.. > listTP.length
+	//init target initial sur le premier target point ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
-		updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+        if (listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length > 0){
+            updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+        }
 	}
 
 	// GESTIONNAIRES
@@ -172,6 +173,7 @@ function regles(){
 		animer();
 	}
 }
+
 function animer() {
 	
 	var listOfZones;

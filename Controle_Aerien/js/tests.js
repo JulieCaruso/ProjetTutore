@@ -57,6 +57,9 @@ function testTargetP(avion, targetPoint){
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
 			updateHeadToTargetPoint(avion);
 		}
+        else {
+            avion.setHasFinished(1);
+        }
 	}
 }
 
