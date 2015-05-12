@@ -80,6 +80,14 @@ todo :
 - afficher la route (en cliquant sur l'avion) : JR (en cours)
 - suivre le cap a IMPLEMENTER !!!!
 - finir dessiner cap
+- rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
+  + hasfinished dans avion + jeu fini quand ts hasfinished : JC
+- temps limite + rajouter compteur temps
+- bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
+- plusieurs niveaux : niveau -> bilan -> niveau suivant -> ... -> bilan final.
+- page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
+- utiliser config pour les distances airprox, target point, fin de jeu, etc.
+- diagramme de classe
 
 
 fait : 
@@ -117,6 +125,8 @@ POURQUOI LA 4E POSITION EST TJ A L OUEST
 
 
 PROCHAINE REUNION : 12 Mai à 15h30
+
+
 
 
 
