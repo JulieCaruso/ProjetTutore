@@ -109,18 +109,24 @@ function init(){
     // gestionnaire du bouton #boutonPause
 	$('#boutonPause').click(function() {
 		if (pause == 0) {
+//      *****************************************      
+//            
+//            
+//            NOTHING WORKS HERE
+//            
+//            
+//            
+//       ****************************************     
             document.getElementById('boutonPause').value = " > ";
+            $('#boutonPause').val(' > ');
             clearInterval(inter);
             pause = 1;
         }
-        else {
+        else if (pause == 1) {
             document.getElementById('boutonPause').value = " || ";
-            //*****************
-            //
-            // erreur ici : je comprends pas
-            //
-            //*****************
-            inter = setInterval(regles, getSpeedWithCursor(curseur_vitesse));
+            var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+            var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+            inter = setInterval(regles, rafraichissement_ms);
             pause = 0;
         }
 	});
