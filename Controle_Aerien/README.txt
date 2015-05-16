@@ -65,20 +65,14 @@ Conception du jeu :
 
 Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on n'en fait rien
 
-17/03 à 15h30 : point
-
 ==================================================================
-
-seance du 31/03 :
 
 todo : 
 
    - verifier la maj des données 
 JC - utiliser le fichier de config (en cours, pas important)
    - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
-JC - temps limite + afficher compteur temps en bas a D
    - mettre le curseur de vitesse de jeu au min par defaut
-JC - avion passe au dessus de tout 
 A  - l'avion C12345 ne parvient pas à rejoindre CFA : il passe juste à côté
 A  - l'avion D67890 a un comportement bizarre / ses points de route
    - zone de fin de jeu? arret du jeu + les afficher
@@ -92,7 +86,6 @@ JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion conc
    - bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
    - plusieurs niveaux : niveau -> bilan -> niveau suivant -> ... -> bilan final.
    - page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
-   - utiliser config pour les distances airprox, target point, fin de jeu, etc.
    - diagramme de classe
 JC - chgt couleur avions problème à régler
 
@@ -113,6 +106,9 @@ fait :
 - suivre le cap : JC
 - implementer le vent + calcul nouvelle position : A
 - jeux de tests : ci-dessous : A
+- avion passe au dessus de tout : JC
+- utiliser config pour les distances airprox, target point, fin de jeu, etc. : JC
+- temps limite + afficher compteur temps en bas a D : JC
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

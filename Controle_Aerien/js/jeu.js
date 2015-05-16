@@ -81,7 +81,7 @@ function init(){
 	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 600;
-	tempsNiveauLimite = 200;
+	tempsNiveauLimite = 300;
     scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
@@ -148,7 +148,11 @@ function afficheConsigne(ni){
 }
 function regles(){
 	if (ecranCourant == "jeu"){
-		$('#temps').html(tempsJeu);
+        var tps = tempsJeu;
+        var heures = Math.floor(tps / 3600);
+        var minutes = Math.floor((tps % 3600) / 60);
+        var secondes = (tps % 3600) % 60;
+		$('#temps').html("Temps écoulé : "+heures+":"+minutes+":"+secondes);
 		animer();
 	}
 }
@@ -164,10 +168,10 @@ function afficheBilan(){
 
 function animer() {
 	
-	if((tempsJeu/10 > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
+	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		afficheBilan();
 	}
-	else if (tempsNiveau/10 > tempsNiveauLimite){
+	else if (tempsNiveau > tempsNiveauLimite){
 		niveauCourant++;
 		tempsNiveau = 0;
 	}
@@ -177,6 +181,15 @@ function animer() {
 		// effaçage
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
+        
+        // On trace les zones de turbulences
+		var listOfZones = listeNiveaux[niveauCourant].getListOfZones();
+        for (var i in listOfZones) {
+			if (listOfZones[i].getNature() === "alteration") {
+                var zone = listOfZones[i].getListOfPoints_Cercle()[0];
+                dessinZoneAlteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(), "lightblue");
+			}
+		}        
         
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
@@ -206,15 +219,7 @@ function animer() {
                 ctx.font = "10px Arial";
                 ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
             }
-            
-			// On trace les zones de turbulences
-			var listOfZones = listeNiveaux[niveauCourant].getListOfZones();
-			for (var i in listOfZones) {
-				if (listOfZones[i].getNature() === "alteration") {
-					var zone = listOfZones[i].getListOfPoints_Cercle()[0];
-					dessinZoneAlteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(),"lightblue");
-				}
-			}
+
             dessineAvion(avion);
         }
     }

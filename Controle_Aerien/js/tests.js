@@ -1,42 +1,38 @@
-dist_limite = 10;
-dist_limite_avion = 50; // a supprimer
-normDistanceToZone = Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone();
-normHorizontalSeparation = Niveau.getListeNiveaux()[0].getInitInterface().getNormHorizontalSeparation();
-normLineSeparation = Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation();
-normVerticalSeparation = Niveau.getListeNiveaux()[0].getInitInterface().getNormVerticalSeparation();
+var dist_limite = 10;
+var dist_limite_avion = 50; // a supprimer
+var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
+var normHorizontalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormHorizontalSeparation());
+var normLineSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation());
+var normVerticalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormVerticalSeparation());
 
 //quand 2 avions se rapprochent
 function testAirProX(avion1, avion2) {
-	aX1 = avion1.getX() * scale;
-	aY1 = avion1.getY() * scale;
-	aZ1 = avion1.getZ() * scale;
-	aX2 = avion2.getX() * scale;
-	aY2 = avion2.getY() * scale;
-	aZ2 = avion2.getZ() * scale;
-	dist_a1_a2 = Math.sqrt(Math.pow(aX1 - aX2, 2)+Math.pow(aY1 - aY2, 2)+Math.pow(aZ1 - aZ2, 2));
+	var aX1 = avion1.getX() * scale;
+	var aY1 = avion1.getY() * scale;
+	var aZ1 = avion1.getZ() * scale;
+	var aX2 = avion2.getX() * scale;
+	var aY2 = avion2.getY() * scale;
+	var aZ2 = avion2.getZ() * scale;
+	var dist_a1_a2 = Math.sqrt(Math.pow(aX1 - aX2, 2)+Math.pow(aY1 - aY2, 2)+Math.pow(aZ1 - aZ2, 2));
 	
-    if (Math.abs(aX1 - aX2) <= normHorizontalSeparation && Math.abs(aY1 - aY2) <= normVerticalSeparation)
+    if (Math.abs(aX1 - aX2) <= normHorizontalSeparation && Math.abs(aY1 - aY2) <= normVerticalSeparation) {
     // a supprimer
 	//if (dist_a1_a2 <= dist_limite_avion)
-	{
 		avion1.setColor("red");
 		avion2.setColor("red");
+        console.debug("testAirprox");
 	}
-	else if (avion1.getColor()=="red") 
-	{
+	else if (avion1.getColor()=="red" || avion1.getColor()=="white") {
 		var a_selected = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
-		if (selectedPlane !== -1 && avion1.getNameOfPlane() === a_selected.getNameOfPlane())
-		{
+		if (selectedPlane !== -1 && avion1.getNameOfPlane() === a_selected.getNameOfPlane()) {
 			avion1.setColor("orange");
 			avion2.setColor("blue");
 		}
-		else if (selectedPlane !== -1 && avion2.getNameOfPlane() === a_selected.getNameOfPlane())
-		{
+		else if (selectedPlane !== -1 && avion2.getNameOfPlane() === a_selected.getNameOfPlane()) {
 			avion1.setColor("blue");
 			avion2.setColor("orange");
 		}
-		else
-		{
+		else {
 			avion1.setColor("blue");
 			avion2.setColor("blue");
 		}
@@ -46,17 +42,19 @@ function testAirProX(avion1, avion2) {
 
 //quand l'avion s'approche la limite de la carte
 function testAirProXLim(avion){
-	aX1 = avion.getX() * scale;
-	aY1 = avion.getY() * scale;
+	var aX1 = avion.getX() * scale;
+	var aY1 = avion.getY() * scale;
 
 	if (Math.abs(aX1 - parseInt(canvasWidth)) <= dist_limite || Math.abs(aY1-parseInt(canvasHeight)) <= dist_limite || Math.abs(aX1) <= dist_limite || Math.abs(aY1) <= dist_limite){
 		avion.setColor("purple");
 	} else if (avion.getColor() == "purple") {avion.setColor("blue");}
 }
 
+// quand l'avion est proche d'un de ses target points
 function testTargetP(avion, targetPoint){
-	dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
+	var dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
 	if (dist_avion_targetP <= dist_limite*scale){
+        avion.setColor("white");
         avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
 			updateHeadToTargetPoint(avion);
@@ -65,12 +63,21 @@ function testTargetP(avion, targetPoint){
             avion.setHasFinished(1);
         }
 	}
+    else if (avion.getColor() == "white") {
+		var a_selected = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
+		if (selectedPlane !== -1 && avion.getNameOfPlane() === a_selected.getNameOfPlane()) {
+			avion.setColor("orange");
+		}
+		else {
+			avion.setColor("blue");
+		}
+	}
 }
 
 // Permet de tester si l'avion se trouve près d'un zone de fin de jeu (de SA zone de fin de jeu)
 function testEndZone(avion) {
-	aX = avion.getX() * scale;
-	aY = avion.getY() * scale;
+	var aX = avion.getX() * scale;
+	var aY = avion.getY() * scale;
     
     
 }
