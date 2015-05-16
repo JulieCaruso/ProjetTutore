@@ -13,6 +13,8 @@ var selectedPlane = -1 ;
 var canvasWidth = "579";
 var canvasHeight = "436";
 
+var pause = 0;
+
 // FIN VARIABLES GLOBALES
 
 $(function () {
@@ -48,6 +50,7 @@ function init(){
 	initPanneauLateral();
 	initPanneauCible();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
+    $('#boutonPause').html("<input type=\"submit\" value=\" || \">");
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
@@ -102,6 +105,24 @@ function init(){
 	$('#boutonQuitter').click(function() {
 		reinitialisation();
 		afficheAccueil();
+	});
+    // gestionnaire du bouton #boutonPause
+	$('#boutonPause').click(function() {
+		if (pause == 0) {
+            document.getElementById('boutonPause').value = " > ";
+            clearInterval(inter);
+            pause = 1;
+        }
+        else {
+            document.getElementById('boutonPause').value = " || ";
+            //*****************
+            //
+            // erreur ici : je comprends pas
+            //
+            //*****************
+            inter = setInterval(regles, getSpeedWithCursor(curseur_vitesse));
+            pause = 0;
+        }
 	});
 	// gestionnaires
 	$('#boutonRejouer').click(function() {
@@ -407,6 +428,8 @@ function clicCanvas(e){
 function reinitialisation(){
 	niveauCourant = 0;
 	tempsJeu = 0;
+    pause = 0;
+    tempsNiveau = 0;
 	for (lv = 0; lv < Niveau.getNombreNiveaux(); lv++) {
 		for (idA = 0; idA < listeNiveaux[lv].getListOfAvions().length; idA++){
 			listeNiveaux[lv].getListOfAvions()[idA].setX(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
