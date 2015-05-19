@@ -6,14 +6,16 @@
 // score de debut : 400
 // penalité airprox : -20
 // penalité par manipulation : -5
-// penalité target non atteinte : -15
+// bonus target atteinte : +20 ???
+// avion atteint la zone fin de jeu : +30
 
-function Score(valeur, nb_airprox, nb_manip) {
+function Score(valeur, nb_airprox, nb_manip, nb_avion_zone_fin) {
 
 
 	this.valeur = valeur;
 	this.airprox = nb_airprox;
 	this.manipulations = nb_manip;
+    this.nb_avion_zone_fin = nb_avion_zone_fin;
     
 	// GETTERS d'attributs privés
 	if ( typeof Score.initialized == "undefined" ) {
@@ -21,11 +23,13 @@ function Score(valeur, nb_airprox, nb_manip) {
 		Score.prototype.getValue = function() { return this.valeur;}
 		Score.prototype.getNumberAirprox = function() { return this.airprox;}
         Score.prototype.getNumberActions = function() { return this.manipulations;}
+        Score.prototype.getNumberPlanesEndZone = function() { return this.nb_avion_zone_fin;}
 
 		//SETTERS
 		Score.prototype.setValue = function(x) { this.valeur = x;};
 		Score.prototype.setNumberAirprox = function(a) { this.airprox = a;};
 		Score.prototype.setNumberActions = function(m) { this.manipulations = m;};
+        Score.prototype.setNumberPlanesEndZone = function(p) {this.getNumberPlanesEndZone = p;}
 
 		Score.initialized = true;
 	}
@@ -40,6 +44,11 @@ function Score(valeur, nb_airprox, nb_manip) {
     this.airprox = this.airprox + 1 ;
     this.valeur = this.valeur - 20 ;
     }   
+    
+    Score.prototype.zoneFinDeJeuAtteinte = function () {
+        this.valeur = this.valeur + 30 ;
+        this.nb_avion_zone_fin += 1 ;
+    }
 }
     
     

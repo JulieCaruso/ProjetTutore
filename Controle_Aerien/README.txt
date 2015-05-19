@@ -69,18 +69,10 @@ Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on
 
 todo : 
 
-   - verifier la maj des données 
-JC - utiliser le fichier de config (en cours, pas important)
+JC - utiliser le fichier de config (en cours)
    - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
-   - mettre le curseur de vitesse de jeu au min par defaut
-A  - l'avion C12345 ne parvient pas à rejoindre CFA : il passe juste à côté
-A  - l'avion D67890 a un comportement bizarre / ses points de route
-   - zone de fin de jeu? arret du jeu + les afficher
 JR - calculer le score sur l'écran de fin de jeu
    - affichage de tous les logs sur l'écran de fin de jeu (par niveau?)
-JR - mettre Nouvelle Cible à la valeur de IndexCurrentTarget dans le menu déroulant
-JR - lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
-     aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas)
 JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
      + hasfinished dans avion + jeu fini quand ts hasfinished
    - bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
@@ -88,10 +80,15 @@ JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion conc
    - page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
    - diagramme de classe
 JC - chgt couleur avions problème à régler
-A - Mettre à jour le fichier php avec l'index ! 
+
+JR : corriger score quand airprox !!!!
 
 
 fait : 
+
+- mettre Nouvelle Cible à la valeur de IndexCurrentTarget dans le menu déroulant : JR
+- lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
+     aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas)
 - vitesses possibles : JR
 - réinitialisation quand on clique sur quitter : J²
 - pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
@@ -110,6 +107,7 @@ fait :
 - avion passe au dessus de tout : JC
 - utiliser config pour les distances airprox, target point, fin de jeu, etc. : JC
 - temps limite + afficher compteur temps en bas a D : JC
+- mettre le curseur de vitesse de jeu au min par defaut : JR
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

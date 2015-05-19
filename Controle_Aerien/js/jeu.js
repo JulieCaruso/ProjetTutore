@@ -51,7 +51,7 @@ function init(){
 	initPanneauLateral();
 	initPanneauCible();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
-    $('#boutonPause').html("<input type=\"submit\" value=\" || \">");
+    $('#boutonPause').html("<input id=\"leBoutonPause\" type=\"submit\" value=\"Pause\">");
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
@@ -88,6 +88,8 @@ function init(){
 	tempsNiveauLimite = 200;
     score = new Score(400,0,0);
     scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
+
+
     
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
@@ -120,13 +122,12 @@ function init(){
 //            
 //            
 //       ****************************************     
-            document.getElementById('boutonPause').value = " > ";
-            $('#boutonPause').val(' > ');
+            document.getElementById('leBoutonPause').value = "Play";
             clearInterval(inter);
             pause = 1;
         }
         else if (pause == 1) {
-            document.getElementById('boutonPause').value = " || ";
+            document.getElementById('leBoutonPause').value = "Pause";
             var curseur_vitesse = parseInt($("#vitesse_jeu").val());
             var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
             inter = setInterval(regles, rafraichissement_ms);
@@ -216,16 +217,26 @@ function afficheBilan(){
 	$('#accueil').hide();
 	$('#jeu').hide();
 	$('#bilan').show();
-	$('#recap').html("Votre score est de ");
+	$('#recap').html("Votre score est de "+score.getValue()+" ! ");
+    $('#nbmanips').html("Nombre d'ordres envoyés : "+score.getNumberActions());
+    $('#nbavionZoneFin').html("Nombre d'avions ayant atteint leur zone de fin de jeu : "+score.getNumberPlanesEndZone());
+    $('#nbairprox').html("Nombre d'airprox détectés : "+score.getNumberAirprox());
 }
 
 function animer() {
 	
+    var niveau = Niveau.getListeNiveaux()[niveauCourant];
+    
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		generateBilan();
 	}
+<<<<<<< HEAD
 	else if (tempsNiveau > tempsNiveauLimite){
         generateBilan();
+=======
+	else if (tempsNiveau > tempsNiveauLimite || niveau.getNbAvionsFinis() == niveau.getListOfAvions().length){
+		niveauCourant++;
+>>>>>>> origin/master
 		tempsNiveau = 0;
 	}
 	else {
@@ -618,7 +629,6 @@ function reinitialisation(){
 			listeNiveaux[lv].getListOfAvions()[idA].setY4(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
             listeNiveaux[lv].getListOfAvions()[idA].setIndexCurrentTarget(0);
             listeNiveaux[lv].getListOfAvions()[idA].setSuivreTarget(1);
-            listeNiveaux[lv].getListOfAvions()[idA].setHasFinished(0);
             listeNiveaux[lv].getListOfAvions()[idA].setEnd(0);
             listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
 		}
