@@ -30,8 +30,7 @@ function initPanneauLateral() {
 }
 
 /* fonction appelee pour actualiser periodiquement le panneau lateral
-TODO : valeurs par defaut dans le menu deroulant !!!!
- * */
+ */
 function update() {
     if (selectedPlane != -1) {
         if (vHasChanged()) {
@@ -235,6 +234,10 @@ function reinitialisationPanneau() {
     clearCapPossibles();
     clearAltitudesPossibles();
     clearCiblesPossibles();
+    
+    // redefinition de la vitesse de jeu
+    var vitesseDuJeu = document.getElementById("vitesse_jeu");
+    vitesseDuJeu.value = 1;
 }
 
 function updatePanneauLateralNom() {
@@ -481,8 +484,6 @@ function tHasChanged() {
 /////////////////////////////////////////////////////////////////////////
 // fonctions updateSelectedX utilisées pour mettre a jour les valeurs
 // par defaut dans le menu deroulant X possibles
-
-//  A SUPPRIMER ??? normalement inutile
 
 /////////////////////////////////////////////////////////////////////////
 
