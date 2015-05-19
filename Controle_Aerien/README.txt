@@ -73,8 +73,6 @@ JC - utiliser le fichier de config (en cours)
    - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
 JR - calculer le score sur l'écran de fin de jeu
    - affichage de tous les logs sur l'écran de fin de jeu (par niveau?)
-JR - lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
-     aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas)
 JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
      + hasfinished dans avion + jeu fini quand ts hasfinished
    - bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
@@ -83,9 +81,14 @@ JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion conc
    - diagramme de classe
 JC - chgt couleur avions problème à régler
 
+JR : corriger score quand airprox !!!!
+
 
 fait : 
+
 - mettre Nouvelle Cible à la valeur de IndexCurrentTarget dans le menu déroulant : JR
+- lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
+     aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas)
 - vitesses possibles : JR
 - réinitialisation quand on clique sur quitter : J²
 - pouvoir cliquer sur les targets pour avoir des infos : J² (recuperer + visualiser)
@@ -124,9 +127,6 @@ Ces jeux pourraient faire l'objet de 4 démos rapides qui structureraient votre p
 ///////////////////////////////////////////////////////////////
 
 PROCHAINE REUNION : 12 Mai à 15h30
-
-
-Play tout seul + reinitialiser vitesse par defaut
 
 
 
