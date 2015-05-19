@@ -84,7 +84,7 @@ function init(){
 	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 600;
-	tempsNiveauLimite = 300;
+	tempsNiveauLimite = 20;
     scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
@@ -196,7 +196,7 @@ function afficheBilan(){
 function animer() {
 	
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
-		afficheBilan();
+		generateBilan();
 	}
 	else if (tempsNiveau > tempsNiveauLimite){
 		niveauCourant++;
@@ -588,4 +588,14 @@ function dessinerTrait (X1,Y1,X2,Y2) {
     ctx.lineTo(X2*scale,Y2*scale);
     ctx.stroke(); 
     ctx.restore();
+}
+
+// Fonction permettant de synthétiser les données pour le bilan
+function generateBilan(){
+    
+     // On affiche les éléments pour le bilan
+    afficheBilan();
+    
+    $("#titre_liste_ordres").html("Bilan des ordres envoyés :");
+    
 }
