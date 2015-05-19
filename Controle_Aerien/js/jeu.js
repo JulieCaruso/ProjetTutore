@@ -84,7 +84,8 @@ function init(){
 	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 600;
-	tempsNiveauLimite = 20;
+	tempsNiveauLimite = 300;
+    score = new Score(400,0,0);
     scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
@@ -460,6 +461,7 @@ function reinitialisation(){
 	selectedPlane = -1;
 	reinitialisationPanneau();
 	reinitialisationPanneauCible();
+    ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 }
 
 function dessinerChemin (avion) {
