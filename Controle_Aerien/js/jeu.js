@@ -86,6 +86,7 @@ function init(){
 	tempsLimite = 600;
 	tempsNiveauLimite = 300;
     scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
+    
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
         if (listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length > 0){
@@ -216,7 +217,10 @@ function animer() {
                 var zone = listOfZones[i].getListOfPoints_Cercle()[0];
                 dessinZoneAlteration(zone.getX()*scale,zone.getY()*scale,zone.getRadius(), "lightblue");
 			}
-		}        
+		} 
+        
+        // On trace les endGameTargets
+        dessinEndGameTargets();
         
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
@@ -233,6 +237,9 @@ function animer() {
             // test airproc limite écran
             testAirProXLim(avion);
             
+            // test end zone pour cet avion
+            testEndZone(avion);
+            
             // test avec les targets seulement si l'avion suit ses target points
             if (avion.getSuivreTarget() == 1) {
                 if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
@@ -240,14 +247,15 @@ function animer() {
                 }
             }
             
-			// dessin target points + noms 	
-            for (var t = 0; t < listTP.length; t++) {		
-                dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
-                ctx.font = "10px Arial";
-                ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
-            }
-
-            dessineAvion(avion);
+            // dessin target points + noms 	si l'avion n'a pas atteint sa end zone
+            if (avion.getEnd() == 0) {
+                for (var t = 0; t < listTP.length; t++) {		
+                    dessinA(listTP[t].getX()*scale, listTP[t].getY()*scale, 5, "green")
+                    ctx.font = "10px Arial";
+                    ctx.fillText(listTP[t].getLabel(), (listTP[t].getX()*scale+10), (listTP[t].getY()+20)*scale);
+                }
+                dessineAvion(avion);
+            }            
         }
     }
     if (selectedPlane != -1) {
@@ -431,37 +439,6 @@ function clicCanvas(e){
 	}
 }
 
-function reinitialisation(){
-	niveauCourant = 0;
-	tempsJeu = 0;
-    pause = 0;
-    tempsNiveau = 0;
-	for (lv = 0; lv < Niveau.getNombreNiveaux(); lv++) {
-		for (idA = 0; idA < listeNiveaux[lv].getListOfAvions().length; idA++){
-			listeNiveaux[lv].getListOfAvions()[idA].setX(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setY(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setV(listeNiveaux[lv].getListOfAvions()[idA].getVInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setZ(listeNiveaux[lv].getListOfAvions()[idA].getZInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setH(listeNiveaux[lv].getListOfAvions()[idA].getHInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setX1(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setY1(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setX2(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setY2(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
-            listeNiveaux[lv].getListOfAvions()[idA].setX3(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setY3(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
-            listeNiveaux[lv].getListOfAvions()[idA].setX4(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
-			listeNiveaux[lv].getListOfAvions()[idA].setY4(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
-            listeNiveaux[lv].getListOfAvions()[idA].setIndexCurrentTarget(0);
-            listeNiveaux[lv].getListOfAvions()[idA].setSuivreTarget(1);
-            listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
-		}
-	}
-	// réinitialisation des panneaux lateraux
-	selectedPlane = -1;
-	reinitialisationPanneau();
-	reinitialisationPanneauCible();
-}
-
 function dessinerChemin (avion) {
     a = listeNiveaux[niveauCourant].getListOfAvions()[avion];
     // si on suit une target
@@ -470,10 +447,10 @@ function dessinerChemin (avion) {
         indiceMax = parseInt(a.getListOfTargetPoints().length);
         for (indice = i ; indice<a.getListOfTargetPoints().length;indice++) {
             if (indice == i) {
-                dessinerTrait(a.getX(),a.getY(),a.getListOfTargetPoints()[i].getX(),a.getListOfTargetPoints()[i].getY());
+                dessinerTrait(a.getX(),a.getY(),a.getListOfTargetPoints()[i].getX(),a.getListOfTargetPoints()[i].getY(), 'yellow');
             }
             else if (indice != (indiceMax)) {
-                dessinerTrait(a.getListOfTargetPoints()[indice-1].getX(), a.getListOfTargetPoints()[indice-1].getY(), a.getListOfTargetPoints()[indice].getX(), a.getListOfTargetPoints()[indice].getY());
+                dessinerTrait(a.getListOfTargetPoints()[indice-1].getX(), a.getListOfTargetPoints()[indice-1].getY(), a.getListOfTargetPoints()[indice].getX(), a.getListOfTargetPoints()[indice].getY(), 'yellow');
             }
         }
     }
@@ -557,35 +534,72 @@ function dessinerChemin (avion) {
 		
 		// On trace le trait
 		if (X_bord1 > 0 && X_bord1 <= canvasWidth && Y_bord1 > 0 && Y_bord1 <= canvasHeight) {
-			ctx.save();
-			ctx.beginPath();
-			ctx.strokeStyle='yellow';
-			ctx.lineWidth=2; 
-			ctx.moveTo(a.getX()*scale,a.getY()*scale);
-			ctx.lineTo(X_bord1,Y_bord1);
-			ctx.stroke(); 
-			ctx.restore();
+            dessinerTrait(a.getX(), a.getY(), X_bord1/scale, Y_bord1/scale, 'yellow');
 		}
 		else {
-			ctx.save();
-			ctx.beginPath();
-			ctx.strokeStyle='yellow';
-			ctx.lineWidth=2; 
-			ctx.moveTo(a.getX()*scale,a.getY()*scale);
-			ctx.lineTo(X_bord2,Y_bord2);
-			ctx.stroke(); 
-			ctx.restore();
+            dessinerTrait(a.getX(), a.getY(), X_bord2/scale, Y_bord2/scale, 'yellow');
 		}
     }    
 }
 
-function dessinerTrait (X1,Y1,X2,Y2) {
+function dessinerTrait (X1,Y1,X2,Y2, color) {
     ctx.save();
     ctx.beginPath();
-    ctx.strokeStyle='yellow';
+    ctx.strokeStyle=color;
     ctx.lineWidth=2; 
     ctx.moveTo(X1*scale,Y1*scale);
     ctx.lineTo(X2*scale,Y2*scale);
     ctx.stroke(); 
     ctx.restore();
+}
+
+// Trace tous les endGameTargets avec le nom de l'avion concerné
+function dessinEndGameTargets () {
+    var listEndZones = Niveau.getListeNiveaux()[niveauCourant].getListOfZones();
+    for (var i = 0; i < listEndZones.length; i++) {
+        if (listEndZones[i].getNature() == "endGameTarget") {
+            var listOfPoints = listEndZones[i].getListOfPoints_Cercle();
+            var X1 = listOfPoints[0].getX();
+            var Y1 = listOfPoints[0].getY();
+            var X2 = listOfPoints[1].getX();
+            var Y2 = listOfPoints[1].getY();;
+            dessinerTrait(X1, Y1, X2, Y2, 'green');
+            // On ajoute le nom de l'avion
+            ctx.font = "10px Arial";
+            ctx.fillText(listEndZones[i].getConcernedPlanes(), (X1*scale+3), (Y1*scale-5));
+        }
+    }
+}
+
+function reinitialisation(){
+	niveauCourant = 0;
+	tempsJeu = 0;
+    pause = 0;
+    tempsNiveau = 0;
+	for (lv = 0; lv < Niveau.getNombreNiveaux(); lv++) {
+		for (idA = 0; idA < listeNiveaux[lv].getListOfAvions().length; idA++){
+			listeNiveaux[lv].getListOfAvions()[idA].setX(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setV(listeNiveaux[lv].getListOfAvions()[idA].getVInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setZ(listeNiveaux[lv].getListOfAvions()[idA].getZInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setH(listeNiveaux[lv].getListOfAvions()[idA].getHInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setX1(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY1(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setX2(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY2(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[lv].getListOfAvions()[idA].setX3(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY3(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[lv].getListOfAvions()[idA].setX4(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[lv].getListOfAvions()[idA].setY4(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[lv].getListOfAvions()[idA].setIndexCurrentTarget(0);
+            listeNiveaux[lv].getListOfAvions()[idA].setSuivreTarget(1);
+            listeNiveaux[lv].getListOfAvions()[idA].setHasFinished(0);
+            listeNiveaux[lv].getListOfAvions()[idA].setEnd(0);
+            listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
+		}
+	}
+	// réinitialisation des panneaux lateraux
+	selectedPlane = -1;
+	reinitialisationPanneau();
+	reinitialisationPanneauCible();
 }

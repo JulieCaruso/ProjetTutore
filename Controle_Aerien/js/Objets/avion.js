@@ -51,6 +51,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
     // Par defaut suit ses target points
     this.suivreTarget = 1;
     this.hasFinished = 0;
+    this.end = 0;
 	this.color = "blue";
 
 	// GETTERS d'attributs privés
@@ -87,6 +88,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.getIndexCurrentTarget = function() { return this.indexCurrentTarget;};
         Avion.prototype.getSuivreTarget = function() { return this.suivreTarget;};
         Avion.prototype.getHasFinished = function() { return this.hasFinished;};
+        Avion.prototype.getEnd = function() { return this.end;};
 		Avion.prototype.getColor = function() { return this.color;};
 
 		//SETTERS
@@ -114,6 +116,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 		Avion.prototype.setIndexCurrentTarget = function(i) { this.indexCurrentTarget = i;};
         Avion.prototype.setSuivreTarget = function(i) { this.suivreTarget = i;};
         Avion.prototype.setHasFinished = function(i) { this.hasFinished = i;};
+        Avion.prototype.setEnd = function(i) { this.end = i;};
 		Avion.prototype.setColor = function(c) {this.color = c};
 
 		Avion.initialized = true;

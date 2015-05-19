@@ -1,5 +1,3 @@
-var dist_limite = 10;
-var dist_limite_avion = 50; // a supprimer
 var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
 var normHorizontalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormHorizontalSeparation());
 var normLineSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation());
@@ -16,8 +14,6 @@ function testAirProX(avion1, avion2) {
 	var dist_a1_a2 = Math.sqrt(Math.pow(aX1 - aX2, 2)+Math.pow(aY1 - aY2, 2)+Math.pow(aZ1 - aZ2, 2));
 	
     if (Math.abs(aX1 - aX2) <= normHorizontalSeparation && Math.abs(aY1 - aY2) <= normVerticalSeparation) {
-    // a supprimer
-	//if (dist_a1_a2 <= dist_limite_avion)
 		avion1.setColor("red");
 		avion2.setColor("red");
         console.debug("testAirprox");
@@ -45,7 +41,7 @@ function testAirProXLim(avion){
 	var aX1 = avion.getX() * scale;
 	var aY1 = avion.getY() * scale;
 
-	if (Math.abs(aX1 - parseInt(canvasWidth)) <= dist_limite || Math.abs(aY1-parseInt(canvasHeight)) <= dist_limite || Math.abs(aX1) <= dist_limite || Math.abs(aY1) <= dist_limite){
+	if (Math.abs(aX1 - parseInt(canvasWidth)) <= normDistanceToZone || Math.abs(aY1-parseInt(canvasHeight)) <= normDistanceToZone || Math.abs(aX1) <= normDistanceToZone || Math.abs(aY1) <= normDistanceToZone){
 		avion.setColor("purple");
 	} else if (avion.getColor() == "purple") {avion.setColor("blue");}
 }
@@ -53,7 +49,7 @@ function testAirProXLim(avion){
 // quand l'avion est proche d'un de ses target points
 function testTargetP(avion, targetPoint){
 	var dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
-	if (dist_avion_targetP <= dist_limite*scale){
+	if (dist_avion_targetP <= normDistanceToZone*scale){
         avion.setColor("white");
         avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
@@ -78,7 +74,21 @@ function testTargetP(avion, targetPoint){
 function testEndZone(avion) {
 	var aX = avion.getX() * scale;
 	var aY = avion.getY() * scale;
-    
+    var listEndZones = Niveau.getListeNiveaux()[niveauCourant].getListOfZones();
+    for (var i = 0; i < listEndZones.length; i++) {
+        if (listEndZones[i].getNature() == "endGameTarget") {
+            var listOfPoints = listEndZones[i].getListOfPoints_Cercle();
+            var X1 = listOfPoints[0].getX();
+            var Y1 = listOfPoints[0].getY();
+            var X2 = listOfPoints[1].getX();
+            var Y2 = listOfPoints[1].getY();
+            // a calculer !
+            var dist_a_z = 50;
+            if (listEndZones[i].getConcernedPlanes() == avion.getNameOfPlane() && dist_a_z < normDistanceToZone){
+                avion.setEnd(1);
+            }
+        }
+    }
     
 }
 

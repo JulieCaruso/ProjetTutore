@@ -36,6 +36,10 @@ function Zone(nature,type,concernedPlanes){
         Zone.prototype.getListOfPoints_Cercle = function() { 
             return this.listOfPoints_Cercle;
         };
+        
+        Zone.prototype.getConcernedPlanes = function() { 
+            return this.concernedPlanes;
+        };
 
         Zone.initialized = true; 
     }
