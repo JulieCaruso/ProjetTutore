@@ -86,7 +86,7 @@ function init(){
 	ecranCourant = null;
 	tempsLimite = 600;
 	tempsNiveauLimite = 200;
-    score = new Score(400,0,0);
+    score = new Score(400,0,0,0);
     scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
 
 

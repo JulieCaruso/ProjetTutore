@@ -98,7 +98,7 @@ function processXMLData(XMLData) {
 		levelID = currentLevel.getAttribute("id");
 		levelTitle = currentLevel.getAttribute("levelTitle");
 		planeNodes = currentLevel.getElementsByTagName("plane");
-
+        
 		for(var j = 0; j < planeNodes.length; j++)
 		{
 			currentPlane = planeNodes[j];
@@ -276,7 +276,7 @@ function processXMLData(XMLData) {
 		//console.debug(initInterface);
 
 		level = new Niveau(levelID,levelTitle,Avion.getListeAvions(),Zone.getListeZones(),initInterface);
-        alert(Avion.getListeAvions().length);
+        
         
         // On supprime les données récupérées
         Avion.flush();
