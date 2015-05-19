@@ -8,7 +8,7 @@
 // penalité par manipulation : -5
 // penalité target non atteinte : -15
 
-function Score(valeur,nb_airprox,nb_manip){
+function Score(valeur, nb_airprox, nb_manip) {
 
 
 	this.valeur = valeur;
@@ -16,7 +16,7 @@ function Score(valeur,nb_airprox,nb_manip){
 	this.manipulations = nb_manip;
     
 	// GETTERS d'attributs privés
-	if( typeof Score.initialized == "undefined" ) {
+	if ( typeof Score.initialized == "undefined" ) {
 
 		Score.prototype.getValue = function() { return this.valeur;}
 		Score.prototype.getNumberAirprox = function() { return this.airprox;}
@@ -27,18 +27,20 @@ function Score(valeur,nb_airprox,nb_manip){
 		Score.prototype.setNumberAirprox = function(a) { this.airprox = a;};
 		Score.prototype.setNumberActions = function(m) { this.manipulations = m;};
 
-
 		Score.initialized = true;
 	}
-}
     
-function ManipulationEffectuee () {
-    this.manipulations = this.manipulations + 1 ;
-    this.valeur = this.valeur - 5 ;
-}
+            
+    Score.prototype.manipulationEffectuee = function() {
+            this.manipulations = this.manipulations + 1 ;
+            this.valeur -= 5 ;
+    }
     
-function AirproxDetecte () {
+    Score.prototype.airproxDetecte = function() {
     this.airprox = this.airprox + 1 ;
     this.valeur = this.valeur - 20 ;
-}   
+    }   
+}
+    
+    
     

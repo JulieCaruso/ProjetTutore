@@ -181,9 +181,13 @@ function regles(){
         var secondes = (tps % 3600) % 60;
 		$('#temps').html("Temps écoulé : "+heures+":"+minutes+":"+secondes);
 		animer();
+        afficher_score();
 	}
 }
 
+function afficher_score() {
+    $('#score').html("Score : "+score.getValue());
+}
 function afficheBilan(){
 	ecranCourant = "bilan";
 	// affichage de l'écran et masquage des autres écrans

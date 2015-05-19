@@ -84,10 +84,12 @@ function traitementVitesse(changements) {
     var vCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getV();
     var vVoulue = document.getElementById('selectVitesse').value;
     if (vCourante > vVoulue) {
+        score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_SPEED);
         Avion.getListeAvions()[selectedPlane].setVTarget(vVoulue);
         updatePanneauLateralVitesse();
     } else if (vCourante < vVoulue) {
+        score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_SPEED);
         Avion.getListeAvions()[selectedPlane].setVTarget(vVoulue);
         updatePanneauLateralVitesse();
@@ -98,10 +100,12 @@ function traitementAltitude(changements) {
     var altitudeCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ();
     var altitudeVoulue = document.getElementById('selectAlt').value;
     if (altitudeCourante > altitudeVoulue) {
+        score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_ALTITUDE);
         Avion.getListeAvions()[selectedPlane].setZTarget(altitudeVoulue);
         updatePanneauLateralAltitudeCourante();
     } else if (altitudeCourante < altitudeVoulue) {
+        score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_ALTITUDE);
         Avion.getListeAvions()[selectedPlane].setZTarget(altitudeVoulue);
         updatePanneauLateralAltitudeCourante();
@@ -112,10 +116,12 @@ function traitementCap(changements) {
     var capCourant = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getH();
     var capVoulu = document.getElementById('selectCap').value;
     if (capCourant > capVoulu) {
+        score.manipulationEffectuee();
         changementCap(changements);
         Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
     } else if (capCourant < capVoulu) {
+        score.manipulationEffectuee();
         changementCap(changements);
         Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
@@ -141,11 +147,12 @@ function traitementCible(changements) {
     else {
         var cibleCourante = -1;
     }
-    //mettre des parseInt ailleurs aussi?
     var cibleVoulue = parseInt(document.getElementById('selectTarget').value);
-    if (cibleCourante != cibleVoulue) {
+    alert(indexCurrentCible+" "+cibleVoulue);
+    if (indexCurrentCible != cibleVoulue) {
         Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
         updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
+        score.manipulationEffectuee();
         changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
         updatePanneauLateralCibleCourante();
     }
