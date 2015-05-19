@@ -194,7 +194,10 @@ function afficheBilan(){
 	$('#accueil').hide();
 	$('#jeu').hide();
 	$('#bilan').show();
-	$('#recap').html("Votre score est de ");
+	$('#recap').html("Votre score est de "+score.getValue()+" ! ");
+    $('#nbmanips').html("Nombre d'ordres envoyés : "+score.getNumberActions());
+    $('#nbavionZoneFin').html("Nombre d'avions ayant atteint leur zone de fin de jeu : "+score.getNumberPlanesEndZone());
+    $('#nbairprox').html("Nombre d'airprox détectés : "+score.getNumberAirprox());
 }
 
 function animer() {
