@@ -46,6 +46,10 @@
 		
 		<div id="bilan">
 			<div id="recap"></div>
+            <div id="bilan_ordres">
+                <div id="titre_liste_ordres"></div>
+                <p id="liste_ordres"></p>
+            </div>
 			<div id="boutonAccueil"></div>
 			<div id="boutonRejouer"></div>
 		</div>
