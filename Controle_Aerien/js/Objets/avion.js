@@ -163,7 +163,7 @@ function TargetPoint(x,y,label)
 	this.y = y;
 	this.label = label;
 
-	this.getX = function(){ return x;}
-	this.getY = function(){ return y;}
-	this.getLabel = function() {return label;}
+	this.getX = function(){ return this.x;}
+	this.getY = function(){ return this.y;}
+	this.getLabel = function() {return this.label;}
 }

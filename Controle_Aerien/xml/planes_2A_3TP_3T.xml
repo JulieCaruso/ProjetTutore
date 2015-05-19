@@ -103,4 +103,104 @@ Over....
 			</Texts>	
     </configInitial>
   </level>
+  <level id="2" levelTitle="niveau 2">
+    <plane xIni="522" yIni="539" vIni="451" zIni="320" hIni="310" rateIni="1000" controllable="true" planeType="B763" planeName="C2" zTarget="320" typeDansEtiquette="false">
+    <targetPoint x="397" y="470" label="MTL2"/>
+    <targetPoint x="293" y="365" label="MINDI2"/>
+    <targetPoint x="173" y="244" label="CFA2"/>
+    <targetPoint x="143" y="67" label="VULCA2"/>
+    </plane>
+    <plane xIni="255" yIni="517" vIni="470" zIni="300" hIni="70" rateIni="1500" controllable="true" planeType="MD82" planeName="D2" zTarget="320" typeDansEtiquette="false">
+      <targetPoint x="397" y="470" label="MTL2"/>
+      <targetPoint x="552" y="420" label="GRENA2"/>
+      <targetPoint x="781" y="344" label="BOSUA2"/>
+      <targetPoint x="921" y="298" label="JUVEN2"/>
+    </plane>
+
+    <zone nature="endGameTarget" type="line" concernedPlanes="F">
+      <line>
+        <point x="93" y="22"/>
+        <point x="173" y="19"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="G">
+      <line>
+        <point x="84" y="27"/>
+        <point x="172" y="26"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="H">
+      <line>
+        <point x="78" y="14"/>
+        <point x="174" y="8"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="C">
+      <line>
+        <point x="91" y="4"/>
+        <point x="166" y="2"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="E">
+      <line>
+        <point x="943" y="272"/>
+        <point x="943" y="305"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="D">
+      <line>
+        <point x="929" y="267"/>
+        <point x="927" y="320"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="A">
+      <line>
+        <point x="949" y="246"/>
+        <point x="951" y="319"/>
+      </line>
+    </zone>
+    <zone nature="endGameTarget" type="line" concernedPlanes="B">
+      <line>
+        <point x="964" y="254"/>
+        <point x="969" y="310"/>
+      </line>
+    </zone>
+	  <zone nature="alteration" type="circle" concernedPlanes="All">
+    	<circle x="580" y="390" radius="32" speed="200" head="180"/>
+    </zone>
+	  <zone nature="alteration" type="circle" concernedPlanes="All">
+    	<circle x="800" y="340" radius="21" speed="120" head="0"/>
+    </zone>
+    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-75" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.5" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="10" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
+      <controlPanel hControl="true" vControl="true" rateControl="true" zControl="true" directPointControl="true" waitingControl="true" tempoControl="true"/>
+			<Texts>
+				<textIntro lang="FR">
+					<![CDATA[
+Le but de ces exercices du deuxième niveau est de développer la <b>capacité d'orientation des élèves</b> par rapport aux cap magnétiques dans les différentes zones de conflit du secteur. Chaque exercice présente une série de conflits sur une même zone mais avec des positions respectives des avions différentes.<br>Le but est de respecter le minimum de 5Nm latéral et de ne pas s'approcher des limites secteurs à moins de 3Nm.<br>
+					]]>
+				</textIntro>
+				<textIntro lang="EN">
+					<![CDATA[
+The goal is....
+					]]>
+				</textIntro>
+				<textEnd lang="FR">
+					<![CDATA[
+C'est fini !
+					]]>
+				</textEnd>
+				<textEnd lang="EN">
+					<![CDATA[
+Over....
+					]]>
+				</textEnd>
+				<textHelp lang="FR">
+				<![CDATA[Pas d'aide de disponible pour ce jeu... ]]>
+				</textHelp>
+				<textHelp lang="EN">
+				<![CDATA[Help in EN]]>
+				</textHelp>
+			</Texts>	
+    </configInitial>
+  </level>
 </g:Game>

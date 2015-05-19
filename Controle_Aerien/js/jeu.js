@@ -13,6 +13,9 @@ var selectedPlane = -1 ;
 var canvasWidth = "579";
 var canvasHeight = "436";
 
+// Correspond au niveau actuel
+var niveauCourant = 0;
+
 var pause = 0;
 
 // FIN VARIABLES GLOBALES
@@ -36,8 +39,8 @@ function chgt(){
 function init(){
 	// STRUCTURE
 	// contenus initiaux de l'écran d'accueil
-	$('#titreAccueil').html("conflit GAI MTL / JAMBI MTL - Level/Niveau 1");
-	$('#texte').html(Niveau.getListeNiveaux()[0].getInitInterface().getTexts().getTabTextIntro()["FR"]);
+	$('#titreAccueil').html("Level/"+Niveau.getListeNiveaux()[niveauCourant].getTitle());
+	$('#texte').html(Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getTexts().getTabTextIntro()["FR"]);
 	$('#image').html("<img src='images/jeu.png' id=\"wallpaper_game\">");
 	$('#boutonJeu').html("<input type=\"submit\" value=\"Commencer le jeu !\">");
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
@@ -72,6 +75,7 @@ function init(){
         selectNiveau.appendChild(Element);
     }
 	$('#boutonAccueil').html("<input type=\"submit\" value=\"Accueil\">");
+    $('#boutonNiveauSuivant').html("<input type=\"submit\" value=\"Niveau suivant\">");
 
 	// DONNEES
 	listeNiveaux  = Niveau.getListeNiveaux();
@@ -79,12 +83,11 @@ function init(){
 	// VARIABLES
 	tempsJeu = 0;
 	tempsNiveau = 0;
-	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 600;
 	tempsNiveauLimite = 200;
     score = new Score(400,0,0);
-    scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
+    scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
     
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
@@ -138,6 +141,25 @@ function init(){
 	$('#boutonAccueil').click(function() {
 		reinitialisation();
 		afficheAccueil();
+	});
+    $('#boutonNiveauSuivant').click(function() {
+        
+        // On incrémente le niveau
+		 var length = Niveau.getListeNiveaux().length;
+
+        if (niveauCourant <= length-1)
+        {
+            // On incrémente le niveau actuel
+            niveauCourant++;   
+            reinitialisationPanneau();
+            reinitialisationPanneauCible();
+            afficheAccueil();
+            init();
+        }
+        else
+        {  
+            alert("Plus de niveau disponible");
+        }
 	});
 
 	// REGLES
@@ -203,7 +225,7 @@ function animer() {
 		generateBilan();
 	}
 	else if (tempsNiveau > tempsNiveauLimite){
-		niveauCourant++;
+        generateBilan();
 		tempsNiveau = 0;
 	}
 	else {
@@ -620,11 +642,16 @@ function generateBilan(){
     
     var bilan_ordres = "";
     
-    for(var i = liste_ordres.length - 1; i >= 0; i--)
+    // S'il y a des ordres, on les affiche
+    if (liste_ordres != undefined)
     {
-           bilan_ordres += i + " : " +liste_ordres[i].getMessage() + "</br>";
+        for(var i = liste_ordres.length - 1; i >= 0; i--)
+        {
+               bilan_ordres += i + " : " +liste_ordres[i].getMessage() + "</br>";
+        }
     }
     
     $("#liste_ordres").html(bilan_ordres);
     
 }
+
