@@ -88,6 +88,7 @@ JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion conc
    - page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
    - diagramme de classe
 JC - chgt couleur avions problème à régler
+A - Mettre à jour le fichier php avec l'index ! 
 
 
 fait : 

@@ -25,6 +25,8 @@ function Ordre(avion,changements){
 	var changements = changements;
 
 
+    
+    
 	// Getters d'attributs privés
 
 	if( typeof Ordre.initialized == "undefined" ) { 
@@ -32,14 +34,13 @@ function Ordre(avion,changements){
 		Ordre.prototype.getMessage = function() { return this.message;}
 
 		Ordre.prototype.getTabChangements = function() { return changements;}
-        
 
         Ordre.initialized = true; 
     }
 
     // Permet de définir quelles modifications ont été faites et seront à afficher dans le this.message
     Ordre.prototype.processShowChangements = function() {
-		this.message = "<br /><b>"+avion.getNameOfPlane()+"</b>";
+		this.message = "<b>"+avion.getNameOfPlane()+"</b>";
 		var changement = -1, choice = -1;
 		// On observe tous les changements dans le tableau, c'est ici que l'on détaille ici toutes les possiblités
 		for(var i = 0; i < changements.length; i++){
@@ -192,12 +193,13 @@ function Ordre(avion,changements){
 		var historique = "";
 		for(var ord in Ordre.listeOrdres)
 		{
-			historique += Ordre.listeOrdres[ord].getMessage();
+			historique += Ordre.listeOrdres[ord].getMessage()+"</br>";
 		}
 		$('#zoneOrdres').html(historique);})(this);
-
 	
 }
+
+Ordre.getListeOrdresTotale = function() { return Ordre.listeOrdres;}
 
 Ordre.Changement = {
     INCREASE_SPEED : 0,

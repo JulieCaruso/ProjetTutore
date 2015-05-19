@@ -614,6 +614,17 @@ function generateBilan(){
      // On affiche les éléments pour le bilan
     afficheBilan();
     
-    $("#titre_liste_ordres").html("Bilan des ordres envoyés :");
+    $("#titre_liste_ordres").html("<strong>Bilan des ordres envoyés :</strong>");
+    
+    var liste_ordres = Ordre.getListeOrdresTotale();
+    
+    var bilan_ordres = "";
+    
+    for(var i = liste_ordres.length - 1; i >= 0; i--)
+    {
+           bilan_ordres += i + " : " +liste_ordres[i].getMessage() + "</br>";
+    }
+    
+    $("#liste_ordres").html(bilan_ordres);
     
 }
