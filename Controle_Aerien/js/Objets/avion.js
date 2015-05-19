@@ -115,7 +115,6 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.setSuivreTarget = function(i) { this.suivreTarget = i;};
         Avion.prototype.setEnd = function(i) { this.end = i;};
 		Avion.prototype.setColor = function(c) {this.color = c};
-
 		Avion.initialized = true;
 	}
 
