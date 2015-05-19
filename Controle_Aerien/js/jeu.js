@@ -88,15 +88,13 @@ function init(){
 	tempsNiveauLimite = 200;
     score = new Score(400,0,0,0);
     scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
-
-
     
 	//init target initial sur le premier targetPoint ou sur rien
 	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
         if (listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length > 0){
             updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
         }
-	}
+	} 
 
 	// GESTIONNAIRES
 	// gestionnaire du bouton #boutonJeu
@@ -255,7 +253,6 @@ function animer() {
         
 		for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
-            
             var listTP = avion.getListOfTargetPoints();
                  
             // test airproc pour toutes les combinaisons d'avions
