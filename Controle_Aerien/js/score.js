@@ -30,6 +30,7 @@ function Score(valeur,nb_airprox,nb_manip){
 
 		Score.initialized = true;
 	}
+}
 
     
 function ManipulationEffectuee () {
