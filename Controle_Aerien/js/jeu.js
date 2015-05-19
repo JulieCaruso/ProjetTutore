@@ -84,7 +84,7 @@ function init(){
 	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 600;
-	tempsNiveauLimite = 300;
+	tempsNiveauLimite = 20;
     score = new Score(400,0,0);
     scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
 	//init target initial sur le premier targetPoint ou sur rien
