@@ -48,7 +48,7 @@ function init(){
 	initPanneauLateral();
 	initPanneauCible();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
-    $('#boutonPause').html("<input type=\"submit\" value=\" || \">");
+    $('#boutonPause').html("<input id=\"leBoutonPause\" type=\"submit\" value=\"Pause\">");
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
@@ -117,13 +117,12 @@ function init(){
 //            
 //            
 //       ****************************************     
-            document.getElementById('boutonPause').value = " > ";
-            $('#boutonPause').val(' > ');
+            document.getElementById('leBoutonPause').value = "Play";
             clearInterval(inter);
             pause = 1;
         }
         else if (pause == 1) {
-            document.getElementById('boutonPause').value = " || ";
+            document.getElementById('leBoutonPause').value = "Pause";
             var curseur_vitesse = parseInt($("#vitesse_jeu").val());
             var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
             inter = setInterval(regles, rafraichissement_ms);
