@@ -230,13 +230,8 @@ function animer() {
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		generateBilan();
 	}
-<<<<<<< HEAD
-	else if (tempsNiveau > tempsNiveauLimite){
-        generateBilan();
-=======
 	else if (tempsNiveau > tempsNiveauLimite || niveau.getNbAvionsFinis() == niveau.getListOfAvions().length){
-		niveauCourant++;
->>>>>>> origin/master
+		generateBilan();
 		tempsNiveau = 0;
 	}
 	else {
