@@ -53,7 +53,7 @@
       </line>
     </zone>
 	  
-    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-75" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.5" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="3" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
+    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-75" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.5" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="10" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
       <controlPanel hControl="true" vControl="true" rateControl="true" zControl="true" directPointControl="true" waitingControl="true" tempoControl="true"/>
 			<Texts>
 				<textIntro lang="FR">

@@ -29,7 +29,6 @@ function testAirProX(avion1, avion2) {
 			avion2.setColor("blue");
 		}
 	}
-	
 }
 
 //quand l'avion s'approche la limite de la carte
@@ -47,7 +46,7 @@ function testAirProXLim(avion){
 function testTargetP(avion, targetPoint){
     var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
 	var dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
-	if (dist_avion_targetP <= normDistanceToZone*scale){
+	if (dist_avion_targetP <= normDistanceToZone){
         avion.setColor("white");
         avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
