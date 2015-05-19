@@ -1,8 +1,21 @@
-var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
-var normHorizontalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormHorizontalSeparation());
-var normLineSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation());
-var normVerticalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormVerticalSeparation());
+$(function () {
+	begin = setInterval(chgt, 100);
+});
 
+function chgt(){
+	if (Niveau.getChargementDonnees() == 0) {
+		clearInterval(begin);
+        initTests();
+    }
+}
+
+function initTests() {
+    var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
+    var normHorizontalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormHorizontalSeparation());
+    var normLineSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation());
+    var normVerticalSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormVerticalSeparation());
+}
+    
 //quand 2 avions se rapprochent
 function testAirProX(avion1, avion2) {
 	var aX1 = avion1.getX() * scale;

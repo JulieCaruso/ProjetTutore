@@ -26,8 +26,6 @@ function init0() {
 	begin = setInterval(chgt, 100);
 }
 
-// PROBLEME ECHELLE
-
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0) {
 		clearInterval(begin);
@@ -84,7 +82,8 @@ function init(){
 	niveauCourant = 0;
 	ecranCourant = null;
 	tempsLimite = 600;
-	tempsNiveauLimite = 300;
+	tempsNiveauLimite = 20;
+    score = new Score(400,0,0);
     scale = Niveau.getListeNiveaux()[0].getInitInterface().getScale();
     
 	//init target initial sur le premier targetPoint ou sur rien
@@ -197,7 +196,7 @@ function afficheBilan(){
 function animer() {
 	
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
-		afficheBilan();
+		generateBilan();
 	}
 	else if (tempsNiveau > tempsNiveauLimite){
 		niveauCourant++;
@@ -602,4 +601,15 @@ function reinitialisation(){
 	selectedPlane = -1;
 	reinitialisationPanneau();
 	reinitialisationPanneauCible();
+    ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
+}
+    
+// Fonction permettant de synthétiser les données pour le bilan
+function generateBilan(){
+    
+     // On affiche les éléments pour le bilan
+    afficheBilan();
+    
+    $("#titre_liste_ordres").html("Bilan des ordres envoyés :");
+    
 }

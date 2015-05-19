@@ -5,11 +5,13 @@
 		<title>Contrôle Aérien</title>
 		<link rel="stylesheet" media="screen" href="./css/styles.css" type="text/css" />
 		<script src="./js/jquery.js"></script>
+        <script src="./js/xmlToJavascript.js"></script>
 		<script src="./js/calculation.js"></script>
 		<script src="./js/Objets/ordre.js"></script>
 		<script src="./js/Objets/avion.js"></script>
 		<script src="./js/Objets/niveau.js"></script>
 		<script src="./js/Objets/interface.js"></script>
+        <script src="./js/score.js"></script>
 		<script src="./js/Objets/zone.js"></script>
 		<script src="./js/xmlToJavascript.js"></script>
         <script src="./js/tests.js"></script>
@@ -40,12 +42,17 @@
             </div>
 			<div id="zoneOrdres"></div>
             <div id="temps"></div>
+            <div id="score"></div>
 			<div id="boutonQuitter"></div>
             <div id="boutonPause"></div>
 		</div>
 		
 		<div id="bilan">
 			<div id="recap"></div>
+            <div id="bilan_ordres">
+                <div id="titre_liste_ordres"></div>
+                <p id="liste_ordres"></p>
+            </div>
 			<div id="boutonAccueil"></div>
 			<div id="boutonRejouer"></div>
 		</div>
