@@ -146,8 +146,8 @@ Avion.setPerformancesPerType = function(performances) {
 
 // Permet de réinitialiser les variables statiques
 Avion.flush = function(){
-	Zone.total = 0;
-	Zone.listeZones = [];
+	Avion.total = 0;
+    Avion.listeAvions= [];
 }
 
 // Constructeur pour l'objet de type TargetPoint

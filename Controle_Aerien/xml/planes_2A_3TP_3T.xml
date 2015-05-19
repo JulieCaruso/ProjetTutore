@@ -122,7 +122,7 @@ Over....
         <point x="93" y="22"/>
         <point x="173" y="19"/>
       </line>
-    </zone>
+      </zone>
     <zone nature="endGameTarget" type="line" concernedPlanes="G">
       <line>
         <point x="84" y="27"/>

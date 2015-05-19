@@ -276,7 +276,12 @@ function processXMLData(XMLData) {
 		//console.debug(initInterface);
 
 		level = new Niveau(levelID,levelTitle,Avion.getListeAvions(),Zone.getListeZones(),initInterface);
-
+        alert(Avion.getListeAvions().length);
+        
+        // On supprime les données récupérées
+        Avion.flush();
+        Zone.flush();
+        
 		Niveau.decrementChargementDonnees();
 
 		console.log("Chargement du niveau "+levelID+" terminé");
