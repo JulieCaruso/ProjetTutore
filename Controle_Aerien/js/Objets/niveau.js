@@ -29,6 +29,7 @@ function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
 	this.listOfAvions = listOfAvions;
 	this.listOfZones = listOfZones;
 	this.initInterface = initInterface;
+    this.nbAvionsFinis = 0;
 
 	// Getters d'attributs privés
 	if( typeof Niveau.initialized == "undefined" ) { 
@@ -54,6 +55,10 @@ function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
         };
 
         Niveau.initialized = true; 
+        
+        Niveau.prototype.getNbAvionsFinis = function() { return this.nbAvionsFinis;};
+        
+        Niveau.prototype.setNbAvionsFinis = function(x) { this.nbAvionsFinis = x;};
     }
 
 	// Permet d'ajouter le niveau à la liste à chaque instanciation de la classe

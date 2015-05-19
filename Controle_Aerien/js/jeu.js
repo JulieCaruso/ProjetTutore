@@ -199,10 +199,12 @@ function afficheBilan(){
 
 function animer() {
 	
+    var niveau = Niveau.getListeNiveaux()[niveauCourant];
+    
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		generateBilan();
 	}
-	else if (tempsNiveau > tempsNiveauLimite){
+	else if (tempsNiveau > tempsNiveauLimite || niveau.getNbAvionsFinis() == niveau.getListOfAvions().length){
 		niveauCourant++;
 		tempsNiveau = 0;
 	}
@@ -596,7 +598,6 @@ function reinitialisation(){
 			listeNiveaux[lv].getListOfAvions()[idA].setY4(listeNiveaux[lv].getListOfAvions()[idA].getYInitial());
             listeNiveaux[lv].getListOfAvions()[idA].setIndexCurrentTarget(0);
             listeNiveaux[lv].getListOfAvions()[idA].setSuivreTarget(1);
-            listeNiveaux[lv].getListOfAvions()[idA].setHasFinished(0);
             listeNiveaux[lv].getListOfAvions()[idA].setEnd(0);
             listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
 		}

@@ -14,7 +14,7 @@ function testAirProX(avion1, avion2) {
 		avion1.setColor("red");
 		avion2.setColor("red");
 	}
-	else if (avion1.getColor()=="red" || avion1.getColor()=="white") {
+	else if (avion1.getColor()=="red") {
 		var a_selected = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
 		if (selectedPlane !== -1 && avion1.getNameOfPlane() === a_selected.getNameOfPlane()) {
 			avion1.setColor("orange");
@@ -47,22 +47,9 @@ function testTargetP(avion, targetPoint){
     var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
 	var dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
 	if (dist_avion_targetP <= normDistanceToZone){
-        avion.setColor("white");
         avion.setIndexCurrentTarget(avion.getIndexCurrentTarget()+1);
 		if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
 			updateHeadToTargetPoint(avion);
-		}
-        else {
-            avion.setHasFinished(1);
-        }
-	}
-    else if (avion.getColor() == "white") {
-		var a_selected = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
-		if (selectedPlane !== -1 && avion.getNameOfPlane() === a_selected.getNameOfPlane()) {
-			avion.setColor("orange");
-		}
-		else {
-			avion.setColor("blue");
 		}
 	}
 }
@@ -84,6 +71,7 @@ function testEndZone(avion) {
             var dist_a_z = 50;
             if (listEndZones[i].getConcernedPlanes() == avion.getNameOfPlane() && dist_a_z < normLineSeparation){
                 avion.setEnd(1);
+                Niveau.getListeNiveaux()[niveauCourant].setNbAvionsFinis(Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis() + 1);
             }
         }
     }
