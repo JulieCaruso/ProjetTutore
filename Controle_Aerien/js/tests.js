@@ -81,7 +81,16 @@ function testEndZone(avion) {
                 avion.setEnd(1);
                 Niveau.getListeNiveaux()[niveauCourant].setNbAvionsFinis(Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis() + 1);
                 score.zoneFinDeJeuAtteinte();
-                
+                // on désélectionne l'avion si il est sélectionné
+                console.debug("selectedplane :"+selectedPlane)
+                if (Niveau.listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane] = avion) {
+                    console.debug(avion);
+                    console.debug(Niveau.listeNiveaux[niveauCourant].getListOfAvions()[0] );
+                    console.debug(Niveau.listeNiveaux[niveauCourant].getListOfAvions()[1] );
+                    console.debug(Niveau.listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane] );
+                    reinitialisationPanneau();
+                    selectedPlane = -1;
+                }
                 alert(avion.getNameOfPlane()+" a atteint sa zone de fin, nb d'a finis : "+Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis());
                 
             }

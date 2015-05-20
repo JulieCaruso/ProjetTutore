@@ -87,13 +87,13 @@ function traitementVitesse(changements) {
     if (vCourante > vVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_SPEED);
-        console.debug("nouvelle vitesse : "+vVoulue);
+        //console.debug("nouvelle vitesse : "+vVoulue);
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
 		
         updatePanneauLateralVitesse();
     } else if (vCourante < vVoulue) {
         score.manipulationEffectuee();
-        console.debug("nouvelle vitesse : "+vVoulue);
+        //console.debug("nouvelle vitesse : "+vVoulue);
         changements.push(Ordre.Changement.INCREASE_SPEED);
 
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
@@ -108,16 +108,14 @@ function traitementAltitude(changements) {
     if (altitudeCourante > altitudeVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_ALTITUDE);
-
-        console.debug("nouvelle alt : "+altitudeVoulue);
-
+        //console.debug("nouvelle alt : "+altitudeVoulue);
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
 
         updatePanneauLateralAltitudeCourante();
     } else if (altitudeCourante < altitudeVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_ALTITUDE);
-        console.debug("nouvelle alt : "+altitudeVoulue);
+        //console.debug("nouvelle alt : "+altitudeVoulue);
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
 
         updatePanneauLateralAltitudeCourante();
@@ -130,14 +128,14 @@ function traitementCap(changements) {
     if (capCourant > capVoulu) {
         score.manipulationEffectuee();
         changementCap(changements);
-        console.debug("nouveau cap : "+capVoulu);
+        //console.debug("nouveau cap : "+capVoulu);
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
 
         updatePanneauLateralCapCourant();
     } else if (capCourant < capVoulu) {
         score.manipulationEffectuee();
         changementCap(changements);
-        console.debug("nouveau cap : "+capVoulu);
+        //console.debug("nouveau cap : "+capVoulu);
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
     }
@@ -157,6 +155,7 @@ function changementCap(changements) {
 
 function traitementCible(changements) {
     var indexCurrentCible = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getIndexCurrentTarget();
+    //console.debug("index current target :"+avion.getIndexCurrentTarget());
     if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length) {
         var cibleCourante = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getListOfTargetPoints()[indexCurrentCible].getLabel();
     }
@@ -167,7 +166,7 @@ function traitementCible(changements) {
     if (indexCurrentCible != cibleVoulue) {
 
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
-        console.debug("nouvelle cible : "+cibleVoulue);
+        //console.debug("nouvelle cible : "+cibleVoulue);
         updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
@@ -264,6 +263,7 @@ function reinitialisationPanneau() {
     // redefinition de la vitesse de jeu
     var vitesseDuJeu = document.getElementById("vitesse_jeu");
     vitesseDuJeu.value = 1;
+    traitementVitesseJeu();
 }
 
 function updatePanneauLateralNom() {
