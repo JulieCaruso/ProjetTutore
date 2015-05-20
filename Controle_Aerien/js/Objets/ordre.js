@@ -178,10 +178,26 @@ function Ordre(avion,changements){
 	var showOrder = (function(ordre){ 
 		ordre.processShowChangements();
 		
+		// On ajoute l'ordre à la liste
+		Ordre.listeOrdres.unshift(ordre);
+		
 		var historique = "";
-		for(var ord = Ordre.listeOrdres[Ordre.total-1]; ord >= Ordre.listeOrdres.length-10; ord-- )
+		// On regarde si on a plus ou moins de 10 messages
+		if (Ordre.total <= 10)
 		{
-			historique += Ordre.listeOrdres[ord].getMessage()+"</br>";
+			
+			for(var ord = Ordre.total-1; ord >= 0; ord-- )
+			{
+				historique += Ordre.listeOrdres[ord].getMessage()+"</br>";
+			}
+			
+		}
+		else
+		{
+			for(var ord = Ordre.total-1; ord >= Ordre.listeOrdres.length-10; ord-- )
+			{
+				historique += Ordre.listeOrdres[ord].getMessage()+"</br>";
+			}
 		}
 		$('#zoneOrdres').html(historique);})(this);
 	
