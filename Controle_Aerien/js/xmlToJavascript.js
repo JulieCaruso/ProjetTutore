@@ -37,7 +37,7 @@ function getXMLPlanesToJavascript(callback){
 	jquery_nom_xml = $("#id_jeu_XML");
 	
     //sans PHP, modifier ici le nom du fichier xml à charger
-	nom_XML = "xml/" + (jquery_nom_xml.text() != "" ? jquery_nom_xml.text() : "planes_2A_3TP_3T.xml");
+	nom_XML = "xml/" + (jquery_nom_xml.text() != "" ? jquery_nom_xml.text() : "planes_2N_2A_3TP_3T.xml");
 	
 	xdr.open("GET", nom_XML);
 
@@ -123,7 +123,6 @@ function processXMLData(XMLData) {
 				planeAttributes["typeDansEtiquette"]);
 
 			listOfTargetPoint = currentPlane.getElementsByTagName("targetPoint");
-
 			for (var k = 0; k < listOfTargetPoint.length; k++)
 			{
 				for (var h = 0; h < listOfTargetPoint[k].attributes.length; h++)

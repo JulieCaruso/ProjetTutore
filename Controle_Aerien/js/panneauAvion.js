@@ -59,7 +59,8 @@ function sendData() {
         traitementAltitude(changements);
 		( $("#followCap").attr("checked") != undefined ? traitementCap(changements) :  traitementCible(changements) );
         if (changements.length > 0) {
-            var ordre = new Ordre(Avion.getListeAvions()[selectedPlane], changements);
+			
+            var ordre = new Ordre(Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane], changements);
         }
     }
 }
@@ -86,12 +87,12 @@ function traitementVitesse(changements) {
     if (vCourante > vVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_SPEED);
-        Avion.getListeAvions()[selectedPlane].setVTarget(vVoulue);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
         updatePanneauLateralVitesse();
     } else if (vCourante < vVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_SPEED);
-        Avion.getListeAvions()[selectedPlane].setVTarget(vVoulue);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
         updatePanneauLateralVitesse();
     }
 }
@@ -102,12 +103,12 @@ function traitementAltitude(changements) {
     if (altitudeCourante > altitudeVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_ALTITUDE);
-        Avion.getListeAvions()[selectedPlane].setZTarget(altitudeVoulue);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
         updatePanneauLateralAltitudeCourante();
     } else if (altitudeCourante < altitudeVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_ALTITUDE);
-        Avion.getListeAvions()[selectedPlane].setZTarget(altitudeVoulue);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
         updatePanneauLateralAltitudeCourante();
     }
 }
@@ -118,15 +119,15 @@ function traitementCap(changements) {
     if (capCourant > capVoulu) {
         score.manipulationEffectuee();
         changementCap(changements);
-        Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
     } else if (capCourant < capVoulu) {
         score.manipulationEffectuee();
         changementCap(changements);
-        Avion.getListeAvions()[selectedPlane].setHTarget(capVoulu);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
     }
-    Avion.getListeAvions()[selectedPlane].setSuivreTarget(0);
+    Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setSuivreTarget(0);
 }
 
 function changementCap(changements) {
@@ -150,13 +151,13 @@ function traitementCible(changements) {
     var cibleVoulue = parseInt(document.getElementById('selectTarget').value);
     alert(indexCurrentCible+" "+cibleVoulue);
     if (indexCurrentCible != cibleVoulue) {
-        Avion.getListeAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
+        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
         updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
         updatePanneauLateralCibleCourante();
     }
-    Avion.getListeAvions()[selectedPlane].setSuivreTarget(1);
+    Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setSuivreTarget(1);
 }
 
 /*
@@ -297,11 +298,13 @@ function fillPanneauLateralVitessesPossibles() {
 function fillPanneauLateralAltitudesPossibles() {
     var selectElement = document.getElementById('selectAlt');
     var perfos = Avion.getPerformancesPerType()[listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].typeOfPlane];
-    for (var i in perfos[ "performances"]) {
+
+	for (var i in perfos[ "performances"]) {
         var Element = document.createElement('option');
         Element.value = i;
         // si l'altitude est l'altitude courante, alors cette valeur est selectionnee par defaut
-        if (i == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZ()) {
+		
+        if (i == listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].getZTarget()) {
             Element.selected = "selected";
         }
         Element.textContent = parseInt(i);

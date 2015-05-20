@@ -77,8 +77,6 @@ function testEndZone(avion) {
             var Y2 = listOfPoints[1].getY();
             var dist_a_line = distanceToSegment(aX, aY, X1*scale, Y1*scale, X2*scale, Y2*scale);
             
-            console.debug("avion "+avion.getNameOfPlane()+" "+dist_a_line);
-            
             if (avion.getEnd() ==0 && listEndZones[i].getConcernedPlanes() == avion.getNameOfPlane() && dist_a_line < normLineSeparation){
                 avion.setEnd(1);
                 Niveau.getListeNiveaux()[niveauCourant].setNbAvionsFinis(Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis() + 1);

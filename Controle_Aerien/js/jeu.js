@@ -212,7 +212,7 @@ function afficheBilan(){
 function animer() {
 	
     var niveau = Niveau.getListeNiveaux()[niveauCourant];
-    
+   
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		generateBilan();
 	}
