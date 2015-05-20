@@ -179,7 +179,7 @@ function Ordre(avion,changements){
 		ordre.processShowChangements();
 		
 		// On ajoute l'ordre à la liste
-		Ordre.listeOrdres.unshift(ordre);
+		Ordre.listeOrdres.push(ordre);
 		
 		var historique = "";
 		// On regarde si on a plus ou moins de 10 messages

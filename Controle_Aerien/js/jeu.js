@@ -122,6 +122,7 @@ function init(){
 	// gestionnaires
 	$('#boutonRejouer').click(function() {
 		reinitialisation();
+		Ordre.flush();
 		afficheJeu();
 	});
 	$('#boutonAccueil').click(function() {
