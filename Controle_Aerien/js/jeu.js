@@ -98,15 +98,7 @@ function init(){
 	});
     // gestionnaire du bouton #boutonPause
 	$('#boutonPause').click(function() {
-		if (pause == 0) {
-//      *****************************************      
-//            
-//            
-//            NOTHING WORKS HERE
-//            
-//            
-//            
-//       ****************************************     
+		if (pause == 0) {  
             document.getElementById('leBoutonPause').value = "Play";
             clearInterval(inter);
             pause = 1;
@@ -142,6 +134,11 @@ function init(){
             reinitialisationPanneauCible();
             afficheAccueil();
             init();
+            // on incrémente le niveau dans la liste d'accueil
+            //document.getElementById('selectNiveau')
+            //
+            //
+            //changer ici !!!!!!!*****************************
         }
         else
         {  
@@ -614,6 +611,12 @@ function reinitialisation(){
             listeNiveaux[lv].setNbAvionsFinis(0);
 		}
 	}
+    // reinit
+    document.getElementById('leBoutonPause').value = "Pause";
+    var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+    var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+    inter = setInterval(regles, rafraichissement_ms);
+    pause = 0;
 	// réinitialisation des panneaux lateraux
 	selectedPlane = -1;
 	reinitialisationPanneau();
