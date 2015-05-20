@@ -571,15 +571,20 @@ function dessinEndGameTargets () {
     var listEndZones = Niveau.getListeNiveaux()[niveauCourant].getListOfZones();
     for (var i = 0; i < listEndZones.length; i++) {
         if (listEndZones[i].getNature() == "endGameTarget") {
-            var listOfPoints = listEndZones[i].getListOfPoints_Cercle();
-            var X1 = listOfPoints[0].getX();
-            var Y1 = listOfPoints[0].getY();
-            var X2 = listOfPoints[1].getX();
-            var Y2 = listOfPoints[1].getY();;
-            dessinerTrait(X1, Y1, X2, Y2, 'green');
-            // On ajoute le nom de l'avion
-            ctx.font = "10px Arial";
-            ctx.fillText(listEndZones[i].getConcernedPlanes(), (X1*scale+3), (Y1*scale-5));
+            // si la endzone concerne un avion du niveau courant, on la dessine, sinon on fait rien
+            for (j=0; j<listeNiveaux[niveauCourant].getListOfAvions().length;j++) {
+                if (listEndZones[i].getConcernedPlanes() == listeNiveaux[niveauCourant].getListOfAvions()[j].getNameOfPlane()) {
+                    var listOfPoints = listEndZones[i].getListOfPoints_Cercle();
+                    var X1 = listOfPoints[0].getX();
+                    var Y1 = listOfPoints[0].getY();
+                    var X2 = listOfPoints[1].getX();
+                    var Y2 = listOfPoints[1].getY();;
+                    dessinerTrait(X1, Y1, X2, Y2, 'green');
+                    // On ajoute le nom de l'avion
+                    ctx.font = "10px Arial";
+                    ctx.fillText(listEndZones[i].getConcernedPlanes(), (X1*scale+3), (Y1*scale-5));
+                }
+            }
         }
     }
 }

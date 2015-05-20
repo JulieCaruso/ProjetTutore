@@ -82,7 +82,6 @@ function testEndZone(avion) {
                 Niveau.getListeNiveaux()[niveauCourant].setNbAvionsFinis(Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis() + 1);
                 score.zoneFinDeJeuAtteinte();
                 // on désélectionne l'avion si il est sélectionné
-                console.debug("selectedplane :"+selectedPlane)
                 if (selectedPlane != -1) {
                     if (Niveau.listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane] == avion) {
                         reinitialisationPanneau();
