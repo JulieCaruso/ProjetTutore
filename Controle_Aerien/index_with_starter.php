@@ -27,7 +27,6 @@
 			<div id="titreAccueil"></div>
 			<div id="texte"></div>
 			<div id="image"></div>
-            <div id="choixNiveau"></div>
 			<div id="boutonJeu"></div>
 		</div>
 		
@@ -65,3 +64,4 @@
 		<footer></footer>
 	</body>
 </html>
+
