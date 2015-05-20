@@ -623,6 +623,7 @@ function reinitialisation(){
             listeNiveaux[lv].getListOfAvions()[idA].setSuivreTarget(1);
             listeNiveaux[lv].getListOfAvions()[idA].setEnd(0);
             listeNiveaux[lv].getListOfAvions()[idA].setColor("blue");
+            listeNiveaux[lv].setNbAvionsFinis(0);
 		}
 	}
 	// réinitialisation des panneaux lateraux

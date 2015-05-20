@@ -75,16 +75,39 @@ function testEndZone(avion) {
             var Y1 = listOfPoints[0].getY();
             var X2 = listOfPoints[1].getX();
             var Y2 = listOfPoints[1].getY();
-            // a calculer !
-            var dist_a_z = 50;
-            if (listEndZones[i].getConcernedPlanes() == avion.getNameOfPlane() && dist_a_z < normLineSeparation){
+            var dist_a_line = distanceToSegment(aX, aY, X1*scale, Y1*scale, X2*scale, Y2*scale);
+            
+            console.debug("avion "+avion.getNameOfPlane()+" "+dist_a_line);
+            
+            if (avion.getEnd() ==0 && listEndZones[i].getConcernedPlanes() == avion.getNameOfPlane() && dist_a_line < normLineSeparation){
                 avion.setEnd(1);
                 Niveau.getListeNiveaux()[niveauCourant].setNbAvionsFinis(Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis() + 1);
                 score.zoneFinDeJeuAtteinte();
+                
+                alert(avion.getNameOfPlane()+" a atteint sa zone de fin, nb d'a finis : "+Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis());
+                
             }
         }
+    } 
+}
+
+function distanceToSegment(XP, YP, XO, YO, XE, YE) {
+    var OP = Math.sqrt(Math.pow(XP - XO, 2)+Math.pow(YP - YO, 2));
+    var OE = Math.sqrt(Math.pow(XO - XE, 2)+Math.pow(YO - YE, 2));
+    var EP = Math.sqrt(Math.pow(XP - XE, 2)+Math.pow(YP - YE, 2));
+    var OP_OE = ((XP-XO)*(XE-XO))+((YP-YO)*(YE-YO));
+    var EP_EO = ((XP-XE)*(XO-XE))+((YP-YE)*(YO-YE));
+    if (OP_OE <= 0) {
+        return OP;
     }
-    
+    else if (OP_OE > 0 && EP_EO > 0){
+        // pdt vectoriel sur des vecteurs de dimension 2
+        var OE_vect_OP = ((XE-XO)*(YP-YO))-((XP-XO)*(YE-YO));
+        return (OE_vect_OP/OE);
+    }
+    else if (EP_EO <= 0) {
+        return EP;
+    } 
 }
 
 // Permet de tester si l'avion se trouve dans une zone d'altération
