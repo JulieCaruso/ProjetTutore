@@ -177,21 +177,9 @@ function Ordre(avion,changements){
     // Permet d'ajouter le this.message à la zone d'ordres envoyés
 	var showOrder = (function(ordre){ 
 		ordre.processShowChangements();
-		if (Ordre.total !== 1)
-		{
-			if (Ordre.total == 11)
-			{
-				Ordre.total--;
-				Ordre.listeOrdres.unshift(ordre);
-				Ordre.listeOrdres.pop();
-			}
-			else
-			{
-				Ordre.listeOrdres.unshift(ordre);
-			}
-		}
+		
 		var historique = "";
-		for(var ord in Ordre.listeOrdres)
+		for(var ord = Ordre.listeOrdres[Ordre.total-1]; ord >= Ordre.listeOrdres.length-10; ord-- )
 		{
 			historique += Ordre.listeOrdres[ord].getMessage()+"</br>";
 		}
@@ -199,7 +187,15 @@ function Ordre(avion,changements){
 	
 }
 
+// Permet d'obtenir la liste de l'ensemble des ordres (et non les 10 plus récents)
 Ordre.getListeOrdresTotale = function() { return Ordre.listeOrdres;}
+
+// Permet de réinitialiser les variables statiques
+Ordre.flush = function(){
+	Ordre.total = 0;
+    Ordre.listeOrdres = undefined;
+}
+
 
 Ordre.Changement = {
     INCREASE_SPEED : 0,

@@ -140,7 +140,6 @@ function init(){
             reinitialisationPanneau();
             reinitialisationPanneauCible();
             afficheAccueil();
-			Ordre.flush();
             init();
         }
         else
@@ -643,6 +642,9 @@ function generateBilan(){
     }
     
     $("#liste_ordres").html(bilan_ordres);
+	
+	// On vide l'ensemble des ordres
+	Ordre.flush();
     
 }
 

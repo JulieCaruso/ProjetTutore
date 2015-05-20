@@ -87,20 +87,16 @@ function traitementVitesse(changements) {
     if (vCourante > vVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_SPEED);
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
-=======
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
->>>>>>> origin/master
+		
         updatePanneauLateralVitesse();
     } else if (vCourante < vVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_SPEED);
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
-=======
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setVTarget(vVoulue);
->>>>>>> origin/master
+
         updatePanneauLateralVitesse();
     }
 }
@@ -111,20 +107,17 @@ function traitementAltitude(changements) {
     if (altitudeCourante > altitudeVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.DECREASE_ALTITUDE);
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
-=======
+
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
->>>>>>> origin/master
+
         updatePanneauLateralAltitudeCourante();
     } else if (altitudeCourante < altitudeVoulue) {
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.INCREASE_ALTITUDE);
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
-=======
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setZTarget(altitudeVoulue);
->>>>>>> origin/master
+
         updatePanneauLateralAltitudeCourante();
     }
 }
@@ -135,26 +128,19 @@ function traitementCap(changements) {
     if (capCourant > capVoulu) {
         score.manipulationEffectuee();
         changementCap(changements);
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
-=======
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
->>>>>>> origin/master
+
         updatePanneauLateralCapCourant();
     } else if (capCourant < capVoulu) {
         score.manipulationEffectuee();
         changementCap(changements);
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
-        updatePanneauLateralCapCourant();
-    }
-    Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setSuivreTarget(0);
-=======
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setHTarget(capVoulu);
         updatePanneauLateralCapCourant();
     }
     listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setSuivreTarget(0);
->>>>>>> origin/master
+
 }
 
 function changementCap(changements) {
@@ -177,21 +163,17 @@ function traitementCible(changements) {
     }
     var cibleVoulue = parseInt(document.getElementById('selectTarget').value);
     if (indexCurrentCible != cibleVoulue) {
-<<<<<<< HEAD
-        Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
-=======
+
         listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setIndexCurrentTarget(cibleVoulue);
->>>>>>> origin/master
+
         updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane]);
         score.manipulationEffectuee();
         changements.push(Ordre.Changement.MODIFY_TARGET_POINT);
         updatePanneauLateralCibleCourante();
     }
-<<<<<<< HEAD
-    Niveau.getListeNiveaux()[niveauCourant].getListOfAvions()[selectedPlane].setSuivreTarget(1);
-=======
+
     listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane].setSuivreTarget(1);
->>>>>>> origin/master
+
 }
 
 /*
