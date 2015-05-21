@@ -70,22 +70,20 @@ Fichier performances: type = avion; inclinaison, inclinaison max et cassure = on
 todo : 
 
 JC - utiliser le fichier de config (en cours)
-   - bouton pause (|| puis > après clic, et vice-versa) : var booleenne testée dans setInterval a D de quitter
 JR - calculer le score sur l'écran de fin de jeu
-   - affichage de tous les logs sur l'écran de fin de jeu (par niveau?)
-JC - rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
-     + hasfinished dans avion + jeu fini quand ts hasfinished
    - bilan : afficher jeu fini (soit bravo av ont atteint leur cible, soit tps limite), soit score(nb airprox + nb cmds)
    - plusieurs niveaux : niveau -> bilan -> niveau suivant -> ... -> bilan final.
-   - page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ...
-   - diagramme de classe
 JC - chgt couleur avions problème à régler
 
 JR : corriger score quand airprox !!!!
 
 
-fait : 
-
+fait :
+- diagramme de classe : A 
+- page crédits ou similaire, pop up, projet réalisé dans le cadre de, tuteur, ... : JC
+- affichage de tous les logs sur l'écran de fin de jeu (par niveau?) : A
+- rajouter zones de fin de jeu (segments a afficher + afficher nom avion concerné/segment) 
+     + end dans avion + jeu fini quand ts end : JC
 - mettre Nouvelle Cible à la valeur de IndexCurrentTarget dans le menu déroulant : JR
 - lorsque l'on clique sur un avion pour voir sa route, ce serait bien qu'elle apparaisse 
      aussitôt et non lors de la prochaine itération (vous devriez pouvoir forcer l'affichage du canvas)
@@ -107,7 +105,8 @@ fait :
 - avion passe au dessus de tout : JC
 - utiliser config pour les distances airprox, target point, fin de jeu, etc. : JC
 - temps limite + afficher compteur temps en bas a D : JC
-- mettre le curseur de vitesse de jeu au min par defaut : JR
+- mettre le curseur de vitesse de jeu au min par defaut : J²
+- bouton pause (|| puis > après clic, et vice-versa) : JC
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

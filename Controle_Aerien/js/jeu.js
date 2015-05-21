@@ -1,6 +1,6 @@
-// VARIABLES GLOBALES
+// VARIABLES GLOBALES //
 
-// Correspond à l'échelle des distances sur le canva (ratio réalité/simulation)
+// Correspond à l'échelle des distances sur le canvas (ratio réalité/simulation)
 var scale = -1;
 
 // Correspond à l'intervalle de rafraichissement du jeu
@@ -16,9 +16,10 @@ var canvasHeight = "436";
 // Correspond au niveau actuel
 var niveauCourant = 0;
 
+// Correspond à l'état du jeu (en pause ou non)
 var pause = 0;
 
-// FIN VARIABLES GLOBALES
+// FIN VARIABLES GLOBALES //
 
 $(function () {
 	init0();
@@ -29,6 +30,7 @@ function init0() {
 	begin = setInterval(chgt, 100);
 }
 
+// vérifie si le chargement des données est terminé
 function chgt(){
 	if (Niveau.getChargementDonnees() == 0) {
 		clearInterval(begin);
@@ -43,15 +45,18 @@ function init(){
 	$('#texte').html(Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getTexts().getTabTextIntro()["FR"]);
 	$('#image').html("<img src='images/jeu.png' id=\"wallpaper_game\">");
 	$('#boutonJeu').html("<input type=\"submit\" value=\"Commencer le jeu !\">");
+    $('#boutonCredits').html("<input type=\"submit\" value=\"Crédits\">");
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
 
+    initPanneauLateral();
+	initPanneauCible();
+    
 	// contenu initial de l'écran de jeu
 	$('#animation').html("<canvas id=\"dessin\" width=\""+canvasWidth+"\" height=\""+canvasHeight+"\">Texte pour les navigateurs qui \
                             ne supportent pas canvas</canvas>");
-	initPanneauLateral();
-	initPanneauCible();
 	$('#boutonQuitter').html("<input type=\"submit\" value=\"Quitter\">");
     $('#boutonPause').html("<input id=\"leBoutonPause\" type=\"submit\" value=\"Pause\">");
+    
 	monCanvas = document.getElementById('dessin');
 	if (monCanvas.getContext){
 		ctx = monCanvas.getContext('2d');
@@ -89,14 +94,26 @@ function init(){
 	$('#boutonJeu').click(function() {
 		afficheJeu();
 	});
+    // gestionnaire du bouton #boutonJeu
+	$('#boutonCredits').click(function() {
+		alert("Credits : \n \
+    INSA Toulouse \n \
+    Projet Tutoré 2014 - 2015 \n \
+    \"Jeux sérieux dans le domaine du contrôle aérien\"\n \
+    Tuteur : \n \
+            Jean-Yves PLANTEC \n \
+    Participants au projet : \n \
+            Julie CARUSO \n \
+            Alexandre DEMEYER \n \
+            Julie RIVIERE");
+	});
 	// interactivité sur le canvas
 	monCanvas.addEventListener("click", clicCanvas, false);
-	// gestionnaire du bouton #boutonJeu
+	// gestionnaires
 	$('#boutonQuitter').click(function() {
 		reinitialisation();
 		afficheAccueil();
 	});
-    // gestionnaire du bouton #boutonPause
 	$('#boutonPause').click(function() {
 		if (pause == 0) {  
             document.getElementById('leBoutonPause').value = "Play";
@@ -111,7 +128,6 @@ function init(){
             pause = 0;
         }
 	});
-	// gestionnaires
 	$('#boutonRejouer').click(function() {
 		reinitialisation();
 		Ordre.flush();
@@ -122,35 +138,24 @@ function init(){
 		afficheAccueil();
 	});
     $('#boutonNiveauSuivant').click(function() {
-        
         // On incrémente le niveau
-		 var length = Niveau.getListeNiveaux().length;
-
-        if (niveauCourant <= length-1)
-        {
+        var length = Niveau.getListeNiveaux().length;
+        if (niveauCourant <= length-1) {
             // On incrémente le niveau actuel
             niveauCourant++;   
             reinitialisationPanneau();
             reinitialisationPanneauCible();
             afficheAccueil();
             init();
-            // on incrémente le niveau dans la liste d'accueil
-            //document.getElementById('selectNiveau')
-            //
-            //
-            //changer ici !!!!!!!*****************************
         }
-        else
-        {  
+        else {  
             alert("Plus de niveau disponible");
         }
 	});
 
 	// REGLES
-	// Réglage de la vitesse du jeu (dynamique)
-	// On fixe l'évènement
+	// Réglage de la vitesse du jeu, on récupère la valeur par défaut
 	$("#vitesse_jeu").change(traitementVitesseJeu);
-	// On récupère la valeur par défaut
 	var curseur_vitesse = parseInt($("#vitesse_jeu").val());
 	var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
 	inter = setInterval(regles, rafraichissement_ms);
@@ -194,6 +199,7 @@ function regles(){
 function afficher_score() {
     $('#score').html("Score : "+score.getValue());
 }
+
 function afficheBilan(){
 	ecranCourant = "bilan";
 	// affichage de l'écran et masquage des autres écrans
@@ -209,10 +215,11 @@ function afficheBilan(){
 function animer() {
 	
     var niveau = Niveau.getListeNiveaux()[niveauCourant];
-   
+    // Si on a fini le dernier niveau ou le temps de jeu total est écoulé
 	if((tempsJeu > tempsLimite) || (niveauCourant > Niveau.getNombreNiveaux()-1)){
 		generateBilan();
 	}
+    // Si on a fini le niveau ou le temps du niveau est écoulé
 	else if (tempsNiveau > tempsNiveauLimite || niveau.getNbAvionsFinis() == niveau.getListOfAvions().length){
 		generateBilan();
 		tempsNiveau = 0;
@@ -220,7 +227,7 @@ function animer() {
 	else {
 		tempsJeu++;
 		tempsNiveau++;
-		// effaçage
+		// effaçage de canvas
 		ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 		dessinerImage();
         
@@ -240,14 +247,13 @@ function animer() {
 			avion = listeNiveaux[niveauCourant].getListOfAvions()[a];
             var listTP = avion.getListOfTargetPoints();
                  
-            // test airproc pour toutes les combinaisons d'avions
+            // test airprox pour toutes les combinaisons d'avions
             if (a < listeNiveaux[niveauCourant].getListOfAvions().length - 1){
                 for (var b=a+1; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
                     testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
                 }
             }   
-            
-            // test airproc limite écran
+            // test airprox limite écran
             testAirProXLim(avion);
             
             // test end zone pour cet avion
@@ -258,8 +264,7 @@ function animer() {
                 if (avion.getIndexCurrentTarget() < avion.getListOfTargetPoints().length){
                     testTargetP(avion, listTP[avion.getIndexCurrentTarget()]);
                 }
-            }
-            
+            } 
             // dessin target points + noms 	si l'avion n'a pas atteint sa end zone
             if (avion.getEnd() == 0) {
                 for (var t = 0; t < listTP.length; t++) {		
@@ -271,6 +276,7 @@ function animer() {
             }            
         }
     }
+    // dessin route de l'avion sélectionné
     if (selectedPlane != -1) {
         dessinerChemin(selectedPlane);
         var a = listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane];
@@ -310,14 +316,12 @@ function dessineAvion(a){
 		a.setX1(a.getX());
 		a.setY1(a.getY());
 	}
-
     if (a.getZ() != a.getZTarget()) {
             calculateAltitude(a);
     }
     else if (a.getV() != a.getVTarget()) {
             calculateSpeed(a);
     }
-    
     // si suivre targets
     if (avion.getSuivreTarget() == 1) {
         // si l'avion a atteint sa derniere target, il continue sur son dernier cap
@@ -325,7 +329,6 @@ function dessineAvion(a){
             updateHeadToTargetPoint(a);
         }
     }
-    
 	if (a.getH() != a.getHTarget()){
 		var sensVirage = -1;
 		if(document.getElementById('virageC').checked){
@@ -338,7 +341,6 @@ function dessineAvion(a){
 		}
 		calculateHead(a, sensVirage);
 	}
-	
     // Calcul des paramètres de l'avion puis on modifie les coordonnées dans l'avion
     setCoordinates(a,calculateXY(a));
 	
@@ -349,9 +351,8 @@ function dessineAvion(a){
 			var zone = listOfZones[i].getListOfPoints_Cercle()[0];
 			testAlterationZone(avion, zone);				
 		}
-	}
-    
-	// dessin avions et positions précédentes
+	} 
+	// dessin avions et 4 positions précédentes
 	dessinA(a.getX()*scale, a.getY()*scale, 5, a.getColor());
 	dessinA(a.getX1()*scale, a.getY1()*scale, 2.5, "#FFAD5C");
 	dessinA(a.getX2()*scale, a.getY2()*scale, 2, "#FFCE9D");
@@ -363,7 +364,7 @@ function dessineAvion(a){
 	ctx.fillText(a.getV()+" noeuds - "+a.getZ()+" pieds", (a.getX()*scale+5), (a.getY()*scale-15));
 }
 
-// Permet de dessiner un cercle
+// Permet de dessiner un cercle de rayon R
 function dessinA(x, y, R, couleur){
 	ctx.save();
 	ctx.translate(x, y);
@@ -400,6 +401,7 @@ function dessinZoneAlteration(x, y, R, couleur){
 	ctx.restore();
 }
 
+// gestion des clics sur le canvas
 function clicCanvas(e){
 	// position de la souris / document
 	var xSourisDocument = e.pageX;
@@ -410,7 +412,6 @@ function clicCanvas(e){
 	// position du clic / canvas
 	xSourisCanvas = xSourisDocument - xCanvas;
 	ySourisCanvas = ySourisDocument - yCanvas;
-	// test si un avion est cliqué
 	var avionSelected = 0;
 	var targetSelected = 0;
     // pour chaque avion, on regarde s'il a été selectionné puis traitement
@@ -433,7 +434,6 @@ function clicCanvas(e){
 		for (var t = 0; t < avion.getListOfTargetPoints().length; t++){
 			if(Math.abs(avion.getListOfTargetPoints()[t].getX()*scale-xSourisCanvas) < R
 			&& Math.abs(avion.getListOfTargetPoints()[t].getY()*scale-ySourisCanvas) < R){
-				// on lui passe l'objet target?
 				selectedTarget = avion.getListOfTargetPoints()[t];
 				targetSelected = 1;
 				updatePanneauCible();
@@ -452,9 +452,10 @@ function clicCanvas(e){
 	}
 }
 
+// dessine la route d'un avion sélectionné
 function dessinerChemin (avion) {
     a = listeNiveaux[niveauCourant].getListOfAvions()[avion];
-    // si on suit une target
+    // si l'avion suit une cible
     if (a.getSuivreTarget() == 1) {
         i = a.getIndexCurrentTarget();
         indiceMax = parseInt(a.getListOfTargetPoints().length);
@@ -467,6 +468,7 @@ function dessinerChemin (avion) {
             }
         }
     }
+    // sinon = si l'avion suit un cap donné
     else {
         // On trace une ligne en fonction du cap
 		var p, c, head, X_bord1, Y_bord1, X_bord2, Y_bord2;
@@ -482,7 +484,6 @@ function dessinerChemin (avion) {
 		else {
 			p = Math.POSITIVE_INFINITY;	
 		}
-		
 		c = a.getY()*scale - p * a.getX()*scale;
 		
 		// On trouve alors la bonne orientation en fonction du cap
@@ -492,7 +493,6 @@ function dessinerChemin (avion) {
 			// Intersection avec Y_bord1 = 0
 			Y_bord1 = 0;
 			X_bord1 = - c / parseFloat(p);
-			
 			
 			// Si p n'est pas infini
 			if (p !== Math.POSITIVE_INFINITY) {
@@ -544,7 +544,6 @@ function dessinerChemin (avion) {
 		else {
 			alert("ERREUR, le cap dépasse 360 ° !");	
 		}
-		
 		// On trace le trait
 		if (X_bord1 > 0 && X_bord1 <= canvasWidth && Y_bord1 > 0 && Y_bord1 <= canvasHeight) {
             dessinerTrait(a.getX(), a.getY(), X_bord1/scale, Y_bord1/scale, 'yellow');
@@ -566,7 +565,7 @@ function dessinerTrait (X1,Y1,X2,Y2, color) {
     ctx.restore();
 }
 
-// Trace tous les endGameTargets avec le nom de l'avion concerné
+// Trace tous les endGameTargets qui concernent les avions du niveau avec le nom de l'avion concerné
 function dessinEndGameTargets () {
     var listEndZones = Niveau.getListeNiveaux()[niveauCourant].getListOfZones();
     for (var i = 0; i < listEndZones.length; i++) {
@@ -589,6 +588,7 @@ function dessinEndGameTargets () {
     }
 }
 
+// reinitialisation du jeu = de tous les niveaux
 function reinitialisation(){
 	niveauCourant = 0;
 	tempsJeu = 0;
@@ -616,44 +616,36 @@ function reinitialisation(){
             listeNiveaux[lv].setNbAvionsFinis(0);
 		}
 	}
-    // reinit
+	// réinitialisation des panneaux lateraux
+	selectedPlane = -1;
+	reinitialisationPanneau();
+	reinitialisationPanneauCible();
+    // reinit vitesse jeu et pause du jeu
     document.getElementById('leBoutonPause').value = "Pause";
     var curseur_vitesse = parseInt($("#vitesse_jeu").val());
     var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
     inter = setInterval(regles, rafraichissement_ms);
     pause = 0;
-	// réinitialisation des panneaux lateraux
-	selectedPlane = -1;
-	reinitialisationPanneau();
-	reinitialisationPanneauCible();
+    // effeçage du canvas
     ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 }
     
 // Fonction permettant de synthétiser les données pour le bilan
 function generateBilan(){
-    
      // On affiche les éléments pour le bilan
     afficheBilan();
-    
     $("#titre_liste_ordres").html("<strong>Bilan des ordres envoyés :</strong>");
-    
     var liste_ordres = Ordre.getListeOrdresTotale();
-    
     var bilan_ordres = "";
     
     // S'il y a des ordres, on les affiche
-    if (liste_ordres != undefined)
-    {
-        for(var i = liste_ordres.length - 1; i >= 0; i--)
-        {
+    if (liste_ordres != undefined) {
+        for(var i = liste_ordres.length - 1; i >= 0; i--) {
                bilan_ordres += i + " : " +liste_ordres[i].getMessage() + "</br>";
         }
-    }
-    
+    } 
     $("#liste_ordres").html(bilan_ordres);
-	
 	// On vide l'ensemble des ordres
-	Ordre.flush();
-    
+	Ordre.flush(); 
 }
 

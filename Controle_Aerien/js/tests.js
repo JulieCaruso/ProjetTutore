@@ -50,7 +50,7 @@ function testAirProXLim(avion){
 	} else if (avion.getColor() == "purple") {avion.setColor("blue");}
 }
 
-// quand l'avion est proche d'un de ses target points
+// quand l'avion est proche du target point qu'il suit
 function testTargetP(avion, targetPoint){
     var normDistanceToZone = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormDistanceToZone());
 	var dist_avion_targetP = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-targetPoint.getX()*scale,2)+Math.pow(avion.getY()*scale-targetPoint.getY()*scale,2))); 
@@ -62,7 +62,7 @@ function testTargetP(avion, targetPoint){
 	}
 }
 
-// Permet de tester si l'avion se trouve près d'un zone de fin de jeu (de SA zone de fin de jeu)
+// Permet de tester si l'avion se trouve près de sa zone de fin de jeu
 function testEndZone(avion) {
     var normLineSeparation = parseInt(Niveau.getListeNiveaux()[0].getInitInterface().getNormLineSeparation());
 	var aX = avion.getX() * scale;
@@ -88,13 +88,13 @@ function testEndZone(avion) {
                         selectedPlane = -1;
                     }
                 }
-                alert(avion.getNameOfPlane()+" a atteint sa zone de fin, nb d'a finis : "+Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis());
-                
+                alert(avion.getNameOfPlane()+" a atteint sa zone de fin de jeu\nNombre d'avions ayant fini : "+Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis());          
             }
         }
     } 
 }
 
+// renvoie la distance du point P au segment OE
 function distanceToSegment(XP, YP, XO, YO, XE, YE) {
     var OP = Math.sqrt(Math.pow(XP - XO, 2)+Math.pow(YP - YO, 2));
     var OE = Math.sqrt(Math.pow(XO - XE, 2)+Math.pow(YO - YE, 2));
@@ -119,12 +119,9 @@ function testAlterationZone(avion, zone){
 	
 	var distance_avion = Math.sqrt(Math.abs(Math.pow(avion.getX()*scale-zone.getX()*scale,2)+Math.pow(avion.getY()*scale-zone.getY()*scale,2))); 
 	var coordinates;
-	
-	if (distance_avion <= zone.getRadius())
-	{
+	if (distance_avion <= zone.getRadius()) {
 		// On se trouve dans la zone	
 		coordinates = calculateXY_deviation(avion, zone.getSpeed(), zone.getHead());
 		setCoordinates(avion,coordinates);
-	}
-	
+	}	
 }
