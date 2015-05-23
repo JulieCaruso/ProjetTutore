@@ -40,10 +40,13 @@ function chgt(){
 
 function init(){
 	// STRUCTURE
+	
+	var niveau = Niveau.getListeNiveaux()[niveauCourant];
+	
 	// contenus initiaux de l'écran d'accueil
-	$('#titreAccueil').html("Level/"+Niveau.getListeNiveaux()[niveauCourant].getTitle());
-	$('#texte').html(Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getTexts().getTabTextIntro()["FR"]);
-	$('#image').html("<img src='images/jeu.png' id=\"wallpaper_game\">");
+	$('#titreAccueil').html("Level/"+niveau.getTitle());
+	$('#texte').html(niveau.getInitInterface().getTexts().getTabTextIntro()["FR"]);
+	$('#image').html("<img src='"+niveau.getInitInterface().getBackgroundImage()+"' id=\"wallpaper_game\">");
 	$('#boutonJeu').html("<input type=\"submit\" value=\"Commencer le jeu !\">");
     $('#boutonCredits').html("<input type=\"submit\" value=\"Crédits\">");
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
