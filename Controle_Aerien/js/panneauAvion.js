@@ -58,8 +58,9 @@ function sendData() {
         traitementVitesse(changements);
         traitementAltitude(changements);
 		( $("#followCap").attr("checked") != undefined ? traitementCap(changements) :  traitementCible(changements) );
+		
         if (changements.length > 0) {
-
+			
             var ordre = new Ordre(listeNiveaux[niveauCourant].getListOfAvions()[selectedPlane], changements);
         }
     }

@@ -6,7 +6,7 @@
 // score de debut : 400
 // penalité airprox : -20
 // penalité par manipulation : -5
-// bonus target atteinte : +20 ???
+// bonus target atteinte : +20 
 // avion atteint la zone fin de jeu : +30
 
 function Score(valeur, nb_airprox, nb_manip, nb_avion_zone_fin) {
