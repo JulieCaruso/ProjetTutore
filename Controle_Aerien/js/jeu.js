@@ -652,6 +652,8 @@ function reinitialisation(){
 
 // fonction pour initialiser un niveau
 function initNiveau(niveau) {
+    $('#titreAccueil').html("Level/"+niveau.getTitle());
+	$('#texte').html(niveau.getInitInterface().getTexts().getTabTextIntro()["FR"]);
     // VARIABLES
     // necessaire ?
     niveauCourant = niveau;
