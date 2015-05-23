@@ -127,6 +127,16 @@ Ces jeux pourraient faire l'objet de 4 démos rapides qui structureraient votre p
 
 PROCHAINE REUNION : 12 Mai à 15h30
 
+PB : 
+- la pause ne marche pas toujours : pour aucune raison apparente
+- pb de couleur: qd on sélectionne un avion puis qu'il y a un airprox, alors l'autre avion reste rouge pendant 
+le reste du jeu
+- récupération du nb d'airprox pour le score non effectif
+- liste d'ordres non flushé lors de la reinit
+- si on clique sur "niveau suivant" a la fin du niveau 2, n'affiche pas le pop up et affiche l'accueil
+pour le niveau 2. En cliquant alors sur "commencer le jeu", on tombe direct sur le bilan du niveau 2
+
+
 
 
 
