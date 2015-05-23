@@ -40,10 +40,13 @@ function chgt(){
 
 function init(){
 	// STRUCTURE
+	
+	var niveau = Niveau.getListeNiveaux()[niveauCourant];
+	
 	// contenus initiaux de l'écran d'accueil
-	$('#titreAccueil').html("Level/"+Niveau.getListeNiveaux()[niveauCourant].getTitle());
-	$('#texte').html(Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getTexts().getTabTextIntro()["FR"]);
-	$('#image').html("<img src='images/jeu.png' id=\"wallpaper_game\">");
+	$('#titreAccueil').html("Level/"+niveau.getTitle());
+	$('#texte').html(niveau.getInitInterface().getTexts().getTabTextIntro()["FR"]);
+	$('#image').html("<img src='"+niveau.getInitInterface().getBackgroundImage()+"' id=\"wallpaper_game\">");
 	$('#boutonJeu').html("<input type=\"submit\" value=\"Commencer le jeu !\">");
     $('#boutonCredits').html("<input type=\"submit\" value=\"Crédits\">");
 	$('footer').html("Copyright INSA Toulouse 2015 - Version 1");
@@ -146,7 +149,7 @@ function init(){
             reinitialisationPanneau();
             reinitialisationPanneauCible();
             afficheAccueil();
-            init();
+            initNiveau(niveauCourant);
         }
         else {  
             alert("Plus de niveau disponible");
@@ -221,7 +224,7 @@ function afficheBilan(){
         $('#messageBilan').html("Bravo ! Tous les avions ont atteint leur zone de fin de jeu !");
     }
 	$('#recap').html("Votre score est de <b>"+score.getValue()+"</b> ! <br/> Temps écoulé : "+heures+":"+minutes+":"+secondes);
-    $('#nbmanips').html("Nombre d'ordres envoyés : "+score.getNumberActions());
+    $('#nbmanips').html("Nombre de changements envoyés : "+score.getNumberActions());
     $('#nbavionZoneFin').html("Nombre d'avions ayant atteint leur zone de fin de jeu : "+score.getNumberPlanesEndZone());
     $('#nbairprox').html("Nombre d'airprox détectés : "+score.getNumberAirprox()+"<br/><br/><br/>");
 }
@@ -643,8 +646,49 @@ function reinitialisation(){
         inter = setInterval(regles, rafraichissement_ms);
         pause = 0;
     }
-    // effeçage du canvas
+    // effaçage du canvas
     ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
+}
+
+// fonction pour initialiser un niveau
+function initNiveau(niveau) {
+    // VARIABLES
+    // necessaire ?
+    niveauCourant = niveau;
+	tempsJeu = 0;
+    tempsNiveau = 0;
+    selectedPlane = -1;
+    scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
+    score.init();
+    
+    // réinitialisation des panneaux lateraux
+	reinitialisationPanneau();
+	reinitialisationPanneauCible();
+    
+    // effaçage du canvas
+    ctx.clearRect(0,0, monCanvas.width,monCanvas.height); 
+    
+	//init target initial sur le premier targetPoint ou sur rien
+	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
+        if (listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length > 0){
+            updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+        }
+	} 
+    
+    clearInterval(inter);
+    
+    // reinit vitesse jeu et pause du jeu
+    if (pause == 1){
+        document.getElementById('leBoutonPause').value = "Pause";
+        pause = 0;
+    }
+    
+    var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+    var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+    inter = setInterval(regles, rafraichissement_ms);
+    
+	// LANCEMENT
+	afficheAccueil();
 }
     
 // Fonction permettant de synthétiser les données pour le bilan
