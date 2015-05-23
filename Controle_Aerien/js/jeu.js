@@ -149,7 +149,7 @@ function init(){
             reinitialisationPanneau();
             reinitialisationPanneauCible();
             afficheAccueil();
-            init();
+            initNiveau(niveauCourant);
         }
         else {  
             alert("Plus de niveau disponible");
@@ -646,8 +646,49 @@ function reinitialisation(){
         inter = setInterval(regles, rafraichissement_ms);
         pause = 0;
     }
-    // effeçage du canvas
+    // effaçage du canvas
     ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
+}
+
+// fonction pour initialiser un niveau
+function initNiveau(niveau) {
+    // VARIABLES
+    // necessaire ?
+    niveauCourant = niveau;
+	tempsJeu = 0;
+    tempsNiveau = 0;
+    selectedPlane = -1;
+    scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
+    score.init();
+    
+    // réinitialisation des panneaux lateraux
+	reinitialisationPanneau();
+	reinitialisationPanneauCible();
+    
+    // effaçage du canvas
+    ctx.clearRect(0,0, monCanvas.width,monCanvas.height); 
+    
+	//init target initial sur le premier targetPoint ou sur rien
+	for (var a=0; a < listeNiveaux[niveauCourant].getListOfAvions().length; a++){
+        if (listeNiveaux[niveauCourant].getListOfAvions()[a].getListOfTargetPoints().length > 0){
+            updateHeadToTargetPoint(listeNiveaux[niveauCourant].getListOfAvions()[a]);
+        }
+	} 
+    
+    clearInterval(inter);
+    
+    // reinit vitesse jeu et pause du jeu
+    if (pause == 1){
+        document.getElementById('leBoutonPause').value = "Pause";
+        pause = 0;
+    }
+    
+    var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+    var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+    inter = setInterval(regles, rafraichissement_ms);
+    
+	// LANCEMENT
+	afficheAccueil();
 }
     
 // Fonction permettant de synthétiser les données pour le bilan
