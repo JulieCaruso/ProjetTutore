@@ -679,6 +679,8 @@ function initNiveau(niveau) {
     
     clearInterval(inter);
     
+	
+	
     // reinit vitesse jeu et pause du jeu
     if (pause == 1){
         document.getElementById('leBoutonPause').value = "Pause";
@@ -689,6 +691,12 @@ function initNiveau(niveau) {
     var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
     inter = setInterval(regles, rafraichissement_ms);
     
+	
+	// On charge les nouvelles consignes
+	$('#titreAccueil').html("Level/"+Niveau.getListeNiveaux()[niveau].getTitle());
+	$('#texte').html(Niveau.getListeNiveaux()[niveau].getInitInterface().getTexts().getTabTextIntro()["FR"]);
+	$('#image').html("<img src='"+Niveau.getListeNiveaux()[niveau].getInitInterface().getBackgroundImage()+"' id=\"wallpaper_game\">");
+	
 	// LANCEMENT
 	afficheAccueil();
 }
