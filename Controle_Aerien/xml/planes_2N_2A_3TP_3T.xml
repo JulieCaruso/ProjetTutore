@@ -171,12 +171,12 @@ Over....
 	  <zone nature="alteration" type="circle" concernedPlanes="All">
     	<circle x="800" y="340" radius="21" speed="120" head="0"/>
     </zone>
-    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-75" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.5" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="10" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
-      <controlPanel hControl="true" vControl="true" rateControl="true" zControl="true" directPointControl="true" waitingControl="true" tempoControl="true"/>
+    <configInitial backgroundImage="./images/video_radar_jy.jpg" backgroundX="-77" backgroundY="-60" maxTime="1200" performancesTable="./perfos/performances.txt" scale="0.5" windOption="1" normVerticalSeparation="10" normHorizontalSeparation="5" normDistanceToZone="10" tolerance="50" normLineSeparation="10" tempo="10" turnDirectionRequired="0" zoomScale="200">
+      <controlPanel hControl="true" vControl="false" rateControl="true" zControl="true" directPointControl="true" waitingControl="true" tempoControl="true"/>
 			<Texts>
 				<textIntro lang="FR">
 					<![CDATA[
-Le but de ces exercices du deuxième niveau est de développer la <b>capacité d'orientation des élèves</b> par rapport aux cap magnétiques dans les différentes zones de conflit du secteur. Chaque exercice présente une série de conflits sur une même zone mais avec des positions respectives des avions différentes.<br>Le but est de respecter le minimum de 5Nm latéral et de ne pas s'approcher des limites secteurs à moins de 3Nm.<br>
+Le but de ce deuxième exercice est de tester si les niveaux fonctionnent bien !<br>
 					]]>
 				</textIntro>
 				<textIntro lang="EN">

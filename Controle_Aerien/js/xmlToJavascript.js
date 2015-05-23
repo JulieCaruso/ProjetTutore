@@ -231,11 +231,13 @@ function processXMLData(XMLData) {
 			controlPanelAttributes["directPointControl"],
 			controlPanelAttributes["waitingControl"],
 			controlPanelAttributes["tempoControl"]);
-
+		
 		textIntroNodes = configInitialeNode[0].getElementsByTagName("textIntro");
 		textEndNodes = configInitialeNode[0].getElementsByTagName("textEnd");
 		textHelpNodes = configInitialeNode[0].getElementsByTagName("textHelp");
-
+		
+		tabTextIntro = []; tabTextEnd = []; tabTextHelp = [];
+		
 		for (var k = 0; k < textIntroNodes.length; k++)
 		{
 			attribute = textIntroNodes[k].getAttribute("lang");
@@ -247,11 +249,11 @@ function processXMLData(XMLData) {
 			attribute = textHelpNodes[k].getAttribute("lang");
 			tabTextHelp[attribute] = textHelpNodes[k].textContent;
 		}
-
+		
 		texts = new Texts(tabTextIntro,
 			tabTextEnd,
 			tabTextHelp);
-
+		
 		initInterface = new Interface(
 				configAttributes["backgroundImage"],
 				parseInt(configAttributes["backgroundX"]),
@@ -270,24 +272,25 @@ function processXMLData(XMLData) {
 				parseInt(configAttributes["zoomScale"]),
 				controlPanel,
 				texts);
+		
 
 		console.log("Chargement de l'interface initiale pour le niveau "+levelID+" terminé");
 		//console.debug(initInterface);
 
 		level = new Niveau(levelID,levelTitle,Avion.getListeAvions(),Zone.getListeZones(),initInterface);
-        
-        
+		
+		
         // On supprime les données récupérées
-        Avion.flush();
+Avion.flush();
         Zone.flush();
+		
         
 		Niveau.decrementChargementDonnees();
 
 		console.log("Chargement du niveau "+levelID+" terminé");
-		//console.debug(level);
+		
 	}
-
-
+	
 	
 	console.log("[FIN]Chargement des niveaux terminé");
 }

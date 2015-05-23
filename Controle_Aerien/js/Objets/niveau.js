@@ -60,11 +60,9 @@ function Niveau(levelID,levelTitle,listOfAvions, listOfZones, initInterface)
         
         Niveau.prototype.setNbAvionsFinis = function(x) { this.nbAvionsFinis = x;};
     }
-
 	// Permet d'ajouter le niveau à la liste à chaque instanciation de la classe
 	this.ajouteNiveau = (function(niveau){ if (Niveau.total !== 1) Niveau.listeNiveaux.push(niveau);})(this);
-
-
+	
 }
 
 // Permet d'obtenir le nombre de niveaux instancié
