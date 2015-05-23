@@ -201,15 +201,29 @@ function afficher_score() {
 }
 
 function afficheBilan(){
+    
+    var tps = tempsJeu;
+    var heures = Math.floor(tps / 3600);
+    var minutes = Math.floor((tps % 3600) / 60);
+    var secondes = (tps % 3600) % 60;
+    var niveau = Niveau.getListeNiveaux()[niveauCourant];
+    
 	ecranCourant = "bilan";
 	// affichage de l'écran et masquage des autres écrans
 	$('#accueil').hide();
 	$('#jeu').hide();
 	$('#bilan').show();
-	$('#recap').html("Votre score est de "+score.getValue()+" ! ");
+    
+    if (niveau.getNbAvionsFinis() != niveau.getListOfAvions().length) {
+        $('#messageBilan').html("Dommage ! Vous n'avez pas réussi à finir le jeu dans le temps imparti.");
+    }
+    else {
+        $('#messageBilan').html("Bravo ! Tous les avions ont atteint leur zone de fin de jeu !");
+    }
+	$('#recap').html("Votre score est de <b>"+score.getValue()+"</b> ! <br/> Temps écoulé : "+heures+":"+minutes+":"+secondes);
     $('#nbmanips').html("Nombre d'ordres envoyés : "+score.getNumberActions());
     $('#nbavionZoneFin').html("Nombre d'avions ayant atteint leur zone de fin de jeu : "+score.getNumberPlanesEndZone());
-    $('#nbairprox').html("Nombre d'airprox détectés : "+score.getNumberAirprox());
+    $('#nbairprox').html("Nombre d'airprox détectés : "+score.getNumberAirprox()+"<br/><br/><br/>");
 }
 
 function animer() {
@@ -594,6 +608,7 @@ function reinitialisation(){
 	tempsJeu = 0;
     pause = 0;
     tempsNiveau = 0;
+    score.init();
 	for (lv = 0; lv < Niveau.getNombreNiveaux(); lv++) {
 		for (idA = 0; idA < listeNiveaux[lv].getListOfAvions().length; idA++){
 			listeNiveaux[lv].getListOfAvions()[idA].setX(listeNiveaux[lv].getListOfAvions()[idA].getXInitial());
