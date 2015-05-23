@@ -210,6 +210,7 @@ Ordre.getListeOrdresTotale = function() { return Ordre.listeOrdres;}
 Ordre.flush = function(){
 	Ordre.total = 0;
     Ordre.listeOrdres = undefined;
+	$('#zoneOrdres').html("");
 }
 
 
