@@ -132,9 +132,8 @@ function init(){
         }
 	});
 	$('#boutonRejouer').click(function() {
-		reinitialisation();
 		Ordre.flush();
-		afficheJeu();
+        initNiveau(niveauCourant);
 	});
 	$('#boutonAccueil').click(function() {
 		reinitialisation();
@@ -146,9 +145,6 @@ function init(){
         if (niveauCourant < length-1) {
             // On incrémente le niveau actuel
             niveauCourant++;   
-            reinitialisationPanneau();
-            reinitialisationPanneauCible();
-            afficheAccueil();
             initNiveau(niveauCourant);
         }
         else {  
@@ -648,6 +644,11 @@ function reinitialisation(){
     }
     // effaçage du canvas
     ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
+    
+    // On charge les nouvelles consignes
+	$('#titreAccueil').html("Level/"+Niveau.getListeNiveaux()[niveauCourant].getTitle());
+	$('#texte').html(Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getTexts().getTabTextIntro()["FR"]);
+	$('#image').html("<img src='"+Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getBackgroundImage()+"' id=\"wallpaper_game\">");
 }
 
 // fonction pour initialiser un niveau
@@ -660,6 +661,28 @@ function initNiveau(niveau) {
     selectedPlane = -1;
     scale = Niveau.getListeNiveaux()[niveauCourant].getInitInterface().getScale();
     score.init();
+    
+    // init avions
+    for (idA = 0; idA < listeNiveaux[niveau].getListOfAvions().length; idA++){
+			listeNiveaux[niveau].getListOfAvions()[idA].setX(listeNiveaux[niveau].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setY(listeNiveaux[niveau].getListOfAvions()[idA].getYInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setV(listeNiveaux[niveau].getListOfAvions()[idA].getVInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setZ(listeNiveaux[niveau].getListOfAvions()[idA].getZInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setH(listeNiveaux[niveau].getListOfAvions()[idA].getHInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setX1(listeNiveaux[niveau].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setY1(listeNiveaux[niveau].getListOfAvions()[idA].getYInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setX2(listeNiveaux[niveau].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setY2(listeNiveaux[niveau].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[niveau].getListOfAvions()[idA].setX3(listeNiveaux[niveau].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setY3(listeNiveaux[niveau].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[niveau].getListOfAvions()[idA].setX4(listeNiveaux[niveau].getListOfAvions()[idA].getXInitial());
+			listeNiveaux[niveau].getListOfAvions()[idA].setY4(listeNiveaux[niveau].getListOfAvions()[idA].getYInitial());
+            listeNiveaux[niveau].getListOfAvions()[idA].setIndexCurrentTarget(0);
+            listeNiveaux[niveau].getListOfAvions()[idA].setSuivreTarget(1);
+            listeNiveaux[niveau].getListOfAvions()[idA].setEnd(0);
+            listeNiveaux[niveau].getListOfAvions()[idA].setColor("blue");
+            listeNiveaux[niveau].setNbAvionsFinis(0);
+    }
     
     // réinitialisation des panneaux lateraux
 	reinitialisationPanneau();
@@ -677,8 +700,6 @@ function initNiveau(niveau) {
     
     clearInterval(inter);
     
-	
-	
     // reinit vitesse jeu et pause du jeu
     if (pause == 1){
         document.getElementById('leBoutonPause').value = "Pause";
@@ -688,7 +709,6 @@ function initNiveau(niveau) {
     var curseur_vitesse = parseInt($("#vitesse_jeu").val());
     var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
     inter = setInterval(regles, rafraichissement_ms);
-    
 	
 	// On charge les nouvelles consignes
 	$('#titreAccueil').html("Level/"+Niveau.getListeNiveaux()[niveau].getTitle());
