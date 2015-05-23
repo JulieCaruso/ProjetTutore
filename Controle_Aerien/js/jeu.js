@@ -224,7 +224,7 @@ function afficheBilan(){
         $('#messageBilan').html("Bravo ! Tous les avions ont atteint leur zone de fin de jeu !");
     }
 	$('#recap').html("Votre score est de <b>"+score.getValue()+"</b> ! <br/> Temps écoulé : "+heures+":"+minutes+":"+secondes);
-    $('#nbmanips').html("Nombre d'ordres envoyés : "+score.getNumberActions());
+    $('#nbmanips').html("Nombre de changements envoyés : "+score.getNumberActions());
     $('#nbavionZoneFin').html("Nombre d'avions ayant atteint leur zone de fin de jeu : "+score.getNumberPlanesEndZone());
     $('#nbairprox').html("Nombre d'airprox détectés : "+score.getNumberAirprox()+"<br/><br/><br/>");
 }
