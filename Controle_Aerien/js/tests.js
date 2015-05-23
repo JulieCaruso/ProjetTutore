@@ -80,8 +80,7 @@ function testEndZone(avion) {
                         reinitialisationPanneau();
                         selectedPlane = -1;
                     }
-                }
-                alert(avion.getNameOfPlane()+" a atteint sa zone de fin de jeu\nNombre d'avions ayant fini : "+Niveau.getListeNiveaux()[niveauCourant].getNbAvionsFinis());          
+                }        
             }
         }
     } 

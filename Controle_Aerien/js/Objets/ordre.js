@@ -15,7 +15,7 @@ Lien permettant d'obtenir une idée des vrais dialogues venant d'une tour de con
 function Ordre(avion,changements){
 	// Attribut statique, sa méthode statique associée est définie à la suite de ce constructeur (à part)
 	Ordre.total = ++Ordre.total || 1;
-	Ordre.listeOrdres = Ordre.listeOrdres || [this];
+	Ordre.listeOrdres = Ordre.listeOrdres || [];
 
 	// Attributs public
 	this.type = "Ordre";
