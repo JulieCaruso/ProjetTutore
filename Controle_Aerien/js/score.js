@@ -34,6 +34,13 @@ function Score(valeur, nb_airprox, nb_manip, nb_avion_zone_fin) {
 		Score.initialized = true;
 	}
     
+    Score.prototype.init = function() {
+            this.manipulations = 0 ;
+            this.valeur = 400 ;
+            this.airprox = 0;
+            this.nb_avion_zone_fin = 0;
+    }
+    
             
     Score.prototype.manipulationEffectuee = function() {
             this.manipulations = this.manipulations + 1 ;
