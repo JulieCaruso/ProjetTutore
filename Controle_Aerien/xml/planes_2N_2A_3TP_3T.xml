@@ -117,49 +117,49 @@ Over....
       <targetPoint x="921" y="298" label="JUVEN2"/>
     </plane>
 
-    <zone nature="endGameTarget" type="line" concernedPlanes="F">
+    <zone nature="endGameTarget" type="line" concernedPlanes="F2">
       <line>
         <point x="93" y="22"/>
         <point x="173" y="19"/>
       </line>
       </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="G">
+    <zone nature="endGameTarget" type="line" concernedPlanes="G2">
       <line>
         <point x="84" y="27"/>
         <point x="172" y="26"/>
       </line>
     </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="H">
+    <zone nature="endGameTarget" type="line" concernedPlanes="H2">
       <line>
         <point x="78" y="14"/>
         <point x="174" y="8"/>
       </line>
     </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="C">
+    <zone nature="endGameTarget" type="line" concernedPlanes="C2">
       <line>
         <point x="91" y="4"/>
         <point x="166" y="2"/>
       </line>
     </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="E">
+    <zone nature="endGameTarget" type="line" concernedPlanes="E2">
       <line>
         <point x="943" y="272"/>
         <point x="943" y="305"/>
       </line>
     </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="D">
+    <zone nature="endGameTarget" type="line" concernedPlanes="D2">
       <line>
         <point x="929" y="267"/>
         <point x="927" y="320"/>
       </line>
     </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="A">
+    <zone nature="endGameTarget" type="line" concernedPlanes="A2">
       <line>
         <point x="949" y="246"/>
         <point x="951" y="319"/>
       </line>
     </zone>
-    <zone nature="endGameTarget" type="line" concernedPlanes="B">
+    <zone nature="endGameTarget" type="line" concernedPlanes="B2">
       <line>
         <point x="964" y="254"/>
         <point x="969" y="310"/>

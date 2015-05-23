@@ -115,7 +115,7 @@ function init(){
 		afficheAccueil();
 	});
 	$('#boutonPause').click(function() {
-		if (pause == 0) {  
+		if (pause == 0) { 
             document.getElementById('leBoutonPause').value = "Play";
             clearInterval(inter);
             pause = 1;
@@ -140,7 +140,7 @@ function init(){
     $('#boutonNiveauSuivant').click(function() {
         // On incrémente le niveau
         var length = Niveau.getListeNiveaux().length;
-        if (niveauCourant <= length-1) {
+        if (niveauCourant < length-1) {
             // On incrémente le niveau actuel
             niveauCourant++;   
             reinitialisationPanneau();
@@ -606,7 +606,6 @@ function dessinEndGameTargets () {
 function reinitialisation(){
 	niveauCourant = 0;
 	tempsJeu = 0;
-    pause = 0;
     tempsNiveau = 0;
     score.init();
 	for (lv = 0; lv < Niveau.getNombreNiveaux(); lv++) {
@@ -636,11 +635,14 @@ function reinitialisation(){
 	reinitialisationPanneau();
 	reinitialisationPanneauCible();
     // reinit vitesse jeu et pause du jeu
-    document.getElementById('leBoutonPause').value = "Pause";
-    var curseur_vitesse = parseInt($("#vitesse_jeu").val());
-    var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
-    inter = setInterval(regles, rafraichissement_ms);
-    pause = 0;
+    if (pause == 1){
+        clearInterval(inter);
+        document.getElementById('leBoutonPause').value = "Pause";
+        var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+        var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+        inter = setInterval(regles, rafraichissement_ms);
+        pause = 0;
+    }
     // effeçage du canvas
     ctx.clearRect(0,0, monCanvas.width,monCanvas.height);
 }

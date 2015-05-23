@@ -181,16 +181,15 @@ function traitementCible(changements) {
 /*
 / Fonction permettant de modifier la vitesse de jeu en cas de changement
 */
-function traitementVitesseJeu() {
-	
-	// On supprime l'ancienne valeur
-	clearInterval(inter);
-	
-	// On récupère la nouvelle
-	var curseur_vitesse = parseInt($("#vitesse_jeu").val());
-	var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
-	inter = setInterval(regles, rafraichissement_ms);
-	
+function traitementVitesseJeu() {	
+    if (pause == 0) {
+        // On supprime l'ancienne valeur
+        clearInterval(inter);
+        // On récupère la nouvelle
+        var curseur_vitesse = parseInt($("#vitesse_jeu").val());
+        var rafraichissement_ms = getSpeedWithCursor(curseur_vitesse);
+        inter = setInterval(regles, rafraichissement_ms);
+    }	
 }
 
 /*
