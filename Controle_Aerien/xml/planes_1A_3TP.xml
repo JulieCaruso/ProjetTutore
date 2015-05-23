@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <g:Game xmlns:g="http://eu.iode.enac.ca.games/1.1" gameTitle="conflit GAI MTL / JAMBI MTL">
   <level id="1" levelTitle="niveau 1">
-    <plane xIni="252" yIni="152" vIni="451" zIni="320" hIni="160" rateIni="1000" controllable="true" planeType="B763" planeName="C12345" zTarget="320" typeDansEtiquette="false">
+    <plane xIni="252" yIni="152" vIni="452" zIni="320" hIni="160" rateIni="1000" controllable="true" planeType="B763" planeName="C12345" zTarget="320" typeDansEtiquette="false">
     <targetPoint x="397" y="365" label="MTL"/>
     <targetPoint x="489" y="640" label="MINDI"/>
     <targetPoint x="956" y="452" label="CFA"/>
