@@ -46,9 +46,11 @@ function Score(valeur, nb_airprox, nb_manip, nb_avion_zone_fin) {
             this.valeur -= 5 ;
     }
     
+    // fonction appelée par chaque avion en airprox
+    // donc un airprox qui concerne 2 avions : pénalité de 20 pts
     Score.prototype.airproxDetecte = function() {
-    this.airprox = this.airprox + 1 ;
-    this.valeur = this.valeur - 20 ;
+    this.airprox = this.airprox + 0.5 ;
+    this.valeur = this.valeur - 10 ;
     }   
     
     Score.prototype.zoneFinDeJeuAtteinte = function () {
