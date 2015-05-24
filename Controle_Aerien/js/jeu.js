@@ -261,9 +261,11 @@ function animer() {
             var listTP = avion.getListOfTargetPoints();
                  
             // test airprox pour toutes les combinaisons d'avions
-            if (a < listeNiveaux[niveauCourant].getListOfAvions().length - 1){
-                for (var b=a+1; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
-                    testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
+            if (a < listeNiveaux[niveauCourant].getListOfAvions().length){
+                for (var b = 0; b < listeNiveaux[niveauCourant].getListOfAvions().length; b++){
+                    if (b != a) {
+                        testAirProX(avion, listeNiveaux[niveauCourant].getListOfAvions()[b]);
+                    }
                 }
             }   
             // test airprox limite écran
