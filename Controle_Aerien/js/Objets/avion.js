@@ -40,7 +40,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	this.y3 = yInit;
 	this.x4 = xInit;
 	this.y4 = yInit;
-    this.sensVirage = 0;
+    this.sensVirage = 1;
 	this.rateInitial = rateInit;
 	this.controllable = controllable;
 	this.zTarget = zTarget;
