@@ -345,15 +345,7 @@ function dessineAvion(a){
         }
     }
 	if (a.getH() != a.getHTarget()){
-		var sensVirage = -1;
-		if(document.getElementById('virageC').checked){
-			sensVirage = calculateBetterWayToReachTargetHead(a);
-		} else if (document.getElementById('virageD').checked) {
-			sensVirage = 1;
-		}
-		else {
-			sensVirage = 0;
-		}
+		var sensVirage = a.getSensVirage();
 		calculateHead(a, sensVirage);
 	}
     // Calcul des paramètres de l'avion puis on modifie les coordonnées dans l'avion

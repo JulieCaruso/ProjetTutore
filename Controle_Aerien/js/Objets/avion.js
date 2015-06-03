@@ -40,6 +40,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
 	this.y3 = yInit;
 	this.x4 = xInit;
 	this.y4 = yInit;
+    this.sensVirage = 0;
 	this.rateInitial = rateInit;
 	this.controllable = controllable;
 	this.zTarget = zTarget;
@@ -88,6 +89,7 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.getSuivreTarget = function() { return this.suivreTarget;};
         Avion.prototype.getEnd = function() { return this.end;};
 		Avion.prototype.getColor = function() { return this.color;};
+        Avion.prototype.getSensVirage = function() { return this.sensVirage;};
 
 		//SETTERS
 		Avion.prototype.setXInitial = function(x) { this.xInitial = x;};
@@ -115,6 +117,9 @@ function Avion(xInit,yInit,vInit,zInit,hInit,rateInit,controllable,type,name,zTa
         Avion.prototype.setSuivreTarget = function(i) { this.suivreTarget = i;};
         Avion.prototype.setEnd = function(i) { this.end = i;};
 		Avion.prototype.setColor = function(c) {this.color = c};
+        Avion.prototype.setSensVirage = function(s) {this.sensVirage = s};
+        
+        
 		Avion.initialized = true;
 	}
 

@@ -147,10 +147,14 @@ function traitementCap(changements) {
 function changementCap(changements) {
     if (document.getElementById('virageC').checked) {
         changements.push(Ordre.Changement.CHANGE_HEAD_BETTER_WAY);
+        var sens = calculateBetterWayToReachTargetHead(avion);
+        avion.setSensVirage(sens);
     } else if (document.getElementById('virageD').checked) {
         changements.push(Ordre.Changement.CHANGE_HEAD_BY_RIGHT);
+        avion.setSensVirage(1);
     } else {
         changements.push(Ordre.Changement.CHANGE_HEAD_BY_LEFT);
+        avion.setSensVirage(0);
     }
 }
 

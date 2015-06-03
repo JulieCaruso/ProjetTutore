@@ -27,7 +27,10 @@
 			<div id="titreAccueil"></div>
 			<div id="texte"></div>
 			<div id="image"></div>
-			<div id="boutonJeu"></div>
+            <div>
+                <div id="boutonJeu"></div>
+                <div id="boutonCredits"></div>
+            </div>
 		</div>
 		
 		<div id="jeu">
@@ -46,6 +49,7 @@
 		</div>
 		
 		<div id="bilan">
+            <div id="messageBilan"></div>
 			<div id="recap"></div>
             <div id="detail">
                 <div id="nbmanips"></div>
@@ -64,4 +68,3 @@
 		<footer></footer>
 	</body>
 </html>
-
