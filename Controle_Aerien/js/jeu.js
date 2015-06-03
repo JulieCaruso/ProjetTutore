@@ -345,8 +345,14 @@ function dessineAvion(a){
         }
     }
 	if (a.getH() != a.getHTarget()){
-		var sensVirage = a.getSensVirage();
-		calculateHead(a, sensVirage);
+        var sens;
+        if (avion.getSuivreTarget() == 1){
+            sens = calculateBetterWayToReachTargetHead(a);
+        }
+        else {    
+            sens = a.getSensVirage();
+        }
+		calculateHead(a, sens);
 	}
     // Calcul des paramètres de l'avion puis on modifie les coordonnées dans l'avion
     setCoordinates(a,calculateXY(a));
